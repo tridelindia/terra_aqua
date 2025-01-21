@@ -17,9 +17,9 @@ export class MapServiceService {
 
   private map!: Map;
   private vectorLayer!: VectorLayer;
-  private mapUrl: string = 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
+  // private mapUrl: string = 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
 
-  initializeMap(targetId: string, center: [number, number], zoom: number): void {
+  initializeMap(targetId: string, center: [number, number], zoom: number, mapUrl:string): void {
     if (this.map) {
       console.warn('Map is already initialized.');
       return;
@@ -31,11 +31,13 @@ export class MapServiceService {
     this.map = new Map({
       view: new View({
         center,
-        zoom,
+      zoom:  mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 10: zoom,
+        maxZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 14 : undefined,
+        minZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 8 : undefined,
       }),
       layers: [
         new TileLayer({
-          source: new XYZ({ url: this.mapUrl }),
+          source: new XYZ({ url: mapUrl }),
         }),
         this.vectorLayer,
       ],

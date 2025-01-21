@@ -80,7 +80,9 @@ export class MapService {
       ],
       view: new View({
         center: center,
-        zoom: 12,
+        zoom: mapUrl === '../../../../assets/western/{z}/{x}/{y}.png'? 10: 12,
+        maxZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 18 : undefined,
+        minZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 8 : undefined,
       })
     });
   

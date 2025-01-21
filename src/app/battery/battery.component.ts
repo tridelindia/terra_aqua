@@ -20,6 +20,7 @@ export class BatteryComponent implements OnInit {
   ngOnInit() {
     this.calculateBatteryColor();
     this.calculateBatteryFill();
+    console.log("battery level",this.batteryLevel);
   }
 
   // Calculate the color of the battery based on its level

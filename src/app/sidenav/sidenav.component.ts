@@ -33,13 +33,22 @@ export class SidenavComponent implements OnInit{
       }else{
         this.layout.page = name;
         // this.layout.page = name;
+        this.router.navigate([`/base/${name.toLowerCase()}`]);
+        console.log(`tapped page-==>${name.toLowerCase()}`);
         // this.router.navigate(['/base', name]);
          if(this.layout.page === 'logout'){
     this.router.navigate(['/login']);
         } else if(this.layout.page == 'Home'){
           this.layout.page = name;
           // this.router.navigate(['/base', name]);
-            window.location.reload(); // Forces a full-page reload
+          // window.location.reload(
+
+          // );
+          this.router.navigate([`/base/${name.toLowerCase()}`]);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+            //  // Forces a full-page reload
           
         }
       }

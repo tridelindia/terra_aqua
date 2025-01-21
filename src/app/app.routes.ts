@@ -11,40 +11,31 @@ import { NgModule } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { UserComponent } from './user/user.component';
+import { ConfigurationsComponent } from './configurations/configurations.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login' // Redirect to the login page instead of base
+    redirectTo: 'login' // Redirect to the login page
   },
   {
-    path: 'login', // Enable login route
+    path: 'login', // Route for the login page
     component: LoginComponent
   },
   {
-    path: 'base', // Correct path to navigate after login
+    path: 'base', // Base layout route
     component: LayoutComponent,
-    canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'home',
-      //   component: HomeComponent
-      // },
-      // {
-      //   path: 'dashboard',
-      //   component: DashboardComponent
-      // },
-      // {
-      //   path: 'report',
-      //   component: ReportsComponent
-      // },
-      // {
-      //   path: 'analytics',
-      //   component: AnalyticsComponent
-      // }
+      { path: 'home', component: HomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'analytics', component: AnalyticsComponent },
+      { path: 'user', component: UserComponent },
+      { path: 'setting', component: ConfigurationsComponent },
     ]
   },
-  { path: '**', redirectTo: 'login' }
-  
+  { path: '**', redirectTo: 'login' } // Catch-all route to redirect to login
 ];

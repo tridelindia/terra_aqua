@@ -110,12 +110,12 @@
         </div>
       </div>
 
-      <div class="field"  *ngIf="selectedSensor === 'adcp'">
+      <div class="field" *ngIf="selectedSensor === 'adcp'">
         <label for="bin">
           <h3>Bin</h3>
         </label>
-        <p-dropdown class="dateDrop" [options]="dropdownOptions" [(ngModel)]="surfacebin"
-         placeholder="Select a bin" (onChange)="onBinChange(surfacebin)">
+        <p-dropdown class="dateDrop" [options]="dropdownOptions" [(ngModel)]="surfacebin" placeholder="Select a bin"
+          (onChange)="onBinChange(surfacebin)">
         </p-dropdown>
       </div>
 
@@ -162,8 +162,8 @@
 
       <div class="chartContainer2" *ngIf="SubmitedslectedOption === 'adcp' && selectedChart === 'currentSpeed'">
         <div id="surfacepolar" class="chart-diagram" style="width: 100%; height: 90vh;"></div>
-        <div id="midpolar" class="chart-diagram" style="width: 100%; height: 90vh;"></div>
-        <div id="bottompolar" class="chart-diagram" style="width: 100%; height: 90vh;"></div>
+        <!-- <div id="midpolar" class="chart-diagram" style="width: 100%; height: 90vh;"></div>
+        <div id="bottompolar" class="chart-diagram" style="width: 100%; height: 90vh;"></div> -->
         <div class="m-s-text">m/s</div>
       </div>
 

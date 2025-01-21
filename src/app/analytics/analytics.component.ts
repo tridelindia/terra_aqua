@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, } from '@angular/forms';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpClientModule, } from '@angular/common/http';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -21,7 +21,7 @@ interface binJson{
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [CommonModule, FormsModule, MultiSelectModule, DropdownModule, CalendarModule],
+  imports: [CommonModule, FormsModule, MultiSelectModule, DropdownModule, CalendarModule, HttpClientModule],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css',
   providers:[StationService]
@@ -991,13 +991,16 @@ Tide(): void {
         toolbox: {
           // right: 10,
           feature: {
-            dataZoom: {
-              yAxisIndex: 'none',
-              title: {
-                zoom: 'Zoom',
-                back: 'Reset Zoom'
-              }
-            },
+            // dataZoom: {
+              
+            //   type: 'slider', // or 'slider'
+            //   xAxisIndex: 10, // Specify the x-axis index
+            //   // yAxisIndex: 10,
+            //   title: {
+            //     zoom: 'Zoom',
+            //     back: 'Zoom Out'
+            //   }
+            // },
             restore: {},
             saveAsImage: {
               backgroundColor: bgColor,
@@ -1251,9 +1254,9 @@ surfaceSpeedDirection(): void {
         toolbox: {
             // right: 10,
             feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
+                // dataZoom: {
+                //     yAxisIndex: 'none'
+                // },
                 restore: {},
                  saveAsImage: {
               backgroundColor: bgColor,
@@ -1280,7 +1283,7 @@ surfaceSpeedDirection(): void {
           {
             type: 'inside',  // Enable interactive zooming
             xAxisIndex: 0,   // Apply zooming to the x-axis (time axis)
-            filterMode: 'filter',  // Filter out of view data
+            // filterMode: 'filter',  // Filter out of view data
             start: 0,        // Start position for zooming (0%)
             end: 100         // End position for zooming (100%)
           },
@@ -1522,9 +1525,9 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               toolbox: {
                   // right: 10,s
                   feature: {
-                      dataZoom: {
-                          yAxisIndex: 'none'
-                      },
+                      // dataZoom: {
+                      //     yAxisIndex: 'none'
+                      // },
                       restore: {},
                        saveAsImage: {
               backgroundColor: bgColor,
@@ -1808,7 +1811,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             toolbox: {
               // right: 10,
               feature: {
-                dataZoom: { yAxisIndex: 'none' },
+                // dataZoom: { yAxisIndex: 'none' },
                 restore: {},
                  saveAsImage: {
               backgroundColor: bgColor,
@@ -1826,7 +1829,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               {
                 type: 'inside',  // Enable interactive zooming
                 xAxisIndex: 0,   // Apply zooming to the x-axis (time axis)
-                filterMode: 'filter',  // Filter out of view data
+                // filterMode: 'filter',  // Filter out of view data
                 start: 0,        // Start position for zooming (0%)
                 end: 100         // End position for zooming (100%)
               },
@@ -1908,12 +1911,20 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
         const mainText = computedStyle.getPropertyValue('--chart-maintext').trim();
         const subText = computedStyle.getPropertyValue('--main-text').trim();
         const text = computedStyle.getPropertyValue('--text-color').trim();
-      
-          const surfaceCurrent = this.selectedStation === 'cwprs01'
-          ? this.cwprs01.map(item => item.S2_SurfaceCurrentSpeedDirection)
-          : this.selectedStation === 'cwprs02'
-          ? this.cwprs02.map(item => item.S2_SurfaceCurrentSpeedDirection)
-          : [];
+        let surfaceCurrent: string[] = [];
+        const data = this.updateInit(this.surfacebin, true);
+        if (data && data.length > 0) {
+          surfaceCurrent = [...data]; // Use the returned data
+          this.surfaceData = [...data]; // Explicitly update this.surfaceData if required
+          console.log("Updated surfaceData:", this.surfaceData);
+        } else {
+          console.log("No data for the selected bin.");
+        }
+          // const surfaceCurrent = this.selectedStation === 'cwprs01'
+          // ? this.cwprs01.map(item => item.S2_SurfaceCurrentSpeedDirection)
+          // : this.selectedStation === 'cwprs02'
+          // ? this.cwprs02.map(item => item.S2_SurfaceCurrentSpeedDirection)
+          // : [];
       
           const surfacePolar = surfaceCurrent.map((data) => {
             const [speed, direction] = data.split(';').map(Number);
@@ -1921,7 +1932,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
           });
 
           const directionLabels = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-          const speedCategories = ['<0.5 m/s', '0.5-2 m/s', '2-4 m/s', '4-6 m/s', '6-8 m/s', '>8 m/s'] as const;
+          const speedCategories = ['<0.5', '0.5-2', '2-4', '4-6', '6-8', '>8'] as const;
           
           const speedColors = ['#0000FF', '#3399FF', '#66CCFF', '#FFFF66', '#FF9933', '#FF3300'];  // Blue to red gradient
           
@@ -1933,22 +1944,22 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
           
           // Function to bin speeds
           function categorizeSpeed(speed: number): SpeedCategory {
-              if (speed < 0.5) return '<0.5 m/s';
-              if (speed < 2) return '0.5-2 m/s';
-              if (speed < 4) return '2-4 m/s';
-              if (speed < 6) return '4-6 m/s';
-              if (speed < 8) return '6-8 m/s';
-              return '>8 m/s';
+              if (speed < 0.5) return '<0.5';
+              if (speed < 2) return '0.5-2';
+              if (speed < 4) return '2-4';
+              if (speed < 6) return '4-6';
+              if (speed < 8) return '6-8';
+              return '>8';
           }
           
           // Initialize bins
           const dataBins:  DirectionBin[] = directionLabels.map(() => ({
-              '<0.5 m/s': 0,
-              '0.5-2 m/s': 0,
-              '2-4 m/s': 0,
-              '4-6 m/s': 0,
-              '6-8 m/s': 0,
-              '>8 m/s': 0
+              '<0.5': 0,
+              '0.5-2': 0,
+              '2-4': 0,
+              '4-6': 0,
+              '6-8': 0,
+              '>8': 0
           }));
           
           // Map directions to labels and fill dataBins with counts
@@ -1982,7 +1993,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       const option = {
         // backgroundColor: bgColor,
         title: {
-          text: 'Surface',  // Changed from 'Surface' to 'Low'
+          text: this.noInitial? this.binName: 'Surface',  // Changed from 'Surface' to 'Low'
           // left: '1%',
           top: '18%',
           textStyle: {
@@ -1990,7 +2001,16 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             fontSize: 20,
           },
         },
-          
+        legend: {
+          data: speedCategories,
+          top: 10,
+          right: 0,
+          orient: 'vertical', 
+          textStyle: {
+            color: subText, // White legend text
+            fontSize: 12,
+          }        
+      },
           polar: {},
           angleAxis: {
               type: 'category',

@@ -249,7 +249,7 @@ online:boolean = false;
 ngOnInit(): void {
   const status = navigator.onLine;
   this.online = status;
-  if(!this.online){
+  if(this.online == false){
     this.mapUrl = '../../../../assets/western/{z}/{x}/{y}.png';
   }
   console.log("online status",status);
@@ -386,7 +386,7 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
   MapInit(): void {
    
     if (!this.mapInitialized) {
-      this.mapService.initializeMap(this.mapTarget, this.center, 15);
+      this.mapService.initializeMap(this.mapTarget, this.center, 15, this.mapUrl);
       this.mapService.addMarker(this.livelocationbuoy1, this.stationName1, this.imageMarker1);
       this.mapService.addMarker(this.livelocationbuoy2, this.stationName2, this.imageMarker2);
       this.mapService.addCircle(this.center, this.buoy1danger, 'red');
@@ -403,8 +403,9 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
         if (name) {
           console.log(`Feature clicked: ${name}`);
           this.layout.selectedBuoy = name;
-   
+          
                   this.layout.page = 'Dashboard';
+                  this.router.navigate([`/base/${this.layout.page.toLowerCase()}`]);
           // Perform additional actions
         }
       });

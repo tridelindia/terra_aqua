@@ -8,6 +8,7 @@ import { SensorData, Config, SensorData2 } from '../../model/config.model';
 import { ConfigDataService } from '../config-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { dashMapServiceService } from './dash-map/dash-map-service.service';
 
 
 export interface e_bins{
@@ -231,16 +232,26 @@ dummyData2:SensorData2[]=[
     private layout: LayoutComponent,
     private cdr: ChangeDetectorRef,
     private route:ActivatedRoute,
-    private data:ConfigDataService
+    private data:ConfigDataService,
+    private mapService:dashMapServiceService
   ) {
     // Check if the code is running in the browser
     this.isBrowser = isPlatformBrowser(this.platformId);
     console.log("browser", this.isBrowser)
   }
-
+  mapUrl:string='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  online:boolean = false;
   sensor:Config[]=[];
 ngOnInit(): void {
+  const status = navigator.onLine;
+  this.online = status;
+  if(!this.online){
+    this.mapUrl = '../../../../assets/western/{z}/{x}/{y}.png';
+  }else{
+    this.mapUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  }
 
+       
   // this.route.paramMap.subscribe(params => {
   //   this.layout.page = params.get('page') || 'home';
   // });
@@ -348,13 +359,15 @@ updates(value:string, data:string):number{
     const todayDate = date.toISOString().substr(0, 10);
      this.tide_unit = this.layout.configs[0].unit;
     this.data.getSensorLiveData(todayDate, todayDate).subscribe(datat=>{
-
+console.log("bouy1 length=>", datat.buoy1.length, "bouy2 length=>", datat.buoy2.length)
        if(this.layout.selectedBuoy == 'CWPRS01'){
-        if(datat.buoy1.length !==4){
+        if(datat.buoy1.length < 4){
           console.log("yes low");
           this.sensorDatelist = this.dummyData1;
+          console.log("sensorlive data:",this.sensorDatelist);
         }else{
           this.sensorDatelist = datat.buoy1;
+          console.log("sensorlive data:",this.sensorDatelist);
         }
         
         console.log(this.sensorDatelist[0]);
@@ -365,11 +378,14 @@ updates(value:string, data:string):number{
        
         
       }else if(this.layout.selectedBuoy == 'CWPRS02'){
-        if(datat.buoy2.length !==4){
+        if(datat.buoy2.length < 4){
           console.log("yes low");
           this.sensorDatelist = this.dummyData2;
+          console.log("sensorlive data:",this.sensorDatelist);
         }else{
           this.sensorDatelist = datat.buoy2;
+          console.log("sensorlive data:",this.sensorDatelist);
+          
         }
         // this.sensorDatelist = datat.buoy2;
         console.log(this.sensorDatelist[0])
@@ -494,60 +510,86 @@ binss:string[]=[];
     }
   }
   async loadLeafletAndInitializeMap(): Promise<void> {
-    console.log("map location",this.center);
-    const L = await import('leaflet');  // Lazy-load Leaflet
-    this.initializeLeafletMap(L);
+    console.log("Map location:", this.center);
+    const L = await import('leaflet'); // Lazy-load Leaflet
+    // this.initializeLeafletMap(L);
+    this.mapService.initializeMap(
+      'ol-map', // Target div ID
+      this.center,
+      this.layout.selectedBuoy,
+      this.buoyImage,
+      this.radius,
+      this.wrange
+    );
   }
-
+  
   initializeLeafletMap(L: any): void {
     const mapContainer = document.getElementById('leaflet-map');
-    
     if (!mapContainer) {
       console.error('Map container not found');
       return;
     }
-
+  
+    console.log('Initializing map with center:', this.center);
+  
+    // Validate the center coordinates
+    if (!Array.isArray(this.center) || this.center.length !== 2) {
+      console.error('Invalid center coordinates:', this.center);
+      return;
+    }
+  
+    // Destroy existing map instance if it exists
+    if (this.map) {
+      console.log('Destroying existing map instance.');
+      this.map.remove();
+    }
+  
+    // Initialize the map
     this.map = L.map('leaflet-map').setView(this.center, 15);
-
-    L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=c30d4b0044414082b818c93c793707a4', {
-      maxZoom: 18
+  
+    L.tileLayer(this.mapUrl, {
+      maxZoom: this.mapUrl === '../../../../assets/western/{z}/{x}/{y}.png' ? 10 : 18,
+      minZoom: this.mapUrl === '../../../../assets/western/{z}/{x}/{y}.png' ? 8 : undefined,
     }).addTo(this.map);
-
+  
     const markerIcon = L.icon({
       iconUrl: this.buoyImage!,
-      name:'Buoy 1',
-      
       iconSize: [24, 24], // Set the size of the marker
     });
-
-    const marker = L.marker(this.center, { icon: markerIcon }).bindTooltip(this.layout.selectedBuoy, {
-      permanent: true,
-      offset: [0, 20],
-       // To make the tooltip always visible
-      direction: 'bottom', // Tooltip position relative to marker
-    }).addTo(this.map);
-
-    const circle = L.circle(this.center, {
+  
+    console.log('Selected Buoy:', this.layout.selectedBuoy);
+  
+    const marker = L.marker(this.center, { icon: markerIcon }).bindTooltip(
+      typeof this.layout.selectedBuoy === 'string' ? this.layout.selectedBuoy : 'Unknown Buoy',
+      {
+        permanent: true,
+        offset: [0, 20],
+        direction: 'bottom',
+      }
+    ).addTo(this.map);
+  
+    L.circle(this.center, {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.1,
-      radius: this.radius
+      radius: this.radius,
     }).addTo(this.map);
-
-    const warningCircle = L.circle(this.center, {
+  
+    L.circle(this.center, {
       color: 'yellow',
       fillColor: '#ff0',
       fillOpacity: 0.1,
-      radius: this.wrange
+      radius: this.wrange,
     }).addTo(this.map);
-
+  
     setTimeout(() => {
-      const newCoords = this.center; // Simulate new position
+      const newCoords = this.center;
       marker.setLatLng(newCoords);
       this.checkBuoyRange(newCoords, L);
       this.checkBuoyRange2(newCoords, L);
     }, 3000);
   }
+  
 
   // Function to check if the marker is within the range
   checkBuoyRange(markerCoords: [number, number], L: any): void {

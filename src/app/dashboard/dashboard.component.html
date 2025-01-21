@@ -19,7 +19,7 @@
         </div>
         <h4>Battery Level</h4>
         <div class="dataMain">
-            @if(battery!=null){
+            @if(battery!==null){
             <app-battery [batteryLevel]="battery"></app-battery>
             }
 
@@ -152,7 +152,7 @@
         </div>
 
         <div class="mapbox">
-            <div id="leaflet-map" style="height: 100%; width: 100%;"></div>
+            <div id="ol-map" style="height: 100%; width: 100%;"></div>
         </div>
 
         <div class="sensor-health">

@@ -72,9 +72,12 @@ footer {
 ::ng-deep .ol-zoom{
     top: rem !important;
     z-index: 1000;
-    bottom: 10px;
+    /* bottom: 10px; */
     left: 60px;
     margin-left: 40px !important;
+}
+::ng-deep .ol-touch .ol-control button{
+    font-size: 1rem;
 }
 
 .floating-image2 {

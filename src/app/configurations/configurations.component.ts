@@ -17,7 +17,7 @@ import { number, vector } from 'echarts';
 import { parseNumber } from 'devextreme/localization';
 import { UnitsComponent } from '../units/units.component';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FLOAT } from 'ol/webgl';
 import { ConfigDataService } from '../config-data.service';
 import {
@@ -43,7 +43,7 @@ export interface e_bins{
 @Component({
   selector: 'app-configurations',
   standalone: true,
-  imports: [FormsModule, UnitsComponent, CommonModule,NgMultiSelectDropDownModule , DragDropModule],
+  imports: [FormsModule, HttpClientModule, CommonModule,NgMultiSelectDropDownModule , DragDropModule],
   templateUrl: './configurations.component.html',
   styleUrl: './configurations.component.css',
 })
@@ -552,6 +552,8 @@ CurrentSelect() {
     this.selectedcoordinate = unit;
     // console.log(`Selected unit: ${this.selectedcoordinate}`);
   }
+
+
   online:boolean = true;
   ngOnInit(): void {
     const status = navigator.onLine;
@@ -566,9 +568,15 @@ CurrentSelect() {
     const todayDate = date.toISOString().substr(0, 10);
     this.data.getSensorLiveData(todayDate, todayDate).subscribe((response) => {
       // console.log(response);
-      this.liveData = response;
-      this.buoy1 = this.liveData.buoy1;
-      this.buoy2 = this.liveData.buoy2;
+      if(response.buoy1.length !==4){
+        this.buoy1 = this.dummyData1;
+        this.buoy2 = this.dummyData2
+      }else{
+        this.liveData = response;
+        this.buoy1 = this.liveData.buoy1;
+        this.buoy2 = this.liveData.buoy2;
+      }
+     
 
       this.liveloclat1 = this.buoy1[0].LAT;
       this.liveloclat2 = this.buoy2[0].LAT;
@@ -965,4 +973,151 @@ CurrentSelect() {
       this.leftBox.push(item);
     }
   }
+
+
+
+
+
+
+dummyData1:SensorData[]=[
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:30:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":103,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3"
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:20:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":102,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3"
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:10:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":101,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3"
+  }
+]
+
+
+dummyData2:SensorData2[]=[
+{
+  "Battery_Voltage": "12.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:30:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 63,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3"
+},
+{
+  "Battery_Voltage": "12.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:20:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 62,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3"
+},
+{
+  "Battery_Voltage": "12.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:10:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 61,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3"
+}
+]
 }

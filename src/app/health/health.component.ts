@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { LayoutComponent } from '../layout/layout.component';
 import { ConfigDataService } from '../config-data.service';
-import { SensorData } from '../../model/config.model';
+import { SensorData, SensorData2 } from '../../model/config.model';
 
 @Component({
   selector: 'app-health',
@@ -33,10 +33,21 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
      this.data.getSensorLiveData(todayDate, todayDate).subscribe(datat => {
+      
       if (this.layout.selectedBuoy === 'CWPRS01') {
-        this.sensorDatelist = datat.buoy1;
+        if(datat.buoy1.length <3 ){
+          this.sensorDatelist = this.dummyData1;
+        }else{
+          this.sensorDatelist = datat.buoy1;
+        }
+        
       } else if (this.layout.selectedBuoy === 'CWPRS02') {
-        this.sensorDatelist = datat.buoy2;
+        if(datat.buoy2.length <3 ){
+          this.sensorDatelist = this.dummyData2;
+        }else{
+          this.sensorDatelist = datat.buoy2;
+        }
+        // this.sensorDatelist = datat.buoy2;
       }
 
       // Call update function after data is fetched
@@ -138,6 +149,152 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     }
   }
   
+
+
+
+
+
+  dummyData1:SensorData[]=[
+    {
+      "Battery_Voltage": "12.4",
+      "Date": "2025-01-08T00:00:00.000Z",
+      "GPS_Date": "1970-01-01T00:00:00.000Z",
+      "LAT": 12.90935942,
+      "LONG": 77.59784407,
+      "Lower_CurrentSpeedDirection": "0.32;254.7",
+      "Middle_CurrentSpeedDirection": "0.71;249.3",
+      "S1_RelativeWaterLevel": 2.37,
+      "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+      "StationID":"CWPRS01",
+      "Time":"1970-01-01T09:30:00.000Z",
+      "UTC_Time":"1970-01-01T06:00:00.000Z",
+      // "dateTime": "2025-01-08T05:06:54.943Z",
+      "id":103,
+      "profile4": "23.4;233.9",
+      "profile5": "53.2;234.9",
+      "profile6": "21.3;321.9",
+      "profile7": "43.2;233.0",
+      "profile8": "11.3;343.2",
+      "profile9": "32.2;244.3",
+      "profile10": "12.3;123.3"
+    },
+    {
+      "Battery_Voltage": "12.4",
+      "Date": "2025-01-08T00:00:00.000Z",
+      "GPS_Date": "1970-01-01T00:00:00.000Z",
+      "LAT": 12.90935942,
+      "LONG": 77.59784407,
+      "Lower_CurrentSpeedDirection": "0.32;254.7",
+      "Middle_CurrentSpeedDirection": "0.71;249.3",
+      "S1_RelativeWaterLevel": 2.37,
+      "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+      "StationID":"CWPRS01",
+      "Time":"1970-01-01T09:20:00.000Z",
+      "UTC_Time":"1970-01-01T06:00:00.000Z",
+      // "dateTime": "2025-01-08T05:06:54.943Z",
+      "id":102,
+      "profile4": "23.4;233.9",
+      "profile5": "53.2;234.9",
+      "profile6": "21.3;321.9",
+      "profile7": "43.2;233.0",
+      "profile8": "11.3;343.2",
+      "profile9": "32.2;244.3",
+      "profile10": "12.3;123.3"
+    },
+    {
+      "Battery_Voltage": "12.4",
+      "Date": "2025-01-08T00:00:00.000Z",
+      "GPS_Date": "1970-01-01T00:00:00.000Z",
+      "LAT": 12.90935942,
+      "LONG": 77.59784407,
+      "Lower_CurrentSpeedDirection": "0.32;254.7",
+      "Middle_CurrentSpeedDirection": "0.71;249.3",
+      "S1_RelativeWaterLevel": 2.37,
+      "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+      "StationID":"CWPRS01",
+      "Time":"1970-01-01T09:10:00.000Z",
+      "UTC_Time":"1970-01-01T06:00:00.000Z",
+      // "dateTime": "2025-01-08T05:06:54.943Z",
+      "id":101,
+      "profile4": "23.4;233.9",
+      "profile5": "53.2;234.9",
+      "profile6": "21.3;321.9",
+      "profile7": "43.2;233.0",
+      "profile8": "11.3;343.2",
+      "profile9": "32.2;244.3",
+      "profile10": "12.3;123.3"
+    }
+  ]
+  
+  
+  dummyData2:SensorData2[]=[
+  {
+    "Battery_Voltage": "10.4",
+    "Date":"2025-01-08T00:00:00.000Z",
+    "GPS_Date":"1900-01-01T00:00:00.000Z",
+    "LAT": 18.994803,
+    "LONG": 72.80921,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel":2.37,
+    "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+    "StationID":"CWPRS02",
+    "Time": "1970-01-01T09:30:00.000Z",
+    "UTC_Time": "1970-01-01T06:00:00.000Z",
+    "id": 63,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10":"12.3;123.3"
+  },
+  {
+    "Battery_Voltage": "10.4",
+    "Date":"2025-01-08T00:00:00.000Z",
+    "GPS_Date":"1900-01-01T00:00:00.000Z",
+    "LAT": 18.994803,
+    "LONG": 72.80921,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel":2.37,
+    "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+    "StationID":"CWPRS02",
+    "Time": "1970-01-01T09:20:00.000Z",
+    "UTC_Time": "1970-01-01T06:00:00.000Z",
+    "id": 62,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10":"12.3;123.3"
+  },
+  {
+    "Battery_Voltage": "10.4",
+    "Date":"2025-01-08T00:00:00.000Z",
+    "GPS_Date":"1900-01-01T00:00:00.000Z",
+    "LAT": 18.994803,
+    "LONG": 72.80921,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel":2.37,
+    "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+    "StationID":"CWPRS02",
+    "Time": "1970-01-01T09:10:00.000Z",
+    "UTC_Time": "1970-01-01T06:00:00.000Z",
+    "id": 61,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10":"12.3;123.3"
+  }
+  ]
 
 }
 // const hours = tt.getHours().toString().padStart(2, '0'); // Ensure two digits

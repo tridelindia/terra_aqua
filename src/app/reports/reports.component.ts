@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpClientModule, } from '@angular/common/http';
  
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -21,6 +21,7 @@ import { is } from '@amcharts/amcharts4/core';
 import { get } from 'http';
 import { ConfigDataService } from '../config-data.service';
 import { Config } from '../../model/config.model';
+import { response } from 'express';
  
  
 interface Column {
@@ -36,7 +37,7 @@ interface conf{
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports:[FormsModule, CommonModule, TableModule, MultiSelectModule, CalendarModule, DropdownModule ],
+  imports:[FormsModule, CommonModule, TableModule, MultiSelectModule, CalendarModule, DropdownModule, HttpClientModule ],
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css'],
   providers:[StationService]
@@ -84,71 +85,89 @@ exportOptions = [
      const data  = JSON.parse(this.configsData[1].e_bins);
       console.log(data);
       this.binsDAta = data;
+     
       const ibin = this.configsData[1].bins.split(',');
-      for(let i=0; i<ibin.length; i++){
-        if(ibin[i].toLowerCase() == 'profile1'){
-          this.cols.push(
-            { field: 'SurfaceSpeed', header: 'Surface Speed' },
-        { field: 'SurfaceDirection', header: 'Surface Direction' },
-        { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
-        { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
-          )
-        }else if(ibin[i].toLowerCase() == 'profile2'){
-          this.cols.push(
-          { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
-          )
-        }else if(ibin[i].toLowerCase() == 'profile3'){
-          this.cols.push(
-            { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
-          )
-        }else{
-          this.cols.push({
-            field:`${ibin[i].toLowerCase()}speed`,
-            header:`${ibin[i].toLowerCase()}speed`
-          },
-          {
-            field:`${ibin[i].toLowerCase()}direction`,
-            header:`${ibin[i].toLowerCase()}direction`
-          })
-        }
+      console.log("BinNames", this.binsDAta, ibin);
+      const sampleBinsname = ['Surface Speed', ]
+      // for(let i=0; i<ibin.length; i++){
+        this.cols.push(
+          {field:ibin[0].toLowerCase()==='profile1'? "SurfaceSpeed" :`${ibin[0].toLowerCase()}Speed`, header:'Surface Speed'},
+          { field:ibin[0].toLowerCase()==='profile1'?"SurfaceDirection": `${ibin[0].toLowerCase()}Direction`, header: 'Surface Direction' },
+        );
+        this.cols.push(
+          {field:ibin[1].toLowerCase()==='profile2'? "MiddleSpeed" :`${ibin[1].toLowerCase()}Speed`, header:'Mid Speed'},
+          { field:ibin[1].toLowerCase()==='profile2'? "MiddleDirection" : `${ibin[1].toLowerCase()}Direction`, header: 'Mid Direction' },
+        );
+        this.cols.push(
+          {field:ibin[2].toLowerCase()==='profile3'? "LowerSpeed" :`${ibin[2].toLowerCase()}Speed`, header:'Bottom Speed'},
+          { field:ibin[2].toLowerCase()==='profile3'? "LowerDirection" : `${ibin[2].toLowerCase()}Direction`, header: 'Bottom Direction' },
+        )
+      // }
+
+      // for(let i=0; i<ibin.length; i++){
+      //   if(ibin[i].toLowerCase() == 'profile1'){
+        //   this.cols.push(
+        //     { field: 'SurfaceSpeed', header: 'Surface Speed' },
+        // { field: 'SurfaceDirection', header: 'Surface Direction' },
+        // { field: 'MiddleSpeed', header: 'Mid Speed' },
+        // { field: 'MiddleDirection', header: 'Mid Direction' },
+        // { field: 'LowerSpeed', header: 'Bottom Speed' },
+        // { field: 'LowerDirection', header: 'Bottom Direction' },
+        //   )
+      //   }else if(ibin[i].toLowerCase() == 'profile2'){
+      //     this.cols.push(
+      //     { field: 'MiddleSpeed', header: 'Mid Speed' },
+      //   { field: 'MiddleDirection', header: 'Mid Direction' },
+      //     )
+      //   }else if(ibin[i].toLowerCase() == 'profile3'){
+      //     this.cols.push(
+      //       { field: 'LowerSpeed', header: 'Bottom Speed' },
+      //   { field: 'LowerDirection', header: 'Bottom Direction' },
+      //     )
+      //   }else{
+      //     this.cols.push({
+      //       field:`${ibin[i].toLowerCase()}speed`,
+      //       header:`${ibin[i].toLowerCase()}speed`
+      //     },
+      //     {
+      //       field:`${ibin[i].toLowerCase()}direction`,
+      //       header:`${ibin[i].toLowerCase()}direction`
+      //     })
+      //   }
         
-      }
+      // }
       for(let i=0; i<this.binsDAta.length;i++){
         if(this.binsDAta[i].bin.toLowerCase() == 'profile1'){
           this.cols.push(
-            { field: 'SurfaceSpeed', header: 'Surface Speed' },
-        { field: 'SurfaceDirection', header: 'Surface Direction' },
+            { field: 'SurfaceSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'SurfaceDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else if(this.binsDAta[i].bin.toLowerCase() == 'profile2'){
           console.log("bin2 is checked its yes");
           this.cols.push(
-          { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
+          { field: 'MiddleSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'MiddleDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else if(this.binsDAta[i].bin.toLowerCase() == 'profile3'){
           this.cols.push(
-            { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
+            { field: 'LowerSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'LowerDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else{
           if(this.binsDAta[i].show){
             this.cols.push(
-              // {
-              //   field:
-              // },
-              {
-              field: `${this.binsDAta[i].bin.toLowerCase()}speed`,
-              header: `${this.binsDAta[i].name}speed`
-            },
+             
           {
-            field:`${this.binsDAta[i].bin.toLowerCase()}direction`,
-            header:`${this.binsDAta[i].name}direction`
+              field: `${this.binsDAta[i].bin.toLowerCase()}Speed`,
+              header: `${this.binsDAta[i].name}Speed`
+          },
+          {
+            field:`${this.binsDAta[i].bin.toLowerCase()}Direction`,
+            header:`${this.binsDAta[i].name}Direction`
           })
           }
+
+          console.log("columns==>",this.cols);
         }
         
         
@@ -179,10 +198,23 @@ exportOptions = [
     // for(let i=0; i<this.binsDAta.length; i++){
     //   this.cols.push({field: this.binsDAta[i].bin.toLowerCase()})
     // }
- 
+    
     this.selectedColumns = this.cols;
     this.fromDate.setHours(0, 0, 0, 0);
     this.fetchStations();
+    this.getStationNames()
+  }
+staionName1!:string ;
+staionName2!:string ;
+nameOfStation!:string;
+  getStationNames(){
+    this.dataCOnfig.getStationNames().subscribe(response =>{
+      console.log("station namez",response);
+      this.staionName1 = response[0].station;
+      this.staionName2 = response[1].station;
+      this.nameOfStation = response[0].station;
+      console.log("1 is ==", this.staionName1,  "2nd is==", this.staionName2,  "final ==", this.nameOfStation);
+    })
   }
  
   onExportOptionSelect(event: any, dt2: any) {
@@ -287,26 +319,27 @@ exportOptions = [
       (data: buoys) => {
          this.CWPRS01 = data.buoy1.map(buoy => ({
           ...buoy,
+          
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
           SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
           MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
           LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4speed:buoy.profile4.split(';')[0],
-          profile4direction:buoy.profile4.split(';')[1],
-          profile5speed:buoy.profile5.split(';')[0],
-          profile5direction:buoy.profile5.split(';')[1],
-          profile6speed:buoy.profile6.split(';')[0],
-          profile6direction:buoy.profile6.split(';')[1],
-          profile7speed:buoy.profile7.split(';')[0],
-          profile7direction:buoy.profile7.split(';')[1],
-          profile8speed:buoy.profile8.split(';')[0],
-          profile8direction:buoy.profile8.split(';')[1],
-          profile9speed:buoy.profile9.split(';')[0],
-          profile9direction:buoy.profile9.split(';')[1],
-          profile10speed:buoy.profile10.split(';')[0],
-          profile10direction:buoy.profile10.split(';')[1],
+          profile4Speed:buoy.profile4.split(';')[0],
+          profile4Direction:buoy.profile4.split(';')[1],
+          profile5Speed:buoy.profile5.split(';')[0],
+          profile5Direction:buoy.profile5.split(';')[1],
+          profile6Speed:buoy.profile6.split(';')[0],
+          profile6Direction:buoy.profile6.split(';')[1],
+          profile7Speed:buoy.profile7.split(';')[0],
+          profile7Direction:buoy.profile7.split(';')[1],
+          profile8Speed:buoy.profile8.split(';')[0],
+          profile8Direction:buoy.profile8.split(';')[1],
+          profile9Speed:buoy.profile9.split(';')[0],
+          profile9Direction:buoy.profile9.split(';')[1],
+          profile10Speed:buoy.profile10.split(';')[0],
+          profile10Direction:buoy.profile10.split(';')[1],
 
 
 
@@ -320,20 +353,20 @@ exportOptions = [
           MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
           LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4speed:buoy.profile4.split(';')[0],
-          profile4direction:buoy.profile4.split(';')[1],
-          profile5speed:buoy.profile5.split(';')[0],
-          profile5direction:buoy.profile5.split(';')[1],
-          profile6speed:buoy.profile6.split(';')[0],
-          profile6direction:buoy.profile6.split(';')[1],
-          profile7speed:buoy.profile7.split(';')[0],
-          profile7direction:buoy.profile7.split(';')[1],
-          profile8speed:buoy.profile8.split(';')[0],
-          profile8direction:buoy.profile8.split(';')[1],
-          profile9speed:buoy.profile9.split(';')[0],
-          profile9direction:buoy.profile9.split(';')[1],
-          profile10speed:buoy.profile10.split(';')[0],
-          profile10direction:buoy.profile10.split(';')[1],
+          profile4Speed:buoy.profile4.split(';')[0],
+          profile4Direction:buoy.profile4.split(';')[1],
+          profile5Speed:buoy.profile5.split(';')[0],
+          profile5Direction:buoy.profile5.split(';')[1],
+          profile6Speed:buoy.profile6.split(';')[0],
+          profile6Direction:buoy.profile6.split(';')[1],
+          profile7Speed:buoy.profile7.split(';')[0],
+          profile7Direction:buoy.profile7.split(';')[1],
+          profile8Speed:buoy.profile8.split(';')[0],
+          profile8Direction:buoy.profile8.split(';')[1],
+          profile9Speed:buoy.profile9.split(';')[0],
+          profile9Direction:buoy.profile9.split(';')[1],
+          profile10Speed:buoy.profile10.split(';')[0],
+          profile10Direction:buoy.profile10.split(';')[1],
         }));
         this.loading = false;
       },
@@ -384,8 +417,10 @@ onSearch(query: string, dt2: any): void {
   this.selectedStation = type;
  
   if(this.selectedStation == 'CWPRS01'){
+    this.nameOfStation = this.staionName1;
    }else if(this.selectedStation == 'CWPRS02'){
-   }
+    this.nameOfStation = this.staionName2
+  }
    }
    
   exportCSV(dt2: any) {

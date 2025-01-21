@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { response } from 'express';
 import { use } from 'echarts';
 import { ConfigDataService } from '../config-data.service';
@@ -12,7 +12,7 @@ import { error } from 'console';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })

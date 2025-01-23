@@ -7,7 +7,7 @@ import { GaugeComponent } from '../gauge/gauge.component';
 import { SensorData, Config, SensorData2 } from '../../model/config.model';
 import { ConfigDataService } from '../config-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { dashMapServiceService } from './dash-map/dash-map-service.service';
 
 
@@ -68,6 +68,36 @@ export class DashboardComponent {
   innerCurrent5!:number;
   innerCurrent6!:number;
   innerCurrent7!:number;
+  innerCurrent8!:number;
+  innerCurrent9!:number;
+  innerCurrent10!:number;
+  innerCurrent11!:number;
+  innerCurrent12!:number;
+  innerCurrent13!:number;
+  innerCurrent14!:number;
+  innerCurrent15!:number;
+  innerCurrent16!:number;
+  innerCurrent17!:number;
+  innerCurrent18!:number;
+  innerCurrent19!:number;
+  innerCurrent20!:number;
+  innerCurrent21!:number;
+  innerCurrent22!:number;
+  innerCurrent23!:number;
+  innerCurrent24!:number;
+  innerCurrent25!:number;
+  innerCurrent26!:number;
+  innerCurrent27!:number;
+  innerCurrent28!:number;
+  innerCurrent29!:number;
+  innerCurrent30!:number;
+  innerCurrent31!:number;
+  innerCurrent32!:number;
+  innerCurrent33!:number;
+  innerCurrent34!:number;
+  innerCurrent35!:number;
+  innerCurrent36!:number;
+  innerCurrent37!:number;
 
   innerdirection1!:number;
   innerdirection2!:number;
@@ -76,6 +106,36 @@ export class DashboardComponent {
   innerdirection5!:number;
   innerdirection6!:number;
   innerdirection7!:number;
+  innerdirection8!:number;
+  innerdirection9!:number;
+  innerdirection10!:number;
+  innerdirection11!:number;
+  innerdirection12!:number;
+  innerdirection13!:number;
+  innerdirection14!:number;
+  innerdirection15!:number;
+  innerdirection16!:number;
+  innerdirection17!:number;
+  innerdirection18!:number;
+  innerdirection19!:number;
+  innerdirection20!:number;
+  innerdirection21!:number;
+  innerdirection22!:number;
+  innerdirection23!:number;
+  innerdirection24!:number;
+  innerdirection25!:number;
+  innerdirection26!:number;
+  innerdirection27!:number;
+  innerdirection28!:number;
+  innerdirection29!:number;
+  innerdirection30!:number;
+  innerdirection31!:number;
+  innerdirection32!:number;
+  innerdirection33!:number;
+  innerdirection34!:number;
+  innerdirection35!:number;
+  innerdirection36!:number;
+  innerdirection37!:number;
   inCompval1!:string;
   inCompval2!:string;
   inCompval3!:string;
@@ -83,157 +143,48 @@ export class DashboardComponent {
   inCompval5!:string;
   inCompval6!:string;
   inCompval7!:string;
+  inCompval8!:string;
+  inCompval9!:string;
+  inCompval10!:string;
+  inCompval11!:string;
+  inCompval12!:string;
+  inCompval13!:string;
+  inCompval14!:string;
+  inCompval15!:string;
+  inCompval16!:string;
+  inCompval17!:string;
+  inCompval18!:string;
+  inCompval19!:string;
+  inCompval20!:string;
+  inCompval21!:string;
+  inCompval22!:string;
+  inCompval23!:string;
+  inCompval24!:string;
+  inCompval25!:string;
+  inCompval26!:string;
+  inCompval27!:string;
+  inCompval28!:string;
+  inCompval29!:string;
+  inCompval30!:string;
+  inCompval31!:string;
+  inCompval32!:string;
+  inCompval33!:string;
+  inCompval34!:string;
+  inCompval35!:string;
+  inCompval36!:string;
+  inCompval37!:string;
 
 
 
-dummyData1:SensorData[]=[
-  {
-    "Battery_Voltage": "12.4",
-    "Date": "2025-01-08T00:00:00.000Z",
-    "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
-    "Lower_CurrentSpeedDirection": "0.32;254.7",
-    "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel": 2.37,
-    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
-    "StationID":"CWPRS01",
-    "Time":"1970-01-01T09:30:00.000Z",
-    "UTC_Time":"1970-01-01T06:00:00.000Z",
-    // "dateTime": "2025-01-08T05:06:54.943Z",
-    "id":103,
-    "profile4": "23.4;233.9",
-    "profile5": "53.2;234.9",
-    "profile6": "21.3;321.9",
-    "profile7": "43.2;233.0",
-    "profile8": "11.3;343.2",
-    "profile9": "32.2;244.3",
-    "profile10": "12.3;123.3"
-  },
-  {
-    "Battery_Voltage": "12.4",
-    "Date": "2025-01-08T00:00:00.000Z",
-    "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
-    "Lower_CurrentSpeedDirection": "0.32;254.7",
-    "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel": 2.37,
-    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
-    "StationID":"CWPRS01",
-    "Time":"1970-01-01T09:20:00.000Z",
-    "UTC_Time":"1970-01-01T06:00:00.000Z",
-    // "dateTime": "2025-01-08T05:06:54.943Z",
-    "id":102,
-    "profile4": "23.4;233.9",
-    "profile5": "53.2;234.9",
-    "profile6": "21.3;321.9",
-    "profile7": "43.2;233.0",
-    "profile8": "11.3;343.2",
-    "profile9": "32.2;244.3",
-    "profile10": "12.3;123.3"
-  },
-  {
-    "Battery_Voltage": "12.4",
-    "Date": "2025-01-08T00:00:00.000Z",
-    "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
-    "Lower_CurrentSpeedDirection": "0.32;254.7",
-    "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel": 2.37,
-    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
-    "StationID":"CWPRS01",
-    "Time":"1970-01-01T09:10:00.000Z",
-    "UTC_Time":"1970-01-01T06:00:00.000Z",
-    // "dateTime": "2025-01-08T05:06:54.943Z",
-    "id":101,
-    "profile4": "23.4;233.9",
-    "profile5": "53.2;234.9",
-    "profile6": "21.3;321.9",
-    "profile7": "43.2;233.0",
-    "profile8": "11.3;343.2",
-    "profile9": "32.2;244.3",
-    "profile10": "12.3;123.3"
-  }
-]
 
-
-dummyData2:SensorData2[]=[
-{
-  "Battery_Voltage": "10.4",
-  "Date":"2025-01-08T00:00:00.000Z",
-  "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
-  "Lower_CurrentSpeedDirection": "0.32;254.7",
-  "Middle_CurrentSpeedDirection": "0.71;249.3",
-  "S1_RelativeWaterLevel":2.37,
-  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
-  "StationID":"CWPRS02",
-  "Time": "1970-01-01T09:30:00.000Z",
-  "UTC_Time": "1970-01-01T06:00:00.000Z",
-  "id": 63,
-  "profile4": "23.4;233.9",
-  "profile5": "53.2;234.9",
-  "profile6": "21.3;321.9",
-  "profile7": "43.2;233.0",
-  "profile8": "11.3;343.2",
-  "profile9": "32.2;244.3",
-  "profile10":"12.3;123.3"
-},
-{
-  "Battery_Voltage": "10.4",
-  "Date":"2025-01-08T00:00:00.000Z",
-  "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
-  "Lower_CurrentSpeedDirection": "0.32;254.7",
-  "Middle_CurrentSpeedDirection": "0.71;249.3",
-  "S1_RelativeWaterLevel":2.37,
-  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
-  "StationID":"CWPRS02",
-  "Time": "1970-01-01T09:20:00.000Z",
-  "UTC_Time": "1970-01-01T06:00:00.000Z",
-  "id": 62,
-  "profile4": "23.4;233.9",
-  "profile5": "53.2;234.9",
-  "profile6": "21.3;321.9",
-  "profile7": "43.2;233.0",
-  "profile8": "11.3;343.2",
-  "profile9": "32.2;244.3",
-  "profile10":"12.3;123.3"
-},
-{
-  "Battery_Voltage": "10.4",
-  "Date":"2025-01-08T00:00:00.000Z",
-  "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
-  "Lower_CurrentSpeedDirection": "0.32;254.7",
-  "Middle_CurrentSpeedDirection": "0.71;249.3",
-  "S1_RelativeWaterLevel":2.37,
-  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
-  "StationID":"CWPRS02",
-  "Time": "1970-01-01T09:10:00.000Z",
-  "UTC_Time": "1970-01-01T06:00:00.000Z",
-  "id": 61,
-  "profile4": "23.4;233.9",
-  "profile5": "53.2;234.9",
-  "profile6": "21.3;321.9",
-  "profile7": "43.2;233.0",
-  "profile8": "11.3;343.2",
-  "profile9": "32.2;244.3",
-  "profile10":"12.3;123.3"
-}
-]
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private layout: LayoutComponent,
     private cdr: ChangeDetectorRef,
     private route:ActivatedRoute,
     private data:ConfigDataService,
-    private mapService:dashMapServiceService
+    private mapService:dashMapServiceService,
+    private router:Router
   ) {
     // Check if the code is running in the browser
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -243,6 +194,20 @@ dummyData2:SensorData2[]=[
   online:boolean = false;
   sensor:Config[]=[];
 ngOnInit(): void {
+  
+  this.initial()
+
+  setInterval(() => {
+    this.initial()
+    if(this.showExpand){
+      this.extraBinAssign()
+    }
+    
+  }, 5000);
+}
+
+
+initial(){
   const status = navigator.onLine;
   this.online = status;
   if(!this.online){
@@ -264,6 +229,16 @@ ngOnInit(): void {
     }
   });
 }
+
+
+setupReload() {
+  setInterval(() => {
+    this.router.navigateByUrl('/dashboard', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/dashboard']); // Navigate back to the dashboard
+    });
+  }, 5000); // Repeat every 5 seconds
+
+}
   // Initialize map only after view has been fully rendered
   ngAfterViewInit(): void {
     this.assign()
@@ -274,66 +249,189 @@ ngOnInit(): void {
   }
   sensorDatelist:SensorData[]=[];
   
-updates(value:string, data:string):number{
-  let val!:number;
-  console.log("value", value);
-  if(data == "speed"){
-    switch (value.trim()) {
-      case "Profile1":
-        return val = parseFloat(this.sensorDatelist[0].S2_SurfaceCurrentSpeedDirection.split(';')[0]);
-      case "Profile2":
-        return val = parseFloat(this.sensorDatelist[0].Middle_CurrentSpeedDirection.split(';')[0]);
-      case "Profile3":
-        return val = parseFloat(this.sensorDatelist[0].Lower_CurrentSpeedDirection.split(';')[0]);
-      case "Profile4":
-        return val = parseFloat(this.sensorDatelist[0].profile4.split(';')[0]);
-      case "Profile5":
-        return val = parseFloat(this.sensorDatelist[0].profile5.split(';')[0]);
-      case "Profile6":
+  updates(value: string, data: string): number {
+    let val!: number;
+    console.log("value", value);
+  
+    // Check if the data is "speed"
+    if (data === "speed") {
+      switch (value.trim()) {
+        case "Profile1":
+          return val = parseFloat(this.sensorDatelist[0].S2_SurfaceCurrentSpeedDirection.split(';')[0]);
+        case "Profile2":
+          return val = parseFloat(this.sensorDatelist[0].Middle_CurrentSpeedDirection.split(';')[0]);
+        case "Profile3":
+          return val = parseFloat(this.sensorDatelist[0].Lower_CurrentSpeedDirection.split(';')[0]);
+        case "Profile4":
+          return val = parseFloat(this.sensorDatelist[0].profile4.split(';')[0]);
+        case "Profile5":
+          return val = parseFloat(this.sensorDatelist[0].profile5.split(';')[0]);
+        case "Profile6":
           return val = parseFloat(this.sensorDatelist[0].profile6.split(';')[0]);
-      case "Profile7":
+        case "Profile7":
           return val = parseFloat(this.sensorDatelist[0].profile7.split(';')[0]);
-      case "Profile8":
+        case "Profile8":
           return val = parseFloat(this.sensorDatelist[0].profile8.split(';')[0]);
-      case "Profile9":
+        case "Profile9":
           return val = parseFloat(this.sensorDatelist[0].profile9.split(';')[0]);
-      case "Profile10":
+        case "Profile10":
           return val = parseFloat(this.sensorDatelist[0].profile10.split(';')[0]);
-          
-      default:
-        return NaN
-  }
-    
-  }else if(data == 'direction'){
-    switch (value.trim()) {
-      case "Profile1":
-        return val = parseFloat(this.sensorDatelist[0].S2_SurfaceCurrentSpeedDirection.split(';')[1]);
-      case "Profile2":
-        return val = parseFloat(this.sensorDatelist[0].Middle_CurrentSpeedDirection.split(';')[1]);
-      case "Profile3":
-        return val = parseFloat(this.sensorDatelist[0].Lower_CurrentSpeedDirection.split(';')[1]);
-      case "Profile4":
-        return val = parseFloat(this.sensorDatelist[0].profile4.split(';')[1]);
-      case "Profile5":
-        return val = parseFloat(this.sensorDatelist[0].profile5.split(';')[1]);
-      case "Profile6":
+        case "Profile11":
+          return val = parseFloat(this.sensorDatelist[0].profile11.split(';')[0]);
+        case "Profile12":
+          return val = parseFloat(this.sensorDatelist[0].profile12.split(';')[0]);
+        case "Profile13":
+          return val = parseFloat(this.sensorDatelist[0].profile13.split(';')[0]);
+        case "Profile14":
+          return val = parseFloat(this.sensorDatelist[0].profile14.split(';')[0]);
+        case "Profile15":
+          return val = parseFloat(this.sensorDatelist[0].profile15.split(';')[0]);
+        case "Profile16":
+          return val = parseFloat(this.sensorDatelist[0].profile16.split(';')[0]);
+        case "Profile17":
+          return val = parseFloat(this.sensorDatelist[0].profile17.split(';')[0]);
+        case "Profile18":
+          return val = parseFloat(this.sensorDatelist[0].profile18.split(';')[0]);
+        case "Profile19":
+          return val = parseFloat(this.sensorDatelist[0].profile19.split(';')[0]);
+        case "Profile20":
+          return val = parseFloat(this.sensorDatelist[0].profile20.split(';')[0]);
+        case "Profile21":
+          return val = parseFloat(this.sensorDatelist[0].profile21.split(';')[0]);
+        case "Profile22":
+          return val = parseFloat(this.sensorDatelist[0].profile22.split(';')[0]);
+        case "Profile23":
+          return val = parseFloat(this.sensorDatelist[0].profile23.split(';')[0]);
+        case "Profile24":
+          return val = parseFloat(this.sensorDatelist[0].profile24.split(';')[0]);
+        case "Profile25":
+          return val = parseFloat(this.sensorDatelist[0].profile25.split(';')[0]);
+        case "Profile26":
+          return val = parseFloat(this.sensorDatelist[0].profile26.split(';')[0]);
+        case "Profile27":
+          return val = parseFloat(this.sensorDatelist[0].profile27.split(';')[0]);
+        case "Profile28":
+          return val = parseFloat(this.sensorDatelist[0].profile28.split(';')[0]);
+        case "Profile29":
+          return val = parseFloat(this.sensorDatelist[0].profile29.split(';')[0]);
+        case "Profile30":
+          return val = parseFloat(this.sensorDatelist[0].profile30.split(';')[0]);
+        case "Profile31":
+          return val = parseFloat(this.sensorDatelist[0].profile31.split(';')[0]);
+        case "Profile32":
+          return val = parseFloat(this.sensorDatelist[0].profile32.split(';')[0]);
+        case "Profile33":
+          return val = parseFloat(this.sensorDatelist[0].profile33.split(';')[0]);
+        case "Profile34":
+          return val = parseFloat(this.sensorDatelist[0].profile34.split(';')[0]);
+        case "Profile35":
+          return val = parseFloat(this.sensorDatelist[0].profile35.split(';')[0]);
+        case "Profile36":
+          return val = parseFloat(this.sensorDatelist[0].profile36.split(';')[0]);
+        case "Profile37":
+          return val = parseFloat(this.sensorDatelist[0].profile37.split(';')[0]);
+        case "Profile38":
+          return val = parseFloat(this.sensorDatelist[0].profile38.split(';')[0]);
+        case "Profile39":
+          return val = parseFloat(this.sensorDatelist[0].profile39.split(';')[0]);
+        case "Profile40":
+          return val = parseFloat(this.sensorDatelist[0].profile40.split(';')[0]);
+        default:
+          return NaN;
+      }
+    }
+  
+    // Check if the data is "direction"
+    else if (data === "direction") {
+      switch (value.trim()) {
+        case "Profile1":
+          return val = parseFloat(this.sensorDatelist[0].S2_SurfaceCurrentSpeedDirection.split(';')[1]);
+        case "Profile2":
+          return val = parseFloat(this.sensorDatelist[0].Middle_CurrentSpeedDirection.split(';')[1]);
+        case "Profile3":
+          return val = parseFloat(this.sensorDatelist[0].Lower_CurrentSpeedDirection.split(';')[1]);
+        case "Profile4":
+          return val = parseFloat(this.sensorDatelist[0].profile4.split(';')[1]);
+        case "Profile5":
+          return val = parseFloat(this.sensorDatelist[0].profile5.split(';')[1]);
+        case "Profile6":
           return val = parseFloat(this.sensorDatelist[0].profile6.split(';')[1]);
-      case "Profile7":
+        case "Profile7":
           return val = parseFloat(this.sensorDatelist[0].profile7.split(';')[1]);
-      case "Profile8":
+        case "Profile8":
           return val = parseFloat(this.sensorDatelist[0].profile8.split(';')[1]);
-      case "Profile9":
+        case "Profile9":
           return val = parseFloat(this.sensorDatelist[0].profile9.split(';')[1]);
-      case "Profile10":
+        case "Profile10":
           return val = parseFloat(this.sensorDatelist[0].profile10.split(';')[1]);
-          
-      default:
-        return NaN
+        case "Profile11":
+          return val = parseFloat(this.sensorDatelist[0].profile11.split(';')[1]);
+        case "Profile12":
+          return val = parseFloat(this.sensorDatelist[0].profile12.split(';')[1]);
+        case "Profile13":
+          return val = parseFloat(this.sensorDatelist[0].profile13.split(';')[1]);
+        case "Profile14":
+          return val = parseFloat(this.sensorDatelist[0].profile14.split(';')[1]);
+        case "Profile15":
+          return val = parseFloat(this.sensorDatelist[0].profile15.split(';')[1]);
+        case "Profile16":
+          return val = parseFloat(this.sensorDatelist[0].profile16.split(';')[1]);
+        case "Profile17":
+          return val = parseFloat(this.sensorDatelist[0].profile17.split(';')[1]);
+        case "Profile18":
+          return val = parseFloat(this.sensorDatelist[0].profile18.split(';')[1]);
+        case "Profile19":
+          return val = parseFloat(this.sensorDatelist[0].profile19.split(';')[1]);
+        case "Profile20":
+          return val = parseFloat(this.sensorDatelist[0].profile20.split(';')[1]);
+        case "Profile21":
+          return val = parseFloat(this.sensorDatelist[0].profile21.split(';')[1]);
+        case "Profile22":
+          return val = parseFloat(this.sensorDatelist[0].profile22.split(';')[1]);
+        case "Profile23":
+          return val = parseFloat(this.sensorDatelist[0].profile23.split(';')[1]);
+        case "Profile24":
+          return val = parseFloat(this.sensorDatelist[0].profile24.split(';')[1]);
+        case "Profile25":
+          return val = parseFloat(this.sensorDatelist[0].profile25.split(';')[1]);
+        case "Profile26":
+          return val = parseFloat(this.sensorDatelist[0].profile26.split(';')[1]);
+        case "Profile27":
+          return val = parseFloat(this.sensorDatelist[0].profile27.split(';')[1]);
+        case "Profile28":
+          return val = parseFloat(this.sensorDatelist[0].profile28.split(';')[1]);
+        case "Profile29":
+          return val = parseFloat(this.sensorDatelist[0].profile29.split(';')[1]);
+        case "Profile30":
+          return val = parseFloat(this.sensorDatelist[0].profile30.split(';')[1]);
+        case "Profile31":
+          return val = parseFloat(this.sensorDatelist[0].profile31.split(';')[1]);
+        case "Profile32":
+          return val = parseFloat(this.sensorDatelist[0].profile32.split(';')[1]);
+        case "Profile33":
+          return val = parseFloat(this.sensorDatelist[0].profile33.split(';')[1]);
+        case "Profile34":
+          return val = parseFloat(this.sensorDatelist[0].profile34.split(';')[1]);
+        case "Profile35":
+          return val = parseFloat(this.sensorDatelist[0].profile35.split(';')[1]);
+        case "Profile36":
+          return val = parseFloat(this.sensorDatelist[0].profile36.split(';')[1]);
+        case "Profile37":
+          return val = parseFloat(this.sensorDatelist[0].profile37.split(';')[1]);
+        case "Profile38":
+          return val = parseFloat(this.sensorDatelist[0].profile38.split(';')[1]);
+        case "Profile39":
+          return val = parseFloat(this.sensorDatelist[0].profile39.split(';')[1]);
+        case "Profile40":
+          return val = parseFloat(this.sensorDatelist[0].profile40.split(';')[1]);
+        default:
+          return NaN;
+      }
+    }
+  
+    return val;
   }
-  }
-  return val;
-
-}
+  
    calculateResult(existingData: number, newData: string | number): number {
     // Check if newData is a number without any signs
     if (typeof newData === 'number') {
@@ -428,7 +526,7 @@ binss:string[]=[];
       this.tide= this.calculateResult(this.sensorDatelist[1].S1_RelativeWaterLevel, this.layout.configs[0].value);
     }
     this.battery = parseFloat(this.sensorDatelist[0].Battery_Voltage);
-   
+   console.log("battery===>", this.battery)
     // this.sensorDatelist=this.layout.sensorDataList;
      this.time = 
     this.format(this.sensorDatelist[0].Date, this.sensorDatelist[0].Time);
@@ -627,22 +725,87 @@ binss:string[]=[];
   }
 }
 
-  e_bin1_name!:string;
-  e_bin2_name!:string;
-  e_bin3_name!:string;
-  e_bin4_name!:string;
-  e_bin5_name!:string;
-  e_bin6_name!:string;
-  e_bin7_name!:string;
+e_bin1_name!: string;
+e_bin2_name!: string;
+e_bin3_name!: string;
+e_bin4_name!: string;
+e_bin5_name!: string;
+e_bin6_name!: string;
+e_bin7_name!: string;
+e_bin8_name!: string;
+e_bin9_name!: string;
+e_bin10_name!: string;
+e_bin11_name!: string;
+e_bin12_name!: string;
+e_bin13_name!: string;
+e_bin14_name!: string;
+e_bin15_name!: string;
+e_bin16_name!: string;
+e_bin17_name!: string;
+e_bin18_name!: string;
+e_bin19_name!: string;
+e_bin20_name!: string;
+e_bin21_name!: string;
+e_bin22_name!: string;
+e_bin23_name!: string;
+e_bin24_name!: string;
+e_bin25_name!: string;
+e_bin26_name!: string;
+e_bin27_name!: string;
+e_bin28_name!: string;
+e_bin29_name!: string;
+e_bin30_name!: string;
+e_bin31_name!: string;
+e_bin32_name!: string;
+e_bin33_name!: string;
+e_bin34_name!: string;
+e_bin35_name!: string;
+e_bin36_name!: string;
+e_bin37_name!: string;
 
-  e_bin1_status:boolean = false;
-  e_bin2_status:boolean = false;
-  e_bin3_status:boolean = false;
-  e_bin4_status:boolean = false;
-  e_bin5_status:boolean = false;
-  e_bin6_status:boolean = false;
-  e_bin7_status:boolean = false;
 
+
+
+e_bin1_status: boolean = false;
+e_bin2_status: boolean = false;
+e_bin3_status: boolean = false;
+e_bin4_status: boolean = false;
+e_bin5_status: boolean = false;
+e_bin6_status: boolean = false;
+e_bin7_status: boolean = false;
+e_bin8_status: boolean = false;
+e_bin9_status: boolean = false;
+e_bin10_status: boolean = false;
+e_bin11_status: boolean = false;
+e_bin12_status: boolean = false;
+e_bin13_status: boolean = false;
+e_bin14_status: boolean = false;
+e_bin15_status: boolean = false;
+e_bin16_status: boolean = false;
+e_bin17_status: boolean = false;
+e_bin18_status: boolean = false;
+e_bin19_status: boolean = false;
+e_bin20_status: boolean = false;
+e_bin21_status: boolean = false;
+e_bin22_status: boolean = false;
+e_bin23_status: boolean = false;
+e_bin24_status: boolean = false;
+e_bin25_status: boolean = false;
+e_bin26_status: boolean = false;
+e_bin27_status: boolean = false;
+e_bin28_status: boolean = false;
+e_bin29_status: boolean = false;
+e_bin30_status: boolean = false;
+e_bin31_status: boolean = false;
+e_bin32_status: boolean = false;
+e_bin33_status: boolean = false;
+e_bin34_status: boolean = false;
+e_bin35_status: boolean = false;
+e_bin36_status: boolean = false;
+e_bin37_status: boolean = false;
+
+
+  [key: string]: any; 
 
   e_bins:e_bins[]=[];
   extraBinAssign():boolean{
@@ -655,45 +818,52 @@ binss:string[]=[];
     }
 
     console.log("filteredBinsNames", this.e_bins);
+    for(let i=0; i<this.filteredBinsNames.length; i++){
+      this[`innerCurrent${i+1}`] = this.updates(this.filteredBinsNames[i], 'speed');
+      this[`innerdirection${i+1}`] = this.updates(this.filteredBinsNames[i], 'direction');
+      this[`inCompval${i+1}`] = this.direction(this[`innerdirection${i+1}`]);
+      this[`e_bin${i+1}_name`] = this.e_bins[i].name;
+      this[`e_bin${i+1}_status`] = this.e_bins[i].show;
+    }
+    console.log("directions",this.innerdirection2);
 
+    // this.innerCurrent1 = this.updates(this.filteredBinsNames[0], 'speed');
+    // this.innerCurrent2 = this.updates(this.filteredBinsNames[1], 'speed');
+    // this.innerCurrent3 = this.updates(this.filteredBinsNames[2], 'speed');
+    // this.innerCurrent4 = this.updates(this.filteredBinsNames[3], 'speed');
+    // this.innerCurrent5 = this.updates(this.filteredBinsNames[4], 'speed');
+    // this.innerCurrent6 = this.updates(this.filteredBinsNames[5], 'speed');
+    // this.innerCurrent7 = this.updates(this.filteredBinsNames[6], 'speed');
+    // this.innerdirection1 = this.updates(this.filteredBinsNames[0], 'direction');
+    // this.innerdirection2 = this.updates(this.filteredBinsNames[1], 'direction');
+    // this.innerdirection3 = this.updates(this.filteredBinsNames[2], 'direction');
+    // this.innerdirection4 = this.updates(this.filteredBinsNames[3], 'direction');
+    // this.innerdirection5 = this.updates(this.filteredBinsNames[4], 'direction');
+    // this.innerdirection6 = this.updates(this.filteredBinsNames[5], 'direction');
+    // this.innerdirection7 = this.updates(this.filteredBinsNames[6], 'direction');
+    // this.inCompval1 = this.direction(this.innerdirection1);
+    // this.inCompval2 = this.direction(this.innerdirection2);
+    // this.inCompval3 = this.direction(this.innerdirection3);
+    // this.inCompval4 = this.direction(this.innerdirection4);
+    // this.inCompval5 = this.direction(this.innerdirection5);
+    // this.inCompval6 = this.direction(this.innerdirection6);
+    // this.inCompval7 = this.direction(this.innerdirection7);
 
-    this.innerCurrent1 = this.updates(this.filteredBinsNames[0], 'speed');
-    this.innerCurrent2 = this.updates(this.filteredBinsNames[1], 'speed');
-    this.innerCurrent3 = this.updates(this.filteredBinsNames[2], 'speed');
-    this.innerCurrent4 = this.updates(this.filteredBinsNames[3], 'speed');
-    this.innerCurrent5 = this.updates(this.filteredBinsNames[4], 'speed');
-    this.innerCurrent6 = this.updates(this.filteredBinsNames[5], 'speed');
-    this.innerCurrent7 = this.updates(this.filteredBinsNames[6], 'speed');
-    this.innerdirection1 = this.updates(this.filteredBinsNames[0], 'direction');
-    this.innerdirection2 = this.updates(this.filteredBinsNames[1], 'direction');
-    this.innerdirection3 = this.updates(this.filteredBinsNames[2], 'direction');
-    this.innerdirection4 = this.updates(this.filteredBinsNames[3], 'direction');
-    this.innerdirection5 = this.updates(this.filteredBinsNames[4], 'direction');
-    this.innerdirection6 = this.updates(this.filteredBinsNames[5], 'direction');
-    this.innerdirection7 = this.updates(this.filteredBinsNames[6], 'direction');
-    this.inCompval1 = this.direction(this.innerdirection1);
-    this.inCompval2 = this.direction(this.innerdirection2);
-    this.inCompval3 = this.direction(this.innerdirection3);
-    this.inCompval4 = this.direction(this.innerdirection4);
-    this.inCompval5 = this.direction(this.innerdirection5);
-    this.inCompval6 = this.direction(this.innerdirection6);
-    this.inCompval7 = this.direction(this.innerdirection7);
+    // this.e_bin1_name = this.e_bins[0].name;
+    // this.e_bin2_name = this.e_bins[1].name;
+    // this.e_bin3_name = this.e_bins[2].name;
+    // this.e_bin4_name = this.e_bins[3].name;
+    // this.e_bin5_name = this.e_bins[4].name;
+    // this.e_bin6_name = this.e_bins[5].name;
+    // this.e_bin7_name = this.e_bins[6].name;
 
-    this.e_bin1_name = this.e_bins[0].name;
-    this.e_bin2_name = this.e_bins[1].name;
-    this.e_bin3_name = this.e_bins[2].name;
-    this.e_bin4_name = this.e_bins[3].name;
-    this.e_bin5_name = this.e_bins[4].name;
-    this.e_bin6_name = this.e_bins[5].name;
-    this.e_bin7_name = this.e_bins[6].name;
-
-    this.e_bin1_status = this.e_bins[0].show;
-    this.e_bin2_status = this.e_bins[1].show;
-    this.e_bin3_status = this.e_bins[2].show;
-    this.e_bin4_status = this.e_bins[3].show;
-    this.e_bin5_status = this.e_bins[4].show;
-    this.e_bin6_status = this.e_bins[5].show;
-    this.e_bin7_status = this.e_bins[6].show;
+    // this.e_bin1_status = this.e_bins[0].show;
+    // this.e_bin2_status = this.e_bins[1].show;
+    // this.e_bin3_status = this.e_bins[2].show;
+    // this.e_bin4_status = this.e_bins[3].show;
+    // this.e_bin5_status = this.e_bins[4].show;
+    // this.e_bin6_status = this.e_bins[5].show;
+    // this.e_bin7_status = this.e_bins[6].show;
     
     return !this.innerCurrent1 && !this.innerCurrent2 && !this.innerCurrent3 && !this.innerCurrent4
     && !this.innerCurrent5 && !this.innerCurrent6 && !this.innerCurrent7
@@ -709,4 +879,332 @@ binss:string[]=[];
     && !this.innerdirection7 ? false : true;
     
   }
+
+
+
+
+
+
+dummyData1:SensorData[]=[
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:30:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":103,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:20:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":102,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 12.90935942,
+    "LONG": 77.59784407,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": 2.37,
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:10:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":101,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  }
+]
+
+
+dummyData2:SensorData2[]=[
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:30:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 63,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+},
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:20:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 62,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+},
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.994803,
+  "LONG": 72.80921,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":2.37,
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:10:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 61,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11":"13.3;123.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+
+}
+]
 }

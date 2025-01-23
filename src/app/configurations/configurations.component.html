@@ -284,9 +284,13 @@
                                         <p>Surface Current</p>
                                         <select [(ngModel)]="selectedSurface" (change)="CurrentSelect()">
                                             <option value="">--Please choose an option--</option>
-                                            <option
-                                                *ngFor="let item of getFilteredBins(selectedSurface, selectedMiddle, selectedLower, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                [value]="item">
+                                            <option *ngFor="let item of getFilteredBins(selectedSurface, selectedMiddle, selectedLower, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                e_bin36, e_bin37)" [value]="item">
                                                 {{ item }}
                                             </option>
                                         </select>
@@ -297,9 +301,13 @@
 
                                         <select [(ngModel)]="selectedMiddle" (change)="CurrentSelect()">
                                             <option value="">--Please choose an option--</option>
-                                            <option
-                                                *ngFor="let item of getFilteredBins(selectedMiddle, selectedSurface, selectedLower, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                [value]="item">
+                                            <option *ngFor="let item of getFilteredBins(selectedMiddle, selectedSurface, selectedLower, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                e_bin36, e_bin37)" [value]="item">
                                                 {{ item }}
                                             </option>
                                         </select>
@@ -309,9 +317,13 @@
                                         <p>Lower Current</p>
                                         <select [(ngModel)]="selectedLower" (change)="CurrentSelect()">
                                             <option value="">--Please choose an option--</option>
-                                            <option
-                                                *ngFor="let item of getFilteredBins(selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                [value]="item">
+                                            <option *ngFor="let item of getFilteredBins(selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                e_bin36, e_bin37)" [value]="item">
                                                 {{ item }}
                                             </option>
                                         </select>
@@ -322,8 +334,8 @@
                                     <h2 style="margin-bottom:  20px; margin-top: 15px;">Assign Other Profiles</h2>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit1">{{editone}}</p>
-                                            <input type="text" [(ngModel)]="editone" *ngIf="isEdit1">
+                                            <p *ngIf="!isEdit1">{{edit1}}</p>
+                                            <input type="text" [(ngModel)]="edit1" *ngIf="isEdit1">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('one')"
                                                 *ngIf="!isEdit1"></i>
 
@@ -337,9 +349,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin1" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin1,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin1,selectedLower, selectedSurface, selectedMiddle,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -351,8 +367,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit2">{{edittwo}}</p>
-                                            <input type="text" [(ngModel)]="edittwo" *ngIf="isEdit2">
+                                            <p *ngIf="!isEdit2">{{edit2}}</p>
+                                            <input type="text" [(ngModel)]="edit2" *ngIf="isEdit2">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('two')"
                                                 *ngIf="!isEdit2"></i>
 
@@ -366,9 +382,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin2" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin2,selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin2,selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin3,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -380,8 +400,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit3">{{editthree}}</p>
-                                            <input type="text" [(ngModel)]="editthree" *ngIf="isEdit3">
+                                            <p *ngIf="!isEdit3">{{edit3}}</p>
+                                            <input type="text" [(ngModel)]="edit3" *ngIf="isEdit3">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('three')"
                                                 *ngIf="!isEdit3"></i>
 
@@ -395,9 +415,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin3" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin3,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin1,e_bin4, e_bin5, e_bin6, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin3,selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2,e_bin4, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -409,8 +433,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit4">{{editfour}}</p>
-                                            <input type="text" [(ngModel)]="editfour" *ngIf="isEdit4">
+                                            <p *ngIf="!isEdit4">{{edit4}}</p>
+                                            <input type="text" [(ngModel)]="edit4" *ngIf="isEdit4">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('four')"
                                                 *ngIf="!isEdit4"></i>
 
@@ -424,9 +448,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin4" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin4,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin3,e_bin1, e_bin5, e_bin6, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin4,selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3, e_bin5, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -438,8 +466,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit5">{{editfive}}</p>
-                                            <input type="text" [(ngModel)]="editfive" *ngIf="isEdit5">
+                                            <p *ngIf="!isEdit5">{{edit5}}</p>
+                                            <input type="text" [(ngModel)]="edit5" *ngIf="isEdit5">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('five')"
                                                 *ngIf="!isEdit5"></i>
 
@@ -453,9 +481,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin5" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin5,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin3,e_bin4, e_bin1, e_bin6, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin5,selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3,e_bin4, e_bin6, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -467,8 +499,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit6">{{editsix}}</p>
-                                            <input type="text" [(ngModel)]="editsix" *ngIf="isEdit6">
+                                            <p *ngIf="!isEdit6">{{edit6}}</p>
+                                            <input type="text" [(ngModel)]="edit6" *ngIf="isEdit6">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('six')"
                                                 *ngIf="!isEdit6"></i>
 
@@ -482,9 +514,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin6" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin6,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin3,e_bin4, e_bin5, e_bin1, e_bin7)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin6,selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin7 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -496,8 +532,8 @@
                                     </div>
                                     <div class="stationName">
                                         <div class="edit_title">
-                                            <p *ngIf="!isEdit7">{{editseven}}</p>
-                                            <input type="text" [(ngModel)]="editseven" *ngIf="isEdit7">
+                                            <p *ngIf="!isEdit7">{{edit7}}</p>
+                                            <input type="text" [(ngModel)]="edit7" *ngIf="isEdit7">
                                             <i class="fa-solid fa-pencil" (click)="onEditTap('seven')"
                                                 *ngIf="!isEdit7"></i>
 
@@ -511,9 +547,13 @@
                                         <div class="inpu">
                                             <select [(ngModel)]="e_bin7" (change)="CurrentSelect()">
                                                 <option value="">--Please choose an option--</option>
-                                                <option
-                                                    *ngFor="let item of getFilteredBins(e_bin7,selectedLower, selectedSurface, selectedMiddle, e_bin2, e_bin3,e_bin4, e_bin5, e_bin6, e_bin1)"
-                                                    [value]="item">
+                                                <option *ngFor="let item of getFilteredBins(e_bin7,selectedLower, selectedSurface, selectedMiddle, e_bin1,e_bin2, e_bin3,e_bin4, e_bin5, e_bin6 ,e_bin8, e_bin9, e_bin10, 
+                                                    e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, 
+                                                    e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, 
+                                                    e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, 
+                                                    e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, 
+                                                    e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, 
+                                                    e_bin36, e_bin37)" [value]="item">
                                                     {{ item }}
                                                 </option>
                                             </select>
@@ -523,18 +563,726 @@
                                         </div>
 
                                     </div>
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'Select Options'"
-                                        [settings]="dropdownSettings" [data]="dropdownList" [(ngModel)]="selectedItems"
-                                        (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
-                                    </ng-multiselect-dropdown> -->
-                                    <!-- <div class="checkbox" *ngFor="let data of filterdList; let i = index">
-                                        <input class="check" type="checkbox" id="che{{i}}"
-                                            [checked]="selected_e_bins.includes(data)"
-                                            (change)="onCheckboxChange($event, data, i)" />
-                                        <p>{{ data }}</p>
-                                    </div> -->
+
+                                    <!-- for balance 30 -->
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit8">{{edit8}}</p>
+                                            <input type="text" [(ngModel)]="edit8" *ngIf="isEdit8">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('eight')"
+                                                *ngIf="!isEdit8"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('eight')" *ngIf="isEdit8"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin8" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin8, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('eight')" *ngIf="isView8"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('eight')"
+                                                *ngIf="!isView8"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit9">{{edit9}}</p>
+                                            <input type="text" [(ngModel)]="edit9" *ngIf="isEdit9">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('nine')"
+                                                *ngIf="!isEdit9"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('nine')" *ngIf="isEdit9"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin9" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin9, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('nine')" *ngIf="isView9"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('nine')"
+                                                *ngIf="!isView9"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit10">{{edit10}}</p>
+                                            <input type="text" [(ngModel)]="edit10" *ngIf="isEdit10">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('ten')"
+                                                *ngIf="!isEdit10"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('ten')" *ngIf="isEdit10"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin10" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin10, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('ten')" *ngIf="isView10"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('ten')"
+                                                *ngIf="!isView10"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit11">{{edit11}}</p>
+                                            <input type="text" [(ngModel)]="edit11" *ngIf="isEdit11">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('eleven')"
+                                                *ngIf="!isEdit11"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('eleven')" *ngIf="isEdit11"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin11" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin11, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('eleven')"
+                                                *ngIf="isView11"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('eleven')"
+                                                *ngIf="!isView11"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit12">{{edit12}}</p>
+                                            <input type="text" [(ngModel)]="edit12" *ngIf="isEdit12">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twelve')"
+                                                *ngIf="!isEdit12"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twelve')" *ngIf="isEdit12"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin12" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin12, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twelve')"
+                                                *ngIf="isView12"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twelve')"
+                                                *ngIf="!isView12"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit13">{{edit13}}</p>
+                                            <input type="text" [(ngModel)]="edit13" *ngIf="isEdit13">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirteen')"
+                                                *ngIf="!isEdit13"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirteen')" *ngIf="isEdit13"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin13" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin13, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirteen')"
+                                                *ngIf="isView13"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirteen')"
+                                                *ngIf="!isView13"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit14">{{edit14}}</p>
+                                            <input type="text" [(ngModel)]="edit14" *ngIf="isEdit14">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('fourteen')"
+                                                *ngIf="!isEdit14"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('fourteen')" *ngIf="isEdit14"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin14" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin14, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('fourteen')"
+                                                *ngIf="isView14"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('fourteen')"
+                                                *ngIf="!isView14"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit15">{{edit15}}</p>
+                                            <input type="text" [(ngModel)]="edit15" *ngIf="isEdit15">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('fifteen')"
+                                                *ngIf="!isEdit15"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('fifteen')" *ngIf="isEdit15"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin15" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin15, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('fifteen')"
+                                                *ngIf="isView15"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('fifteen')"
+                                                *ngIf="!isView15"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit16">{{edit16}}</p>
+                                            <input type="text" [(ngModel)]="edit16" *ngIf="isEdit16">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('sixteen')"
+                                                *ngIf="!isEdit16"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('sixteen')" *ngIf="isEdit16"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin16" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin16, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('sixteen')"
+                                                *ngIf="isView16"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('sixteen')"
+                                                *ngIf="!isView16"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit17">{{edit17}}</p>
+                                            <input type="text" [(ngModel)]="edit17" *ngIf="isEdit17">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('seventeen')"
+                                                *ngIf="!isEdit17"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('seventeen')" *ngIf="isEdit17"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin17" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin17, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('seventeen')"
+                                                *ngIf="isView17"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('seventeen')"
+                                                *ngIf="!isView17"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit18">{{edit18}}</p>
+                                            <input type="text" [(ngModel)]="edit18" *ngIf="isEdit18">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('eighteen')"
+                                                *ngIf="!isEdit18"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('eighteen')" *ngIf="isEdit18"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin18" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin18, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('eighteen')"
+                                                *ngIf="isView18"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('eighteen')"
+                                                *ngIf="!isView18"></i>
+                                        </div>
+                                    </div>
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit19">{{edit19}}</p>
+                                            <input type="text" [(ngModel)]="edit19" *ngIf="isEdit19">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('nineteen')"
+                                                *ngIf="!isEdit19"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('nineteen')" *ngIf="isEdit19"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin19" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin19, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('nineteen')"
+                                                *ngIf="isView19"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('nineteen')"
+                                                *ngIf="!isView19"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit20">{{edit20}}</p>
+                                            <input type="text" [(ngModel)]="edit20" *ngIf="isEdit20">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twenty')"
+                                                *ngIf="!isEdit20"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twenty')" *ngIf="isEdit20"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin20" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin20, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twenty')"
+                                                *ngIf="isView20"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twenty')"
+                                                *ngIf="!isView20"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit21">{{edit21}}</p>
+                                            <input type="text" [(ngModel)]="edit21" *ngIf="isEdit21">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentyone')"
+                                                *ngIf="!isEdit21"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentyone')" *ngIf="isEdit21"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin21" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin21, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentyone')"
+                                                *ngIf="isView21"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentyone')"
+                                                *ngIf="!isView21"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit22">{{edit22}}</p>
+                                            <input type="text" [(ngModel)]="edit22" *ngIf="isEdit22">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentytwo')"
+                                                *ngIf="!isEdit22"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentytwo')" *ngIf="isEdit22"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin22" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin22, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentytwo')"
+                                                *ngIf="isView22"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentytwo')"
+                                                *ngIf="!isView22"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit23">{{edit23}}</p>
+                                            <input type="text" [(ngModel)]="edit23" *ngIf="isEdit23">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentythree')"
+                                                *ngIf="!isEdit23"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentythree')" *ngIf="isEdit23"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin23" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin23, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentythree')"
+                                                *ngIf="isView23"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentythree')"
+                                                *ngIf="!isView23"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit24">{{edit24}}</p>
+                                            <input type="text" [(ngModel)]="edit24" *ngIf="isEdit24">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentyfour')"
+                                                *ngIf="!isEdit24"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentyfour')" *ngIf="isEdit24"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin24" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin24, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentyfour')"
+                                                *ngIf="isView24"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentyfour')"
+                                                *ngIf="!isView24"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit25">{{edit25}}</p>
+                                            <input type="text" [(ngModel)]="edit25" *ngIf="isEdit25">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentyfive')"
+                                                *ngIf="!isEdit25"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentyfive')" *ngIf="isEdit25"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin25" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin25, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentyfive')"
+                                                *ngIf="isView25"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentyfive')"
+                                                *ngIf="!isView25"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit26">{{edit26}}</p>
+                                            <input type="text" [(ngModel)]="edit26" *ngIf="isEdit26">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentysix')"
+                                                *ngIf="!isEdit26"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentysix')" *ngIf="isEdit26"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin26" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin26, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentysix')"
+                                                *ngIf="isView26"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentysix')"
+                                                *ngIf="!isView26"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit27">{{edit27}}</p>
+                                            <input type="text" [(ngModel)]="edit27" *ngIf="isEdit27">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentyseven')"
+                                                *ngIf="!isEdit27"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentyseven')" *ngIf="isEdit27"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin27" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin27, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentyseven')"
+                                                *ngIf="isView27"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentyseven')"
+                                                *ngIf="!isView27"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit28">{{edit28}}</p>
+                                            <input type="text" [(ngModel)]="edit28" *ngIf="isEdit28">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentyeight')"
+                                                *ngIf="!isEdit28"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentyeight')" *ngIf="isEdit28"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin28" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin28, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentyeight')"
+                                                *ngIf="isView28"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentyeight')"
+                                                *ngIf="!isView28"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit29">{{edit29}}</p>
+                                            <input type="text" [(ngModel)]="edit29" *ngIf="isEdit29">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('twentynine')"
+                                                *ngIf="!isEdit29"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('twentynine')" *ngIf="isEdit29"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin29" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin29, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('twentynine')"
+                                                *ngIf="isView29"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('twentynine')"
+                                                *ngIf="!isView29"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit30">{{edit30}}</p>
+                                            <input type="text" [(ngModel)]="edit30" *ngIf="isEdit30">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirty')"
+                                                *ngIf="!isEdit30"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirty')" *ngIf="isEdit30"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin30" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin30, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirty')"
+                                                *ngIf="isView30"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirty')"
+                                                *ngIf="!isView30"></i>
+                                        </div>
+                                    </div>
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit31">{{edit31}}</p>
+                                            <input type="text" [(ngModel)]="edit31" *ngIf="isEdit31">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtyone')"
+                                                *ngIf="!isEdit31"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtyone')" *ngIf="isEdit31"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin31" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin31, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtyone')"
+                                                *ngIf="isView31"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtyone')"
+                                                *ngIf="!isView31"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit32">{{edit32}}</p>
+                                            <input type="text" [(ngModel)]="edit32" *ngIf="isEdit32">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtytwo')"
+                                                *ngIf="!isEdit32"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtytwo')" *ngIf="isEdit32"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin32" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin32, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin33, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtytwo')"
+                                                *ngIf="isView32"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtytwo')"
+                                                *ngIf="!isView32"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit33">{{edit33}}</p>
+                                            <input type="text" [(ngModel)]="edit33" *ngIf="isEdit33">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtythree')"
+                                                *ngIf="!isEdit33"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtythree')" *ngIf="isEdit33"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin33" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin33, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin34, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtythree')"
+                                                *ngIf="isView33"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtythree')"
+                                                *ngIf="!isView33"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit34">{{edit34}}</p>
+                                            <input type="text" [(ngModel)]="edit34" *ngIf="isEdit34">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtyfour')"
+                                                *ngIf="!isEdit34"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtyfour')" *ngIf="isEdit34"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin34" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin34, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin35, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtyfour')"
+                                                *ngIf="isView34"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtyfour')"
+                                                *ngIf="!isView34"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit35">{{edit35}}</p>
+                                            <input type="text" [(ngModel)]="edit35" *ngIf="isEdit35">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtyfive')"
+                                                *ngIf="!isEdit35"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtyfive')" *ngIf="isEdit35"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin35" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin35, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin36, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtyfive')"
+                                                *ngIf="isView35"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtyfive')"
+                                                *ngIf="!isView35"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit36">{{edit36}}</p>
+                                            <input type="text" [(ngModel)]="edit36" *ngIf="isEdit36">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtysix')"
+                                                *ngIf="!isEdit36"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtysix')" *ngIf="isEdit36"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin36" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin36, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin37)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtysix')"
+                                                *ngIf="isView36"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtysix')"
+                                                *ngIf="!isView36"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="stationName">
+                                        <div class="edit_title">
+                                            <p *ngIf="!isEdit37">{{edit37}}</p>
+                                            <input type="text" [(ngModel)]="edit37" *ngIf="isEdit37">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap('thirtyseven')"
+                                                *ngIf="!isEdit37"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap('thirtyseven')" *ngIf="isEdit37"></i>
+                                        </div>
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bin37" (change)="CurrentSelect()">
+                                                <option value="">--Please choose an option--</option>
+                                                <option
+                                                    *ngFor="let item of getFilteredBins(e_bin37, selectedLower, selectedSurface, selectedMiddle, e_bin1, e_bin2, e_bin3, e_bin4, e_bin5, e_bin6, e_bin7, e_bin8, e_bin9, e_bin10, e_bin11, e_bin12, e_bin13, e_bin14, e_bin15, e_bin16, e_bin17, e_bin18, e_bin19, e_bin20, e_bin21, e_bin22, e_bin23, e_bin24, e_bin25, e_bin26, e_bin27, e_bin28, e_bin29, e_bin30, e_bin31, e_bin32, e_bin33, e_bin34, e_bin35, e_bin36)"
+                                                    [value]="item">{{ item }}</option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap('thirtyseven')"
+                                                *ngIf="isView37"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap('thirtyseven')"
+                                                *ngIf="!isView37"></i>
+                                        </div>
+                                    </div>
 
                                 </div>
+
+
+
+                                <!-- <div class="righte">
+                                    <h2 style="margin-bottom: 20px; margin-top: 15px;">Assign Other Profiles</h2>
+                                    <div class="stationName" *ngFor="let profile of profiles; let i = index">
+                                        <div class="edit_title">
+                                            <p *ngIf="!profile.isEdit">{{ profile.editText }}</p>
+                                            <input type="text" [(ngModel)]="profile.selectedBin" *ngIf="profile.isEdit">
+                                            <i class="fa-solid fa-pencil" (click)="onEditTap(i)"
+                                                *ngIf="!profile.isEdit"></i>
+                                            <i style="color: green;" class="fa-solid fa-circle-check"
+                                                (click)="onOkTap(i)" *ngIf="profile.isEdit"></i>
+                                        </div>
+
+                                        <div class="inpu">
+                                            <select [(ngModel)]="e_bins[i]"
+                                                (change)="CurrentSelect(i)">
+                                                <option value="">--Please choose an option--</option>
+                                                <option *ngFor="let item of getFilteredBinsForProfile(profile)"
+                                                    [value]="item">
+                                                    {{ item }}
+                                                </option>
+                                            </select>
+                                            <i class="fa-solid fa-eye" (click)="onViewTap(i)"
+                                                *ngIf="profile.isView"></i>
+                                            <i class="fa-solid fa-eye-slash" (click)="onViewTap(i)"
+                                                *ngIf="!profile.isView"></i>
+                                        </div>
+                                    </div>
+                                </div> -->
+
                             </div>
 
                             <!-- 

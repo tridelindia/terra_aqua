@@ -271,11 +271,46 @@ const saveSensorData = async (req, res) => {
         Profile7,
         Profile8,
         Profile9,
-        Profile10
+        Profile10,
+        Profile11,
+        Profile12,
+        Profile13,
+        Profile14,
+        Profile15,
+        Profile16,
+        Profile17,
+        Profile18,
+        Profile19,
+        Profile20,
+        Profile21,
+        Profile22,
+        Profile23,
+        Profile24,
+        Profile25,
+        Profile26,
+        Profile27,
+        Profile28,
+        Profile29,
+        Profile30,
+        Profile31,
+        Profile32,
+        Profile33,
+        Profile34,
+        Profile35,
+        Profile36,
+        Profile37,
+        Profile38,
+        Profile39,
+        Profile40
     } = req.body;
 
     // Validate input
-    if (!StationID || !Date || !Time || !UTC_Time || !LAT || !LONG || !BatteryVoltage || !GPS_Date || !S1_RelativeWaterLevel || !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection || !Lower_CurrentSpeedDirection ||!Profile4 ||!Profile5||!Profile6||!Profile7||!Profile8||!Profile9||!Profile10) {
+    if (!StationID || !Date || !Time || !UTC_Time || !LAT || !LONG || !BatteryVoltage || !GPS_Date || !S1_RelativeWaterLevel || !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection || !Lower_CurrentSpeedDirection || 
+        !Profile4 || !Profile5 || !Profile6 || !Profile7 || !Profile8 || !Profile9 || !Profile10 || 
+        !Profile11 || !Profile12 || !Profile13 || !Profile14 || !Profile15 || !Profile16 || !Profile17 || !Profile18 || !Profile19 || !Profile20 || !Profile21 || !Profile22 || !Profile23 || !Profile24 || 
+        !Profile25 || !Profile26 || !Profile27 || !Profile28 || !Profile29 || !Profile30 || !Profile31 || 
+        !Profile32 || !Profile33 || !Profile34 || !Profile35 || !Profile36 || !Profile37 || !Profile38 || 
+        !Profile39 || !Profile40) {
         return res.status(400).json({ message: 'Invalid input data' });
     }
 
@@ -289,9 +324,21 @@ const saveSensorData = async (req, res) => {
         // Prepare the SQL query
         const query = `
             INSERT INTO temsv2.dbo.sensorsData (
-                StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, profile4, profile5, profile6, profile7, profile8, profile9, profile10
+                StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
+                S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
+                profile4, profile5, profile6, profile7, profile8, profile9, profile10,
+                profile11, profile12, profile13, profile14, profile15, profile16, profile17, profile18, profile19, 
+                profile20, profile21, profile22, profile23, profile24, profile25, profile26, profile27, profile28, 
+                profile29, profile30, profile31, profile32, profile33, profile34, profile35, profile36, profile37, 
+                profile38, profile39, profile40
             ) VALUES (
-                @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @BatteryVoltage, @GPS_Date, @S1_RelativeWaterLevel, @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10
+                @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @BatteryVoltage, @GPS_Date, @S1_RelativeWaterLevel, 
+                @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, 
+                @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10,
+                @Profile11, @Profile12, @Profile13, @Profile14, @Profile15, @Profile16, @Profile17, @Profile18, @Profile19, 
+                @Profile20, @Profile21, @Profile22, @Profile23, @Profile24, @Profile25, @Profile26, @Profile27, @Profile28, 
+                @Profile29, @Profile30, @Profile31, @Profile32, @Profile33, @Profile34, @Profile35, @Profile36, @Profile37, 
+                @Profile38, @Profile39, @Profile40
             )
         `;
 
@@ -308,21 +355,50 @@ const saveSensorData = async (req, res) => {
         request.input('S2_SurfaceCurrentSpeedDirection', sql.VarChar, '0.69;221.6'); // Static data, adjust as needed
         request.input('Middle_CurrentSpeedDirection', sql.VarChar, '0.71;249.3'); // Static data, adjust as needed
         request.input('Lower_CurrentSpeedDirection', sql.VarChar, '0.32;254.7'); // Static data, adjust as needed
-        request.input('profile4', sql.VarChar, Profile4);
-        request.input('profile5', sql.VarChar, Profile5);
-        request.input('profile6', sql.VarChar, Profile6);
-        request.input('profile7', sql.VarChar, Profile7);
-        request.input('profile8', sql.VarChar, Profile8);
-        request.input('profile9', sql.VarChar, Profile9);
-        request.input('profile10', sql.VarChar, Profile10);
-     
+        request.input('Profile4', sql.VarChar, Profile4);
+        request.input('Profile5', sql.VarChar, Profile5);
+        request.input('Profile6', sql.VarChar, Profile6);
+        request.input('Profile7', sql.VarChar, Profile7);
+        request.input('Profile8', sql.VarChar, Profile8);
+        request.input('Profile9', sql.VarChar, Profile9);
+        request.input('Profile10', sql.VarChar, Profile10);
+        request.input('Profile11', sql.VarChar, Profile11);
+        request.input('Profile12', sql.VarChar, Profile12);
+        request.input('Profile13', sql.VarChar, Profile13);
+        request.input('Profile14', sql.VarChar, Profile14);
+        request.input('Profile15', sql.VarChar, Profile15);
+        request.input('Profile16', sql.VarChar, Profile16);
+        request.input('Profile17', sql.VarChar, Profile17);
+        request.input('Profile18', sql.VarChar, Profile18);
+        request.input('Profile19', sql.VarChar, Profile19);
+        request.input('Profile20', sql.VarChar, Profile20);
+        request.input('Profile21', sql.VarChar, Profile21);
+        request.input('Profile22', sql.VarChar, Profile22);
+        request.input('Profile23', sql.VarChar, Profile23);
+        request.input('Profile24', sql.VarChar, Profile24);
+        request.input('Profile25', sql.VarChar, Profile25);
+        request.input('Profile26', sql.VarChar, Profile26);
+        request.input('Profile27', sql.VarChar, Profile27);
+        request.input('Profile28', sql.VarChar, Profile28);
+        request.input('Profile29', sql.VarChar, Profile29);
+        request.input('Profile30', sql.VarChar, Profile30);
+        request.input('Profile31', sql.VarChar, Profile31);
+        request.input('Profile32', sql.VarChar, Profile32);
+        request.input('Profile33', sql.VarChar, Profile33);
+        request.input('Profile34', sql.VarChar, Profile34);
+        request.input('Profile35', sql.VarChar, Profile35);
+        request.input('Profile36', sql.VarChar, Profile36);
+        request.input('Profile37', sql.VarChar, Profile37);
+        request.input('Profile38', sql.VarChar, Profile38);
+        request.input('Profile39', sql.VarChar, Profile39);
+        request.input('Profile40', sql.VarChar, Profile40);
 
         const result = await request.query(query);
 
         // Send response
         res.status(201).json({ message: 'Sensor data saved successfully', data: req.body });
-       await axios.get('http://192.168.0.100:3000/api/split');
-       console.log('Successfully triggered test API for tide and currents');
+        await axios.get('http://192.168.0.100:3000/api/split');
+        console.log('Successfully triggered test API for tide and currents');
     } catch (err) {
         console.error('Database error:', err);
         res.status(500).json({ message: 'Error saving data', error: err });
@@ -351,6 +427,36 @@ const saveSensorData2 = async (req, res) => {
         Profile8,
         Profile9,
         Profile10,
+        Profile11,
+        Profile12,
+        Profile13,
+        Profile14,
+        Profile15,
+        Profile16,
+        Profile17,
+        Profile18,
+        Profile19,
+        Profile20,
+        Profile21,
+        Profile22,
+        Profile23,
+        Profile24,
+        Profile25,
+        Profile26,
+        Profile27,
+        Profile28,
+        Profile29,
+        Profile30,
+        Profile31,
+        Profile32,
+        Profile33,
+        Profile34,
+        Profile35,
+        Profile36,
+        Profile37,
+        Profile38,
+        Profile39,
+        Profile40
     } = req.body;
 
     // Validate input
@@ -359,7 +465,11 @@ const saveSensorData2 = async (req, res) => {
         !BatteryVoltage || !GPS_Date || !S1_RelativeWaterLevel ||
         !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection ||
         !Lower_CurrentSpeedDirection || !Profile4 || !Profile5 || !Profile6 ||
-        !Profile7 || !Profile8 || !Profile9 || !Profile10
+        !Profile7 || !Profile8 || !Profile9 || !Profile10 ||
+        !Profile11 || !Profile12 || !Profile13 || !Profile14 || !Profile15 || !Profile16 || !Profile17 || !Profile18 || !Profile19 ||
+        !Profile20 || !Profile21 || !Profile22 || !Profile23 || !Profile24 || !Profile25 || !Profile26 || !Profile27 || !Profile28 ||
+        !Profile29 || !Profile30 || !Profile31 || !Profile32 || !Profile33 || !Profile34 || !Profile35 || !Profile36 || !Profile37 ||
+        !Profile38 || !Profile39 || !Profile40
     ) {
         return res.status(400).json({ message: 'Invalid input data' });
     }
@@ -382,11 +492,19 @@ const saveSensorData2 = async (req, res) => {
             INSERT INTO temsv2.dbo.cwprs2 (
                 StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
                 S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
-                profile4, profile5, profile6, profile7, profile8, profile9, profile10, dateTime
+                profile4, profile5, profile6, profile7, profile8, profile9, profile10,
+                profile11, profile12, profile13, profile14, profile15, profile16, profile17, profile18, profile19, 
+                profile20, profile21, profile22, profile23, profile24, profile25, profile26, profile27, profile28, 
+                profile29, profile30, profile31, profile32, profile33, profile34, profile35, profile36, profile37, 
+                profile38, profile39, profile40, dateTime
             ) VALUES (
                 @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @BatteryVoltage, @GPS_Date, @S1_RelativeWaterLevel, 
                 @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, 
-                @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10, @dateTime
+                @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10,
+                @Profile11, @Profile12, @Profile13, @Profile14, @Profile15, @Profile16, @Profile17, @Profile18, @Profile19, 
+                @Profile20, @Profile21, @Profile22, @Profile23, @Profile24, @Profile25, @Profile26, @Profile27, @Profile28, 
+                @Profile29, @Profile30, @Profile31, @Profile32, @Profile33, @Profile34, @Profile35, @Profile36, @Profile37, 
+                @Profile38, @Profile39, @Profile40, @dateTime
             )
         `;
 
@@ -403,13 +521,43 @@ const saveSensorData2 = async (req, res) => {
         request.input('S2_SurfaceCurrentSpeedDirection', sql.VarChar, S2_SurfaceCurrentSpeedDirection);
         request.input('Middle_CurrentSpeedDirection', sql.VarChar, Middle_CurrentSpeedDirection);
         request.input('Lower_CurrentSpeedDirection', sql.VarChar, Lower_CurrentSpeedDirection);
-        request.input('profile4', sql.VarChar, Profile4);
-        request.input('profile5', sql.VarChar, Profile5);
-        request.input('profile6', sql.VarChar, Profile6);
-        request.input('profile7', sql.VarChar, Profile7);
-        request.input('profile8', sql.VarChar, Profile8);
-        request.input('profile9', sql.VarChar, Profile9);
-        request.input('profile10', sql.VarChar, Profile10);
+        request.input('Profile4', sql.VarChar, Profile4);
+        request.input('Profile5', sql.VarChar, Profile5);
+        request.input('Profile6', sql.VarChar, Profile6);
+        request.input('Profile7', sql.VarChar, Profile7);
+        request.input('Profile8', sql.VarChar, Profile8);
+        request.input('Profile9', sql.VarChar, Profile9);
+        request.input('Profile10', sql.VarChar, Profile10);
+        request.input('Profile11', sql.VarChar, Profile11);
+        request.input('Profile12', sql.VarChar, Profile12);
+        request.input('Profile13', sql.VarChar, Profile13);
+        request.input('Profile14', sql.VarChar, Profile14);
+        request.input('Profile15', sql.VarChar, Profile15);
+        request.input('Profile16', sql.VarChar, Profile16);
+        request.input('Profile17', sql.VarChar, Profile17);
+        request.input('Profile18', sql.VarChar, Profile18);
+        request.input('Profile19', sql.VarChar, Profile19);
+        request.input('Profile20', sql.VarChar, Profile20);
+        request.input('Profile21', sql.VarChar, Profile21);
+        request.input('Profile22', sql.VarChar, Profile22);
+        request.input('Profile23', sql.VarChar, Profile23);
+        request.input('Profile24', sql.VarChar, Profile24);
+        request.input('Profile25', sql.VarChar, Profile25);
+        request.input('Profile26', sql.VarChar, Profile26);
+        request.input('Profile27', sql.VarChar, Profile27);
+        request.input('Profile28', sql.VarChar, Profile28);
+        request.input('Profile29', sql.VarChar, Profile29);
+        request.input('Profile30', sql.VarChar, Profile30);
+        request.input('Profile31', sql.VarChar, Profile31);
+        request.input('Profile32', sql.VarChar, Profile32);
+        request.input('Profile33', sql.VarChar, Profile33);
+        request.input('Profile34', sql.VarChar, Profile34);
+        request.input('Profile35', sql.VarChar, Profile35);
+        request.input('Profile36', sql.VarChar, Profile36);
+        request.input('Profile37', sql.VarChar, Profile37);
+        request.input('Profile38', sql.VarChar, Profile38);
+        request.input('Profile39', sql.VarChar, Profile39);
+        request.input('Profile40', sql.VarChar, Profile40);
         request.input('dateTime', sql.DateTime, dateTime);
 
         const result = await request.query(query);
@@ -423,6 +571,7 @@ const saveSensorData2 = async (req, res) => {
         res.status(500).json({ message: 'Error saving data', error: err });
     }
 };
+
 
 
 const test = async (req, res) => {

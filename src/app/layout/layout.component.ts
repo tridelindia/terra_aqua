@@ -49,6 +49,7 @@ export class LayoutComponent implements OnInit {
   image1!: string;
   image2!: string;
   // currentUser!:CurrentUser;
+  showDash:boolean =  true;
 
   getScreenSize() {
     return { width: window.innerWidth, height: window.innerHeight };
@@ -73,6 +74,12 @@ export class LayoutComponent implements OnInit {
     setTimeout(() => {
       this.page = 'Home';
     }, 2);
+  }
+
+
+
+  reloadDash(){
+
   }
 
   assign() {}

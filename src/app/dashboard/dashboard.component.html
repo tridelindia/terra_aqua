@@ -197,7 +197,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection1 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -231,7 +231,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection2 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -266,7 +266,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection3 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -301,7 +301,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection4 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -335,7 +335,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' +innerdirection5 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -370,7 +370,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection6 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -404,7 +404,7 @@
                                 <div class="SW">SW</div>
                                 <div class="south">S</div>
                                 <div class="NW">NW</div>
-                                <div class="main-arrow" [style.transform]="'rotate(' + compassvalue1 + 'deg)'">
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection7 + 'deg)'">
                                     <div class="arrow-up"></div>
                                     <div class="arrow-down"></div>
                                 </div>
@@ -415,6 +415,1005 @@
                 </div>
             </div>
         </div>
+
+
+
+        <!-- balance 30 -->
+        <div class="list_current" *ngIf="e_bin8_status">
+            <div class="one">
+                <h4>{{e_bin8_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-11" [value]="innerCurrent8"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin8_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection8 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection8}}<span>° {{inCompval8}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin9_status">
+            <div class="one">
+                <h4>{{e_bin9_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-12" [value]="innerCurrent9"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin9_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection9 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection9}}<span>° {{inCompval9}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin10_status">
+            <div class="one">
+                <h4>{{e_bin10_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-13" [value]="innerCurrent10"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin10_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection10 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection10}}<span>° {{inCompval10}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repeat the same pattern for e_bin11 to e_bin20 -->
+
+        <div class="list_current" *ngIf="e_bin11_status">
+            <div class="one">
+                <h4>{{e_bin11_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-14" [value]="innerCurrent11"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin11_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection11 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection11}}<span>° {{inCompval11}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin12_status">
+            <div class="one">
+                <h4>{{e_bin12_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-15" [value]="innerCurrent12"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin12_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection12 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection12}}<span>° {{inCompval12}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin13_status">
+            <div class="one">
+                <h4>{{e_bin13_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-16" [value]="innerCurrent13"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin13_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection13 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection13}}<span>° {{inCompval13}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin14_status">
+            <div class="one">
+                <h4>{{e_bin14_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-17" [value]="innerCurrent14"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin14_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection14 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection14}}<span>° {{inCompval14}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin15_status">
+            <div class="one">
+                <h4>{{e_bin15_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-18" [value]="innerCurrent15"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin15_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection15 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection15}}<span>° {{inCompval15}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin16_status">
+            <div class="one">
+                <h4>{{e_bin16_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-19" [value]="innerCurrent16"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin16_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection16 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection16}}<span>° {{inCompval16}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin17_status">
+            <div class="one">
+                <h4>{{e_bin17_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-20" [value]="innerCurrent17"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin17_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection17 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection17}}<span>° {{inCompval17}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin18_status">
+            <div class="one">
+                <h4>{{e_bin18_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-21" [value]="innerCurrent18"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin18_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection18 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection18}}<span>° {{inCompval18}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin19_status">
+            <div class="one">
+                <h4>{{e_bin19_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-22" [value]="innerCurrent19"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin19_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection19 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection19}}<span>° {{inCompval19}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin20_status">
+            <div class="one">
+                <h4>{{e_bin20_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-23" [value]="innerCurrent20"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin20_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection20 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection20}}<span>° {{inCompval20}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="list_current" *ngIf="e_bin21_status">
+            <div class="one">
+                <h4>{{e_bin21_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-24" [value]="innerCurrent21"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin21_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection21 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection21}}<span>° {{inCompval21}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin22_status">
+            <div class="one">
+                <h4>{{e_bin22_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-25" [value]="innerCurrent22"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin22_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection22 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection22}}<span>° {{inCompval22}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin23_status">
+            <div class="one">
+                <h4>{{e_bin23_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-26" [value]="innerCurrent23"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin23_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection23 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection23}}<span>° {{inCompval23}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin24_status">
+            <div class="one">
+                <h4>{{e_bin24_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-27" [value]="innerCurrent24"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin24_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection24 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection24}}<span>° {{inCompval24}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin25_status">
+            <div class="one">
+                <h4>{{e_bin25_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-28" [value]="innerCurrent25"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin25_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection25 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection25}}<span>° {{inCompval25}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin26_status">
+            <div class="one">
+                <h4>{{e_bin26_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-29" [value]="innerCurrent26"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin26_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection26 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection26}}<span>° {{inCompval26}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin27_status">
+            <div class="one">
+                <h4>{{e_bin27_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-30" [value]="innerCurrent27"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin27_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection27 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection27}}<span>° {{inCompval27}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin28_status">
+            <div class="one">
+                <h4>{{e_bin28_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-31" [value]="innerCurrent28"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin28_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection28 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection28}}<span>° {{inCompval28}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin29_status">
+            <div class="one">
+                <h4>{{e_bin29_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-32" [value]="innerCurrent29"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin29_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection29 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection29}}<span>° {{inCompval29}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin30_status">
+            <div class="one">
+                <h4>{{e_bin30_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-33" [value]="innerCurrent30"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin30_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection30 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection30}}<span>° {{inCompval30}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin31_status">
+            <div class="one">
+                <h4>{{e_bin31_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-34" [value]="innerCurrent31"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin31_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection31 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection31}}<span>° {{inCompval31}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin32_status">
+            <div class="one">
+                <h4>{{e_bin32_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-35" [value]="innerCurrent32"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin32_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection32 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection32}}<span>° {{inCompval32}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin33_status">
+            <div class="one">
+                <h4>{{e_bin33_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-36" [value]="innerCurrent33"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin33_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection33 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection33}}<span>° {{inCompval33}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin34_status">
+            <div class="one">
+                <h4>{{e_bin34_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-37" [value]="innerCurrent34"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin34_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection34 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection34}}<span>° {{inCompval34}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin35_status">
+            <div class="one">
+                <h4>{{e_bin35_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-38" [value]="innerCurrent35"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin35_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection35 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection35}}<span>° {{inCompval35}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin36_status">
+            <div class="one">
+                <h4>{{e_bin36_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-39" [value]="innerCurrent36"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin36_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection36 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection36}}<span>° {{inCompval36}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_current" *ngIf="e_bin37_status">
+            <div class="one">
+                <h4>{{e_bin37_name}} Current Speed</h4>
+                <div class="dataMaind">
+                    <app-gauge gaugeId="gauge-40" [value]="innerCurrent37"></app-gauge>
+                </div>
+            </div>
+            <div class="two">
+                <h4>{{e_bin37_name}} Current Direction</h4>
+                <div class="dataMaind">
+                    <div class="compp">
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="NE">NE</div>
+                                <div class="east">E</div>
+                                <div class="SE">SE</div>
+                                <div class="west">W</div>
+                                <div class="SW">SW</div>
+                                <div class="south">S</div>
+                                <div class="NW">NW</div>
+                                <div class="main-arrow" [style.transform]="'rotate(' + innerdirection37 + 'deg)'">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{{innerdirection37}}<span>° {{inCompval37}}</span></h3>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Continue the same structure for e_bin12 to e_bin20 -->
 
     </div>
     <!-- <div class="Mmain">

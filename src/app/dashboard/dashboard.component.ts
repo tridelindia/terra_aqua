@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LayoutComponent } from '../layout/layout.component';
 import { BatteryComponent } from '../battery/battery.component';
@@ -51,9 +51,9 @@ export class DashboardComponent {
   m_current_d!:number;
   l_current_d!:number;
   current_unit:string = '';
-  battery: number = 10;
+  battery!: number;
   message:string = 'range';
-  below_warning:number = 12.2;
+  // below_warning:number = 12.2;
   configs:Config[]=[];
   tide_unit:string ='';
   time!:string;
@@ -175,8 +175,13 @@ export class DashboardComponent {
   inCompval37!:string;
 
 
-
-
+  above_warning:number= 6;
+  below_warning:number= 10;
+  above_danger:number=2;
+  below_danger:number=5;
+  batteryLevel: number = 3.4; // Default battery level in volts
+  public batteryColor: string = 'green'; // Battery color based on level
+  public fillHeight: string = '0%';
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
     private layout: LayoutComponent,
@@ -193,18 +198,79 @@ export class DashboardComponent {
   mapUrl:string='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   online:boolean = false;
   sensor:Config[]=[];
+  refreshBattery:boolean =false;
 ngOnInit(): void {
-  
+  this.layout.page = 'Dashboard';
+  this.preInit()
+}
+preInit(){
+  if(!this.layout.selectedBuoy){
+    console.log("no data");
+    const buoy = localStorage.getItem('selectedBuoy');
+    this.layout.selectedBuoy = buoy!;
+    console.log("reviewed buoy name",this.layout.selectedBuoy)
+    this.router.navigate(['/base/home']);
+
+  }
+  this.refreshBattery = true;
   this.initial()
 
   setInterval(() => {
     this.initial()
+    this.refreshBattery = false;
     if(this.showExpand){
       this.extraBinAssign()
     }
+    setTimeout(() => {
+      this.refreshBattery = true;
+    }, 1000);
     
-  }, 5000);
+  }, 10000);
 }
+@HostListener('window:beforeunload', ['$event'])
+  unloadNotification(event: BeforeUnloadEvent): void {
+    
+    event.preventDefault();
+    
+// this.layout.selectedBuoy == 'CWPRS01'
+    event.returnValue = ''; // Required for most browsers to display the alert
+    localStorage.setItem('selectedBuoy', this.layout.selectedBuoy);
+    
+
+  }
+
+  ngOnDestroy(): void {
+    // Clean up the listener to prevent memory leaks
+    window.removeEventListener('beforeunload', this.unloadNotification as any);
+  }
+
+  // Calculate the color of the battery based on its level
+  calculateBatteryColor() {
+    if (this.batteryLevel > this.below_warning) {
+      this.batteryColor = 'green'; // Full charge
+    } 
+    // If battery is between 10 and 6 (inclusive), assign yellow
+    else if (this.batteryLevel <= this.below_warning && this.batteryLevel > this.above_warning) {
+      this.batteryColor = 'yellow'; // Moderate charge
+    } 
+    // If battery is between 5 and 2 (inclusive), assign red
+    else if (this.batteryLevel <= this.below_danger && this.batteryLevel > this.above_danger) {
+      this.batteryColor = 'red'; // Low charge
+    } 
+    else {
+      this.batteryColor = 'yellow'; // Unknown or out of defined range
+    }
+  }
+
+  // Calculate the height of the battery fill based on the voltage
+  calculateBatteryFill() {
+    const maxLevel = 12.4; // Set your maximum level
+    const minLevel = 0; // Below which it's considered low
+    const fillPercentage = ((this.batteryLevel - minLevel) / (maxLevel - minLevel)) * 100;
+    console.log("percent", fillPercentage)
+    // Ensure fillPercentage is between 0% and 100%
+    this.fillHeight = fillPercentage > 100 ? '100%' : fillPercentage < 0 ? '0%' : fillPercentage + '%';
+  }
 
 
 initial(){
@@ -431,28 +497,33 @@ setupReload() {
   
     return val;
   }
+  calculateResult(existingData: number, newData: string | number): number {
+    let result: number;
   
-   calculateResult(existingData: number, newData: string | number): number {
-    // Check if newData is a number without any signs
+    // Check if newData is a number
     if (typeof newData === 'number') {
-      return existingData + newData;
-    }
-    // If newData is a string, check for "+" or "-" sign
-    if (typeof newData === 'string') {
+      result = existingData + newData;
+    } 
+    // If newData is a string, handle signs
+    else if (typeof newData === 'string') {
       if (newData.startsWith('-')) {
-        return existingData - parseFloat(newData); // Subtract if it has "-"
-      } else if (newData.startsWith('+')) {
-        return existingData + parseFloat(newData); // Add if it has "+"
+        result = existingData - parseFloat(newData); // Subtract if "-"
       } else {
-        return existingData + parseFloat(newData); // No sign means add
+        result = existingData + parseFloat(newData); // Add for "+" or no sign
       }
+    } 
+    // Handle unexpected input
+    else {
+      return existingData;
     }
   
-    // In case of an unexpected input, return the existingData
-    return existingData;
+    // Limit the result to 2 decimal places
+    return parseFloat(result.toFixed(2));
   }
+  
   assign(){
     // console.log()
+    this.sensorDatelist = [];
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
      this.tide_unit = this.layout.configs[0].unit;
@@ -525,7 +596,15 @@ binss:string[]=[];
     }else{
       this.tide= this.calculateResult(this.sensorDatelist[1].S1_RelativeWaterLevel, this.layout.configs[0].value);
     }
+    this.battery = 0;
+
     this.battery = parseFloat(this.sensorDatelist[0].Battery_Voltage);
+    if(this.battery !== null){
+      this.batteryLevel = this.battery;
+      this.calculateBatteryColor();
+    this.calculateBatteryFill();
+    console.log("battery level",this.batteryLevel, this.fillHeight);
+    }
    console.log("battery===>", this.battery)
     // this.sensorDatelist=this.layout.sensorDataList;
      this.time = 

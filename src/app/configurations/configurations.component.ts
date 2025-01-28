@@ -764,6 +764,7 @@ CurrentSelect() {
 
   online:boolean = true;
   ngOnInit(): void {
+    this.staion.page = 'Setting';
     const a = 1;
     console.log(`${a.toString()}`);
     const status = navigator.onLine;

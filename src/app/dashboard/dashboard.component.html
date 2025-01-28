@@ -19,8 +19,28 @@
         </div>
         <h4>Battery Level</h4>
         <div class="dataMain">
-            @if(battery!==null){
-            <app-battery [batteryLevel]="battery"></app-battery>
+            @if(battery!== 0){
+            <div class="battery-container">
+                <div class="pin">
+                    <div class="plus">
+                        <p>-</p>
+                    </div>
+                    <div class="minus">
+                        <p>+</p>
+                    </div>
+                </div>
+
+                <!-- Rectangular Battery -->
+                <div class="battery-shell">
+                    <div class="battery-fill" [ngStyle]="{'height': fillHeight, 'background-color': batteryColor}">
+                    </div>
+                </div>
+
+                <div class="battery-level">
+                    {{ batteryLevel.toFixed(1) }} V
+                </div>
+            </div>
+            <!-- <app-battery *ngIf="refreshBattery" [batteryLevel]="battery"></app-battery> -->
             }
 
             <div class="texts">

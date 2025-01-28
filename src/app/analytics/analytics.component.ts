@@ -13,6 +13,7 @@ import { StationService, buoys} from '../station_service/station.service';
 import { ThemeService } from '../theme_service/theme.service';
 import { ConfigDataService } from '../config-data.service';
 import { SensorData, SensorData2 } from '../../model/config.model';
+import { LayoutComponent } from '../layout/layout.component';
 interface binJson{
   name:string,
   bin:string;
@@ -184,14 +185,22 @@ bins2:binJson[]=[];
 dropdownOptions: { label: string; value: string }[] = [];
 binName:string = "0 to 5m";
 
-constructor(private stationService: StationService, private themeService: ThemeService, private http:HttpClient, private cd: ChangeDetectorRef, private sensor:ConfigDataService) {}
+constructor(private stationService: StationService, private themeService: ThemeService, private http:HttpClient, private cd: ChangeDetectorRef, private sensor:ConfigDataService, private layout:LayoutComponent) {}
 
 ngOnInit(): void {
+  this.layout.page = 'Analytics';
   this.initializeDropdown();
   this.onInitFetch(); // Fetch one-day data on page load
   this.subscribeToThemeChanges(); // Listen for theme changes
+  this.sensor.getsensorConfigs().subscribe(sensors=>{
+    console.log("sensors config:",sensors[0].value);
+    this.tide_offset = sensors[0].value;
+   
+    // calculateResult(wateS1 , this.tide_offset)
+  })
 }
 
+tide_offset!:string;
 initializeDropdown(): void {
   this.dropdownOptions = this.listallBin.map(bin => ({ label: bin, value: bin }));
 }
@@ -481,6 +490,30 @@ onSensorChange() {
     endDate.setHours(23, 59, 59, 999);
     return endDate;
   } 
+  calculateResult(existingData: number, newData: string | number): number {
+    let result: number;
+  
+    // Check if newData is a number
+    if (typeof newData === 'number') {
+      result = existingData + newData;
+    } 
+    // If newData is a string, handle signs
+    else if (typeof newData === 'string') {
+      if (newData.startsWith('-')) {
+        result = existingData - parseFloat(newData); // Subtract if "-"
+      } else {
+        result = existingData + parseFloat(newData); // Add for "+" or no sign
+      }
+    } 
+    // Handle unexpected input
+    else {
+      return existingData;
+    }
+  
+    // Limit the result to 2 decimal places
+    return parseFloat(result.toFixed(2));
+  }
+
 
 Tide(): void {
 
@@ -894,8 +927,8 @@ Tide(): void {
       }
       const tideLevel = echarts.init(tide);
   
-    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => item.S1_RelativeWaterLevel) : 
-                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => item.S1_RelativeWaterLevel) : []
+    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => this.calculateResult(item.S1_RelativeWaterLevel, this.tide_offset)) : 
+                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => this.calculateResult(item.S1_RelativeWaterLevel, this.tide_offset)) : []
 
     const dates = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) :
                   this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) : []

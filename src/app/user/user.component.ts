@@ -8,6 +8,7 @@ import { ConfigDataService } from '../config-data.service';
 import { LoginComponent } from '../login/login.component';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'console';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
   selector: 'app-user',
@@ -34,9 +35,11 @@ export class UserComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private config: ConfigDataService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private layout:LayoutComponent
   ) {}
   ngOnInit(): void {
+    this.layout.page = 'user';
     this.getUsers();
     this.getRoles();
     this.getDesignation();

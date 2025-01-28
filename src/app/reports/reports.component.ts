@@ -20,8 +20,9 @@ import { is } from '@amcharts/amcharts4/core';
 // import { Config } from 'ol/source/TileJSON';
 import { get } from 'http';
 import { ConfigDataService } from '../config-data.service';
-import { Config } from '../../model/config.model';
+import { Config, SensorData } from '../../model/config.model';
 import { response } from 'express';
+import { LayoutComponent } from '../layout/layout.component';
  
  
 interface Column {
@@ -75,7 +76,7 @@ exportOptions = [
  
     loading: boolean = false;
  
-    constructor(private stationService: StationService, private http:HttpClient, private cd: ChangeDetectorRef , private dataCOnfig:ConfigDataService) {}
+    constructor(private stationService: StationService, private http:HttpClient, private cd: ChangeDetectorRef , private dataCOnfig:ConfigDataService, private layout:LayoutComponent) {}
   configsData:Config[]= [];
   binsDAta:conf[]=[];
     getconfigs(){
@@ -176,6 +177,7 @@ exportOptions = [
   }
 
     ngOnInit(): void {
+    this.layout.page = 'Reports';
       this.getconfigs();
       this.cols = [
         { field: 'S1_RelativeWaterLevel', header: 'Water Level' },
@@ -203,6 +205,37 @@ exportOptions = [
     this.fromDate.setHours(0, 0, 0, 0);
     this.fetchStations();
     this.getStationNames()
+    this.dataCOnfig.getsensorConfigs().subscribe(sensors=>{
+      console.log("sensors config:",sensors[0].value);
+      this.tide_offset = sensors[0].value;
+     
+      // calculateResult(wateS1 , this.tide_offset)
+    })
+  }
+tide_offset!:string;
+
+  calculateResult(existingData: number, newData: string | number): number {
+    let result: number;
+  
+    // Check if newData is a number
+    if (typeof newData === 'number') {
+      result = existingData + newData;
+    } 
+    // If newData is a string, handle signs
+    else if (typeof newData === 'string') {
+      if (newData.startsWith('-')) {
+        result = existingData - parseFloat(newData); // Subtract if "-"
+      } else {
+        result = existingData + parseFloat(newData); // Add for "+" or no sign
+      }
+    } 
+    // Handle unexpected input
+    else {
+      return existingData;
+    }
+  
+    // Limit the result to 2 decimal places
+    return parseFloat(result.toFixed(2));
   }
 staionName1!:string ;
 staionName2!:string ;
@@ -319,7 +352,7 @@ nameOfStation!:string;
       (data: buoys) => {
          this.CWPRS01 = data.buoy1.map(buoy => ({
           ...buoy,
-          
+          S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
           SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
@@ -408,6 +441,7 @@ nameOfStation!:string;
         }));
         this.CWPRS02 = data.buoy2.map(buoy => ({
           ...buoy,
+          S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
           SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
@@ -656,7 +690,7 @@ exportExcel(dt2: any) {
       const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
  
-      this.saveAsExcelFile(excelBuffer, 'buoy_data');
+      this.saveAsExcelFile(excelBuffer, this.nameOfStation);
   } else {
       console.warn('No data available for Excel export');
   }
@@ -665,67 +699,196 @@ exportExcel(dt2: any) {
 saveAsExcelFile(buffer: any, fileName: string): void {
   const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-  saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
+  saveAs(data, `${this.nameOfStation}.xlsx`);
 }
  
  
  
  
+// exportPDF(dt2: any) {
+//   const filteredData: BuoyData[] = dt2.value;
+ 
+//   if (filteredData && filteredData.length > 0) {
+//       // Define fixed headers and fields to always include
+//       const fixedHeaders = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
+//       const fixedFields = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
+ 
+//       // Get dynamic headers and fields from selected columns
+//       const dynamicHeaders = this.selectedColumns.map(col => col.header);
+//       const dynamicFields = this.selectedColumns.map(col => col.field);
+ 
+//       // Combine fixed and dynamic headers and fields
+//       const headers = [...fixedHeaders, ...dynamicHeaders];
+//       const fields = [...fixedFields, ...dynamicFields];
+ 
+//       // Create a PDF with landscape orientation
+//       const doc = new jsPDF('landscape');
+ 
+//       // Set document properties
+//       doc.setFontSize(12);
+//       doc.text(this.selectedStation, 14, 16);
+ 
+//       // Prepare headers for the table
+//       const headerObjects = headers.map(header => ({ title: header, dataKey: header }));
+ 
+//       // Map data to include both fixed and dynamic fields
+//       const data1 = filteredData.map((row: any) => {
+//           return fields.map(field => row[field] || '');
+//       });
+ 
+//       const data = filteredData.map((row: any) => {
+//         return fields.map(field => {
+//           if (field === 'Date'){
+//             const isoDate = row[field];
+//             return isoDate ? isoDate.split('T')[0] : '';
+//           }
+//           return row[field] || '';
+//         });
+//     });
+ 
+//       // Add table to PDF with fixed and dynamic fields
+//       (doc as any).autoTable({
+//           head: [headerObjects.map(h => h.title)], // Headers row
+//           body: data, // Body of the table
+//           startY: 22, // Start position after the title
+//           margin: { top: 20 }, // Adjust top margin
+//           styles: { fontSize: 8 }, // Adjust font size to fit more data
+//       });
+ 
+//       // Save the PDF in landscape mode
+//       doc.save('buoy_data.pdf');
+//   } else {
+//       // Handle case where no data is available
+//       console.warn('No data available for PDF export');
+//   }
+// }
+
 exportPDF(dt2: any) {
-  const filteredData: BuoyData[] = dt2.value;
- 
+  const filteredData: SensorData[] = dt2.value;
+
   if (filteredData && filteredData.length > 0) {
-      // Define fixed headers and fields to always include
-      const fixedHeaders = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
-      const fixedFields = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
- 
-      // Get dynamic headers and fields from selected columns
-      const dynamicHeaders = this.selectedColumns.map(col => col.header);
-      const dynamicFields = this.selectedColumns.map(col => col.field);
- 
-      // Combine fixed and dynamic headers and fields
-      const headers = [...fixedHeaders, ...dynamicHeaders];
-      const fields = [...fixedFields, ...dynamicFields];
- 
-      // Create a PDF with landscape orientation
-      const doc = new jsPDF('landscape');
- 
-      // Set document properties
-      doc.setFontSize(12);
-      doc.text(this.selectedStation, 14, 16);
- 
-      // Prepare headers for the table
-      const headerObjects = headers.map(header => ({ title: header, dataKey: header }));
- 
-      // Map data to include both fixed and dynamic fields
-      const data1 = filteredData.map((row: any) => {
-          return fields.map(field => row[field] || '');
-      });
- 
-      const data = filteredData.map((row: any) => {
-        return fields.map(field => {
-          if (field === 'Date'){
-            const isoDate = row[field];
-            return isoDate ? isoDate.split('T')[0] : '';
-          }
-          return row[field] || '';
-        });
+    // Define fixed headers and fields to always include
+    const fixedHeaders = [
+      'StationID',
+      'Date',
+      'Time',
+      'UTC_Time',
+      'LAT',
+      'LONG',
+      'Battery_Voltage',
+      'GPS_Date',
+    ];
+    const fixedFields = [
+      'StationID',
+      'Date',
+      'Time',
+      'UTC_Time',
+      'LAT',
+      'LONG',
+      'Battery_Voltage',
+      'GPS_Date',
+    ];
+
+    // Get dynamic headers and fields from selected columns
+    const dynamicHeaders = this.selectedColumns.map((col) => col.header);
+    const dynamicFields = this.selectedColumns.map((col) => col.field);
+
+    // Combine fixed and dynamic headers and fields
+    const headers = [...fixedHeaders, ...dynamicHeaders];
+    const fields = [...fixedFields, ...dynamicFields];
+
+    // Create a PDF with landscape orientation
+    const doc = new jsPDF('landscape');
+
+    // Set document properties
+    doc.setFontSize(12);
+    doc.text(this.selectedStation, 14, 16);
+
+    // Map data to include both fixed and dynamic fields
+    const data = filteredData.map((row: any) => {
+      return fields.reduce((acc: any, field) => {
+        if (field === 'Date') {
+          // Split the date to get only the date portion (YYYY-MM-DD)
+          acc[field] = row[field]?.split('T')[0] || '';
+        } else if (field === 'Time') {
+          // Split the time to get only the time portion (HH:mm:ss)
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else if (field === 'UTC_Time') {
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else if (field === 'GPS_Date') {
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else {
+          // For other fields, assign the value directly or empty if undefined
+          acc[field] = row[field] || '';
+        }
+        return acc;
+      }, {});
     });
- 
-      // Add table to PDF with fixed and dynamic fields
-      (doc as any).autoTable({
-          head: [headerObjects.map(h => h.title)], // Headers row
-          body: data, // Body of the table
-          startY: 22, // Start position after the title
-          margin: { top: 20 }, // Adjust top margin
-          styles: { fontSize: 8 }, // Adjust font size to fit more data
+
+    // Divide columns into chunks to fit across pages
+    const chunkSize = 10; // Number of columns per chunk
+    const totalChunks = Math.ceil(fields.length / chunkSize);
+
+    let startY = 22; // Initial Y position for the first table
+    for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+      // Get the current chunk of fields and headers
+      const chunkFields = fields.slice(
+        chunkIndex * chunkSize,
+        (chunkIndex + 1) * chunkSize
+      );
+      const chunkHeaders = headers.slice(
+        chunkIndex * chunkSize,
+        (chunkIndex + 1) * chunkSize
+      );
+
+      // Map data for the current chunk
+      const chunkData = data.map((row) => {
+        return chunkFields.reduce((acc: any, field) => {
+          acc[field] = row[field];
+          return acc;
+        }, {});
       });
- 
-      // Save the PDF in landscape mode
-      doc.save('buoy_data.pdf');
+
+      // Generate the table for the current chunk
+      (doc as any).autoTable({
+        head: [chunkHeaders], // Headers for the current chunk
+        body: chunkData.map((row) => chunkFields.map((field) => row[field])), // Data for the current chunk
+        startY: startY, // Start position for the table
+        margin: { top: 20 }, // Adjust top margin
+        styles: {
+          fontSize: 8, // Reduce font size for better fit
+          cellPadding: 1, // Reduce padding for tighter rows
+          overflow: 'linebreak', // Enable line breaking for long text
+          valign: 'middle', // Vertically center-align text
+        },
+        headStyles: {
+          fillColor: [41, 128, 185], // Header background color
+          textColor: [255, 255, 255], // Header text color
+          halign: 'center', // Align header text to the center
+          fontSize: 9, // Header font size
+        },
+        bodyStyles: {
+          halign: 'center', // Align body text to the center
+        },
+        columnStyles: {
+          0: { cellWidth: 20 }, // Example of specific column width for StationID
+        },
+        pageBreak: 'auto', // Automatically add page breaks
+        showHead: 'everyPage', // Repeat headers on each page
+      });
+
+      // Update startY for the next table
+      startY = 22; // Reset to the top for new page
+      if (chunkIndex < totalChunks - 1) {
+        doc.addPage(); // Add a new page for the next chunk
+      }
+    }
+
+    // Save the PDF
+    doc.save(`${this.nameOfStation}.pdf`);
   } else {
-      // Handle case where no data is available
-      console.warn('No data available for PDF export');
+    // Handle case where no data is available
+    console.warn('No data available for PDF export');
   }
 }
 }

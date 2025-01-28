@@ -13,12 +13,22 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { UserComponent } from './user/user.component';
 import { ConfigurationsComponent } from './configurations/configurations.component';
+import { LoadingComponent } from './loading/loading.component';
+import { InstallationComponent } from './installation/installation.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login' // Redirect to the login page
+    redirectTo: 'loading' // Redirect to the login page
+  },
+  {
+    path:'loading',
+    component:LoadingComponent,
+  },
+  {
+    path:'installation',
+    component:InstallationComponent
   },
   {
     path: 'login', // Route for the login page
@@ -37,5 +47,5 @@ export const routes: Routes = [
       { path: 'setting', component: ConfigurationsComponent },
     ]
   },
-  { path: '**', redirectTo: 'login' } // Catch-all route to redirect to login
+  { path: '**', redirectTo: 'loading' } // Catch-all route to redirect to login
 ];

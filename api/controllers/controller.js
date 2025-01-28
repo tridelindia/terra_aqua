@@ -323,7 +323,7 @@ const saveSensorData = async (req, res) => {
 
         // Prepare the SQL query
         const query = `
-            INSERT INTO temsv2.dbo.sensorsData (
+            INSERT INTO temsv2.dbo.tb_cwprs_01 (
                 StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
                 S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
                 profile4, profile5, profile6, profile7, profile8, profile9, profile10,
@@ -489,7 +489,7 @@ const saveSensorData2 = async (req, res) => {
 
         // Prepare the SQL query
         const query = `
-            INSERT INTO temsv2.dbo.cwprs2 (
+            INSERT INTO temsv2.dbo.tb_cwprs_02 (
                 StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
                 S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
                 profile4, profile5, profile6, profile7, profile8, profile9, profile10,
@@ -576,7 +576,7 @@ const saveSensorData2 = async (req, res) => {
 
 const test = async (req, res) => {
     try {
-        const result = await sql.query`SELECT TOP 1 * FROM sensorsData ORDER BY id DESC`;
+        const result = await sql.query`SELECT TOP 1 * FROM tb_cwprs_01 ORDER BY id DESC`;
         const data = result.recordset[0]; // Get the first record
 
         // Check if data exists
@@ -698,13 +698,13 @@ const getSensors = async (req, res) => {
         // Define your queries for both tables
         const querySensorsData = `
             SELECT * 
-            FROM sensorsData
+            FROM tb_cwprs_01
             WHERE Date >= @fromDate AND Date <= @toDate
         `;
 
         const queryCWPRSData = `
             SELECT * 
-            FROM cwprs2
+            FROM tb_cwprs_02
             WHERE Date >= @fromDate AND Date <= @toDate
         `;
 
@@ -716,11 +716,11 @@ const getSensors = async (req, res) => {
         console.log('Parsed fromDate:', new Date(fromDate));
         console.log('Parsed toDate:', new Date(toDate));
 
-        // Execute the first query for sensorsData
+        // Execute the first query for tb_cwprs_01
         const resultSensorsData = await request.query(querySensorsData);
         const data1 = resultSensorsData.recordset.reverse(); // Fetching and reversing order
 
-        // Execute the second query for cwprs2
+        // Execute the second query for tb_cwprs_02
         const resultCWPRSData = await request.query(queryCWPRSData);
         const data2 = resultCWPRSData.recordset.reverse(); // Fetching and reversing order
 
@@ -761,14 +761,14 @@ const getSensorsTime = async (req, res) => {
     
             const querySensorsData = `
                 SELECT *
-                FROM sensorsData
+                FROM tb_cwprs_01
                 WHERE (CAST(Date AS DATETIME) + CAST(Time AS DATETIME)) >= @fromDate
                   AND (CAST(Date AS DATETIME) + CAST(Time AS DATETIME)) <= @toDate
             `;
     
             const queryCWPRSData = `
                 SELECT *
-                FROM cwprs2
+                FROM tb_cwprs_02
                 WHERE (CAST(Date AS DATETIME) + CAST(Time AS DATETIME)) >= @fromDate
                   AND (CAST(Date AS DATETIME) + CAST(Time AS DATETIME)) <= @toDate
             `;

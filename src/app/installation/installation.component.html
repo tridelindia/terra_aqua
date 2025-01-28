@@ -1,0 +1,82 @@
+<div class="installation">
+    <div class="form-container">
+        <!-- Step 1 -->
+        <div *ngIf="currentStep === 0" class="form-step active">
+            <div class="head">
+                <h2>Step 1: Welcome</h2>
+                <i [class.rotate]="isRotate" (click)="Rotate()" class="fa-solid fa-arrows-rotate"></i>
+            </div>
+
+            <p>Welcome to the installation wizard. Click "Next" to continue.</p>
+            <div class="button-group1">
+                <button (click)="nextStep()">Next</button>
+            </div>
+
+        </div>
+
+        <!-- Step 2 -->
+        <div *ngIf="currentStep === 1" class="form-step">
+            <h2>Step 2: Agreement</h2>
+            <p>Please read and accept the terms and conditions to proceed.</p>
+            <textarea readonly>
+      By clicking next, you agree to the terms and conditions of this software.
+          </textarea>
+            <div class="button-group">
+                <button (click)="prevStep()">Previous</button>
+                <button (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div *ngIf="currentStep === 2" class="form-step">
+            <h2>Step 3: Installation</h2>
+            <div class="page" *ngIf="isWaiting">
+                <svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#5ebd3e" />
+                            <stop offset="33%" stop-color="#ffb900" />
+                            <stop offset="67%" stop-color="#f78200" />
+                            <stop offset="100%" stop-color="#e23838" />
+                        </linearGradient>
+                        <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+                            <stop offset="0%" stop-color="#e23838" />
+                            <stop offset="33%" stop-color="#973999" />
+                            <stop offset="67%" stop-color="#009cdf" />
+                            <stop offset="100%" stop-color="#5ebd3e" />
+                        </linearGradient>
+                    </defs>
+                    <g fill="none" stroke-linecap="round" stroke-width="16">
+                        <g class="ip__track" stroke="#ddd">
+                            <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
+                            <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
+                        </g>
+                        <g stroke-dasharray="180 656">
+                            <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0"
+                                d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
+                            <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358"
+                                d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+            <p *ngIf="!isWaiting">Your Device ID</p>
+            <input *ngIf="!isWaiting" type="text" [(ngModel)]="deviceID" readonly>
+            <p *ngIf="!isWaiting">Your Device Api-Key</p>
+            <input *ngIf="!isWaiting" type="text" [(ngModel)]="ApiKey" readonly>
+            <p *ngIf="!isWaiting">Click "Install" to begin the installation process.</p>
+            <div class="button-group">
+                <button (click)="prevStep()">Previous</button>
+                <button (click)="install()">Install</button>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div *ngIf="currentStep === 3" class="form-step">
+            <h2>Step 4: Finished</h2>
+            <p>The installation is complete! Click "Finish" to exit.</p>
+            <button (click)="finish()">Finish</button>
+        </div>
+    </div>
+</div>

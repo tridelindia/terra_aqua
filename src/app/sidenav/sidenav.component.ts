@@ -19,7 +19,12 @@ export class SidenavComponent implements OnInit{
   username!:string;
   constructor (private layout:LayoutComponent, private router:Router, private toastr:ToastrService, private renderer:Renderer2, private route: ActivatedRoute, private user:ConfigDataService, private themeservice:ThemeService){}
   isPageSelected(page: string): boolean {
-    return this.layout.page === page;
+   const currentUrlPage = this.router.url.split('/').pop();
+  //  console.log("url",currentUrlPage);
+  //  console.log("pagename",this.layout.page.toLowerCase())
+
+
+    return this.layout.page.toLowerCase() === currentUrlPage;
   }
     onPageChange(name:String){
       
@@ -31,7 +36,7 @@ export class SidenavComponent implements OnInit{
         this.toastr.warning('Please Select the station to view Live Data', 'Warning!');
         
       }else{
-        this.layout.page = name;
+        this.layout.page = name.toLowerCase();
         // this.layout.page = name;
         this.router.navigate([`/base/${name.toLowerCase()}`]);
         console.log(`tapped page-==>${name.toLowerCase()}`);
@@ -56,6 +61,7 @@ export class SidenavComponent implements OnInit{
       
     }
   ngOnInit(): void {
+    console.log("hai sidenav")
     this.username = localStorage.getItem('username') ?? "";
     this.renderer.setAttribute(document.body, 'data-theme', this.currentTheme);
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');

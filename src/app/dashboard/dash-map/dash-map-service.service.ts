@@ -28,79 +28,85 @@ export class dashMapServiceService {
     redCircleRadius: number,
     yellowCircleRadius: number
   ): void {
-    // Cleanup existing map instance
-    if (this.map) {
-      console.log('Destroying existing map instance.');
-      this.map.setTarget(undefined);
+    try {
+      console.log("started map init")
+      if (this.map) {
+        console.log('Destroying existing map instance.');
+        this.map.setTarget(undefined);
+      }
+      const cc = fromLonLat([center[1], center[0]]) as [number, number];
+      // Base map layer
+      const baseLayer = new TileLayer({
+        source: new XYZ({
+          url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        }),
+      });
+  
+      // Marker style
+      const markerStyle = new Style({
+        image: new Icon({
+          src: buoyIconUrl,
+          scale: 0.06,
+        }),
+        text: new Text({
+          text: buoyName,
+          font: '12px Calibri,sans-serif',
+          offsetY: -20,
+          fill: new Fill({ color: '#000' }),
+          stroke: new Stroke({ color: '#fff', width: 2 }),
+        }),
+      });
+  
+      // Create marker
+      const marker = new Feature({
+        geometry: new Point(cc),
+      });
+      marker.setStyle(markerStyle);
+  
+      // Red circle
+      const redCircle = new Feature({
+        geometry: new Circle(cc, redCircleRadius),
+      });
+      redCircle.setStyle(
+        new Style({
+          stroke: new Stroke({ color: 'red', width: 2 }),
+          fill: new Fill({ color: 'rgba(255, 0, 0, 0.1)' }),
+        })
+      );
+  
+      // Yellow circle
+      const yellowCircle = new Feature({
+        geometry: new Circle(cc, yellowCircleRadius),
+      });
+      yellowCircle.setStyle(
+        new Style({
+          stroke: new Stroke({ color: 'yellow', width: 2 }),
+          fill: new Fill({ color: 'rgba(255, 255, 0, 0.1)' }),
+        })
+      );
+  
+      // Vector layer for marker and circles
+      const vectorLayer = new VectorLayer({
+        source: new VectorSource({
+          features: [marker, redCircle, yellowCircle],
+        }),
+      });
+  
+      // Initialize map
+      this.map = new Map({
+        target: targetId,
+        layers: [baseLayer, vectorLayer],
+        view: new View({
+          center: cc,
+          zoom: 15,
+          // projection: 'EPSG:4326', // Use latitude and longitude
+        }),
+      });
+    } catch (error) {
+      console.log("map Error",error);
     }
-    const cc = fromLonLat([center[1], center[0]]) as [number, number];
-    // Base map layer
-    const baseLayer = new TileLayer({
-      source: new XYZ({
-        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-      }),
-    });
-
-    // Marker style
-    const markerStyle = new Style({
-      image: new Icon({
-        src: buoyIconUrl,
-        scale: 0.06,
-      }),
-      text: new Text({
-        text: buoyName,
-        font: '12px Calibri,sans-serif',
-        offsetY: -20,
-        fill: new Fill({ color: '#000' }),
-        stroke: new Stroke({ color: '#fff', width: 2 }),
-      }),
-    });
-
-    // Create marker
-    const marker = new Feature({
-      geometry: new Point(cc),
-    });
-    marker.setStyle(markerStyle);
-
-    // Red circle
-    const redCircle = new Feature({
-      geometry: new Circle(cc, redCircleRadius),
-    });
-    redCircle.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'red', width: 2 }),
-        fill: new Fill({ color: 'rgba(255, 0, 0, 0.1)' }),
-      })
-    );
-
-    // Yellow circle
-    const yellowCircle = new Feature({
-      geometry: new Circle(cc, yellowCircleRadius),
-    });
-    yellowCircle.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'yellow', width: 2 }),
-        fill: new Fill({ color: 'rgba(255, 255, 0, 0.1)' }),
-      })
-    );
-
-    // Vector layer for marker and circles
-    const vectorLayer = new VectorLayer({
-      source: new VectorSource({
-        features: [marker, redCircle, yellowCircle],
-      }),
-    });
-
-    // Initialize map
-    this.map = new Map({
-      target: targetId,
-      layers: [baseLayer, vectorLayer],
-      view: new View({
-        center: cc,
-        zoom: 15,
-        // projection: 'EPSG:4326', // Use latitude and longitude
-      }),
-    });
+    // Cleanup existing map instance
+    
   }
 
   destroyMap(): void {

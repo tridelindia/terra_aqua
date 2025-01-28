@@ -106,6 +106,8 @@ updateMapLayer() {
 online:boolean = false;
 
 ngOnInit(): void {
+  console.log("hai home")
+  this.layout.page = 'Home';
   const status = navigator.onLine;
   this.online = status;
   if(this.online == false){
@@ -114,13 +116,14 @@ ngOnInit(): void {
   console.log("online status",status);
   const date = new Date();
   const todayDate = date.toISOString().substr(0, 10);
- 
+  console.log("date",todayDate);
   if(todayDate !=null){
     forkJoin([
       this.data.getSensorLiveData(todayDate, todayDate),
       this.data.getStationNames()
     ]).subscribe(([sensors, configs]) => {
-      if(sensors.buoy1.length !== 4){
+      console.log("buoy1", sensors.buoy1)
+      if(sensors.buoy1.length < 4){
         console.log("yes its low data");
         this.sensorsliveData =this.dummyData1;
         this.sensorsliveData2 = this.dummyData2;
@@ -129,10 +132,12 @@ ngOnInit(): void {
        
        this.sensorsliveData2 = sensors.buoy2;
       }
+
       console.log("bin4:", this.sensorsliveData);
-  console.log("sensor Data",this.sensorsliveData2);
+  console.log("sensor location1",this.sensorsliveData[0].LAT, this.sensorsliveData[0].LONG);
       this.livelocationbuoy1 = fromLonLat([this.sensorsliveData[0].LONG, this.sensorsliveData[0].LAT]) as [number, number];
       this.livelocationbuoy2 = fromLonLat([this.sensorsliveData2[0].LONG, this.sensorsliveData2[0].LAT]) as [number, number];
+
       // this.buoy2 = fromLonLat([configs[1].longitude_dd ,configs[1].latitude_dd]) as [number, number];
        this.bouy1wrange = configs[0].warning_circle;
       this.buoy2wrange = configs[1].warning_circle;
@@ -262,6 +267,7 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
         if (name) {
           console.log(`Feature clicked: ${name}`);
           this.layout.selectedBuoy = name;
+          this.data.selectedBuoyforDash = name;
           
                   this.layout.page = 'Dashboard';
                   this.router.navigate([`/base/${this.layout.page.toLowerCase()}`]);

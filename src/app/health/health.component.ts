@@ -26,7 +26,10 @@ tapped(){
    this.fetchSensorData();
 }
   ngOnInit(): void {
-    this.fetchSensorData();
+    setInterval(() => {
+      this.fetchSensorData();
+    }, 3000);
+    
   }
 constructor(private layout:LayoutComponent, private data:ConfigDataService, private datePipe: DatePipe){}
   fetchSensorData(): void {

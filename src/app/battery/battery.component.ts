@@ -20,7 +20,7 @@ export class BatteryComponent implements OnInit {
   ngOnInit() {
     this.calculateBatteryColor();
     this.calculateBatteryFill();
-    console.log("battery level",this.batteryLevel);
+    console.log("battery level",this.batteryLevel, this.fillHeight);
   }
 
   // Calculate the color of the battery based on its level
@@ -46,7 +46,7 @@ export class BatteryComponent implements OnInit {
     const maxLevel = 12.4; // Set your maximum level
     const minLevel = 0; // Below which it's considered low
     const fillPercentage = ((this.batteryLevel - minLevel) / (maxLevel - minLevel)) * 100;
-
+    console.log("percent", fillPercentage)
     // Ensure fillPercentage is between 0% and 100%
     this.fillHeight = fillPercentage > 100 ? '100%' : fillPercentage < 0 ? '0%' : fillPercentage + '%';
   }

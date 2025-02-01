@@ -43,7 +43,7 @@ export interface Config {
     GPS_Date: string;
     Lower_CurrentSpeedDirection:string;
     Middle_CurrentSpeedDirection:string;
-    S1_RelativeWaterLevel:number;
+    S1_RelativeWaterLevel:string;
     S2_SurfaceCurrentSpeedDirection:string;
     profile4:string;
     profile5:string;
@@ -95,7 +95,7 @@ export interface Config {
     GPS_Date: string;
     Lower_CurrentSpeedDirection:string;
     Middle_CurrentSpeedDirection:string;
-    S1_RelativeWaterLevel:number;
+    S1_RelativeWaterLevel:string;
     S2_SurfaceCurrentSpeedDirection:string;
     profile4:string;
     profile5:string;

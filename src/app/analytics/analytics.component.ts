@@ -927,8 +927,8 @@ Tide(): void {
       }
       const tideLevel = echarts.init(tide);
   
-    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => this.calculateResult(item.S1_RelativeWaterLevel, this.tide_offset)) : 
-                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => this.calculateResult(item.S1_RelativeWaterLevel, this.tide_offset)) : []
+    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => this.calculateResult(parseFloat(item.S1_RelativeWaterLevel), this.tide_offset)) : 
+                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => this.calculateResult(parseFloat(item.S1_RelativeWaterLevel), this.tide_offset)) : []
 
     const dates = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) :
                   this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) : []
@@ -963,7 +963,7 @@ Tide(): void {
         },
         xAxis: {
           type: 'time',
-          name: 'Date',  // X-axis legend (title)
+          name: 'DateTime',  // X-axis legend (title)
           nameLocation: 'middle',
           nameTextStyle: {
             color: mainText,
@@ -1185,7 +1185,7 @@ surfaceSpeedDirection(): void {
         xAxis: {
           // '#ffcc00' // yellow code
             type: 'time', // Set x-axis type to time
-            name: 'Time',
+            name: 'DateTime',
             nameLocation: 'middle',
             nameTextStyle: {
                 color: mainText,
@@ -1252,14 +1252,14 @@ surfaceSpeedDirection(): void {
               axisLine: {
                   show: true,
                   lineStyle: {
-                    color: 'red'
+                    color: 'blue'
                 }
               },
               splitLine: {
                   show: true, // Show grid lines
                   lineStyle: {
                     type: 'dashed', // Dashed gridlines for yAxis 1 (right axis)
-                    color: 'red'
+                    color: 'blue'
                 }
               },
               position: this.isSpeedChecked && this.isCurrentChecked ? 'right' : '', 
@@ -1364,8 +1364,8 @@ surfaceSpeedDirection(): void {
             data: dates.map((date, index) => ({ value: [date, surfaceCurrent[index]?.split(';')[1]] })),
             // data: this.sampleDataAdcp.map(item => [item.timestamp, item.current_direction]),
             type:  chartType,
-            lineStyle: { normal: { color: 'red', type: 'dashed' } },
-            itemStyle: { color: 'red' },
+            lineStyle: { normal: { color: 'blue', type: 'dashed' } },
+            itemStyle: { color: 'blue' },
             showSymbol: true,
             yAxisIndex: this.isSpeedChecked ? 1 : 0 // Bind to right y-axis
           }] : [])
@@ -1459,7 +1459,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               },
               xAxis: {
                   type: 'time', // Set x-axis type to time
-                  name: 'Time',
+                  name: 'DateTime',
                   nameLocation: 'middle',
                   nameTextStyle: {
                       color: mainText,
@@ -1753,7 +1753,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             },
             xAxis: {
               type: 'time',
-              name: 'Time',
+              name: 'DateTime',
               nameLocation: 'middle',
               nameTextStyle: {
                 color: mainText,

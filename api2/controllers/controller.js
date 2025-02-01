@@ -308,7 +308,7 @@ const saveSensorData = async (req, res) => {
     } = req.body;
 
     // Validate input
-    if (!StationID || !Date || !Time || !UTC_Time || !LAT || !LONG || !BatteryVoltage || !GPS_Date || !S1_RelativeWaterLevel || !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection || !Lower_CurrentSpeedDirection || 
+    if (!StationID || !Date || !Time || !UTC_Time || !LAT || !LONG || !BatteryVoltage || !GPS_Date || !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection || !Lower_CurrentSpeedDirection || 
         !Profile4 || !Profile5 || !Profile6 || !Profile7 || !Profile8 || !Profile9 || !Profile10 || 
         !Profile11 || !Profile12 || !Profile13 || !Profile14 || !Profile15 || !Profile16 || !Profile17 || !Profile18 || !Profile19 || !Profile20 || !Profile21 || !Profile22 || !Profile23 || !Profile24 || 
         !Profile25 || !Profile26 || !Profile27 || !Profile28 || !Profile29 || !Profile30 || !Profile31 || 
@@ -465,7 +465,7 @@ const saveSensorData2 = async (req, res) => {
     // Validate input
     if (
         !StationID || !Datee || !Time || !UTC_Time || !LAT || !LONG ||
-        !BatteryVoltage || !GPS_Date || !S1_RelativeWaterLevel ||
+        !BatteryVoltage || !GPS_Date ||
         !S2_SurfaceCurrentSpeedDirection || !Middle_CurrentSpeedDirection ||
         !Lower_CurrentSpeedDirection || !Profile4 || !Profile5 || !Profile6 ||
         !Profile7 || !Profile8 || !Profile9 || !Profile10 ||

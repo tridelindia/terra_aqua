@@ -15,7 +15,7 @@ export class LoadingComponent implements OnInit{
   ngOnInit(): void {
     // Calling the asynchronous function and handling routing after getting the key.
     this.getKey().then((isActive) => {
-      if (isActive) {
+      if (!isActive) {
         console.log(true);
         this.route.navigate(['/login']);
       } else {

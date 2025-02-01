@@ -63,15 +63,53 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
 
     const firstRow = data[0];
      
-    
+    console.log("profile5",firstRow.profile5);
 
     // Check if all required data is available for each sensor in the first row
     const tideReceived = firstRow.S1_RelativeWaterLevel !== null;
     const currentReceived = firstRow.Lower_CurrentSpeedDirection !== null &&
                             firstRow.Middle_CurrentSpeedDirection !== null &&
-                            firstRow.S2_SurfaceCurrentSpeedDirection !== null;
-    const batteryReceived = firstRow.Battery_Voltage!== null;
+                            firstRow.S2_SurfaceCurrentSpeedDirection !== null &&
+                            firstRow.profile4 !== null&&
+                            firstRow.profile5 !== null&&
+                            firstRow.profile6 !== null&&
+                            firstRow.profile7 !== null&&
+                            firstRow.profile8 !== null&&
+                            firstRow.profile9 !== null&&
+                            firstRow.profile10 !== null &&
+                            firstRow.profile11 !== null &&
+                            firstRow.profile12 !== null &&
+                            firstRow.profile13 !== null &&
+                            firstRow.profile14 !== null &&
+                            firstRow.profile15 !== null &&
+                            firstRow.profile16 !== null &&
+                            firstRow.profile17 !== null &&
+                            firstRow.profile18 !== null &&
+                            firstRow.profile19 !== null &&
+                            firstRow.profile20 !== null &&
+                            firstRow.profile21 !== null &&
+                            firstRow.profile22 !== null &&
+                            firstRow.profile23 !== null &&
+                            firstRow.profile24 !== null &&
+                            firstRow.profile25 !== null &&
+                            firstRow.profile26 !== null &&
+                            firstRow.profile27 !== null &&
+                            firstRow.profile28 !== null &&
+                            firstRow.profile29 !== null &&
+                            firstRow.profile30 !== null &&
+                            firstRow.profile31 !== null &&
+                            firstRow.profile32 !== null &&
+                            firstRow.profile33 !== null &&
+                            firstRow.profile34 !== null &&
+                            firstRow.profile35 !== null &&
+                            firstRow.profile36 !== null &&
+                            firstRow.profile37 !== null &&
+                            firstRow.profile38 !== null &&
+                            firstRow.profile39 !== null &&
+                            firstRow.profile40 !== null ;
 
+    const batteryReceived = firstRow.Battery_Voltage!== null;
+    console.log("curremnt", currentReceived)
     // Update the status and date/time based on data availability
     this.sensorStatus[0].status = tideReceived ? "Recieved" : "Progress";
     this.sensorStatus[1].status = currentReceived ? "Recieved" : "Progress";
@@ -79,6 +117,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
 
 
     if(tideReceived){
+      
       this.sensorStatus[0].date = this.formatDate(this.sensorDatelist[0].Date);
       this.sensorStatus[0].time = this.formatTime(this.sensorDatelist[0].Time);
     }else{
@@ -166,7 +205,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "LONG": 77.59784407,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
-      "S1_RelativeWaterLevel": 2.37,
+      "S1_RelativeWaterLevel": '2.37',
       "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
       "StationID":"CWPRS01",
       "Time":"1970-01-01T09:30:00.000Z",
@@ -220,7 +259,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "LONG": 77.59784407,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
-      "S1_RelativeWaterLevel": 2.37,
+      "S1_RelativeWaterLevel": '2.37',
       "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
       "StationID":"CWPRS01",
       "Time":"1970-01-01T09:20:00.000Z",
@@ -273,7 +312,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "LONG": 77.59784407,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
-      "S1_RelativeWaterLevel": 2.37,
+      "S1_RelativeWaterLevel": '2.37',
       "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
       "StationID":"CWPRS01",
       "Time":"1970-01-01T09:10:00.000Z",
@@ -330,7 +369,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "LONG": 72.80921,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel":2.37,
+    "S1_RelativeWaterLevel":'2.37',
     "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
     "StationID":"CWPRS02",
     "Time": "1970-01-01T09:30:00.000Z",
@@ -382,7 +421,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "LONG": 72.80921,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel":2.37,
+    "S1_RelativeWaterLevel":'2.37',
     "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
     "StationID":"CWPRS02",
     "Time": "1970-01-01T09:20:00.000Z",
@@ -434,7 +473,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "LONG": 72.80921,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
-    "S1_RelativeWaterLevel":2.37,
+    "S1_RelativeWaterLevel":'2.37',
     "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
     "StationID":"CWPRS02",
     "Time": "1970-01-01T09:10:00.000Z",

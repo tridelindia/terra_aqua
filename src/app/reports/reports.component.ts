@@ -214,28 +214,28 @@ exportOptions = [
   }
 tide_offset!:string;
 
-  calculateResult(existingData: number, newData: string | number): number {
+  calculateResult(existingData: string, newData: string | number): string {
     let result: number;
   
     // Check if newData is a number
     if (typeof newData === 'number') {
-      result = existingData + newData;
+      result = parseFloat(existingData) + newData;
     } 
     // If newData is a string, handle signs
     else if (typeof newData === 'string') {
       if (newData.startsWith('-')) {
-        result = existingData - parseFloat(newData); // Subtract if "-"
+        result = parseFloat(existingData) - parseFloat(newData); // Subtract if "-"
       } else {
-        result = existingData + parseFloat(newData); // Add for "+" or no sign
+        result = parseFloat(existingData) + parseFloat(newData); // Add for "+" or no sign
       }
     } 
     // Handle unexpected input
     else {
-      return existingData;
+      return existingData.toString();
     }
   
     // Limit the result to 2 decimal places
-    return parseFloat(result.toFixed(2));
+    return parseFloat(result.toFixed(2)).toString();
   }
 staionName1!:string ;
 staionName2!:string ;
@@ -350,6 +350,7 @@ nameOfStation!:string;
    
     this.stationService.getSensorssTime(formattedFromDate!, formattedToDate!).subscribe(
       (data: buoys) => {
+        console.log("live Data====", data);
          this.CWPRS01 = data.buoy1.map(buoy => ({
           ...buoy,
           S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),

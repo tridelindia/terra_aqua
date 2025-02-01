@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('loginTime');
     //un Comment for production /////**************** */ ********
     this.getKey().then((isActive) => {
-      if (isActive) {
+      if (!isActive) {
         console.log(true);
         // this.router.navigate(['/login']);
       } else {

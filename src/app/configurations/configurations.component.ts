@@ -304,7 +304,7 @@ wordToNumberMap: { [key: string]: number } = {
 };
 mapUrl:string = 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
 onEditTap(val:string){
-  console.log(val);
+  //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
   //  const index = parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
   //                             .replace('four', '4').replace('five', '5').replace('six', '6')
@@ -321,7 +321,7 @@ onEditTap(val:string){
   //                             .replace('thirtyseven', '37'));
 
 
-                              console.log("index in edit" , index);
+                              //console.log("index in edit" , index);
   if (index >= 1 && index <= 37) {
     
     this[`isEdit${index}`] = !this[`isEdit${index}`];
@@ -329,7 +329,7 @@ onEditTap(val:string){
 
 }
 onOkTap(val:string){
-  console.log(val);
+  //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
   // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
   // .replace('four', '4').replace('five', '5').replace('six', '6')
@@ -350,7 +350,7 @@ this[`isEdit${index}`] = false; // Accessing the array and setting it to false
 }
 
 onViewTap(val:string){
-  console.log(val);
+  //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
   // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
   // .replace('four', '4').replace('five', '5').replace('six', '6')
@@ -365,7 +365,7 @@ onViewTap(val:string){
   // .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
   // .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
   // .replace('thirtyseven', '37'));
-  console.log("index == ", index);
+  //console.log("index == ", index);
 if (index >= 1 && index <= 37) {
 
 this[`isView${index}`] = !this[`isView${index}`];
@@ -398,24 +398,24 @@ list:string[]= ['Profile1', 'Profile2', 'Profile3', 'Profile4', 'Profile5', 'Pro
 filterdList:string[]=[];
 selected_e_bins:string[] = [];
 onCheckboxChange(event: Event, item: string, i:number): void {
-  console.log(`"number:""${i}"`,)
+  //console.log(`"number:""${i}"`,)
   const isChecked = (event.target as HTMLInputElement).checked;
   if (isChecked) {
     // Add item to the selected list if checked
     this.selected_e_bins.push(item);
-    // console.log(this.selected_e_bins);
+    // //console.log(this.selected_e_bins);
   } else {
     // Remove item from the selected list if unchecked
     this.selected_e_bins = this.selected_e_bins.filter(selectedItem => selectedItem !== item);
   }
-  console.log(this.selected_e_bins); // To check the updated list in the console
+  //console.log(this.selected_e_bins); // To check the updated list in the //console
 }
 maxSelection = 3
 selecteds!:string;
 onItemSelect(event: any) {
-console.log(event);
+//console.log(event);
 this.selected_e_bins.push(event.item_text as string)
-console.log(this.selected_e_bins, event.item_text)
+//console.log(this.selected_e_bins, event.item_text)
 
 }
 
@@ -423,19 +423,19 @@ console.log(this.selected_e_bins, event.item_text)
 onItemDeSelect(event: any) {
   this.selected_e_bins.indexOf(event.item_text as string)
 
-  console.log('Deselected Item:', this.selected_e_bins);
+  //console.log('Deselected Item:', this.selected_e_bins);
   this.updateSelecteds()
 }
 updateSelecteds() {
   // Concatenate selected items into a single string
   this.selecteds = this.selectedItems.map((item: any) => item.item_text).join(', ');
-  console.log(this.selecteds)
+  //console.log(this.selecteds)
 }
 
 CurrentSelect() {
-  console.log('Surface:', this.selectedSurface);
-  console.log('Middle:', this.selectedMiddle);
-  console.log('Lower:', this.selectedLower);
+  //console.log('Surface:', this.selectedSurface);
+  //console.log('Middle:', this.selectedMiddle);
+  //console.log('Lower:', this.selectedLower);
 }
 
   
@@ -530,7 +530,7 @@ CurrentSelect() {
       }
     }
 
-    // console.log(this.mapService.traveledPath);
+    // //console.log(this.mapService.traveledPath);
   }
 
   checking() {
@@ -540,13 +540,13 @@ CurrentSelect() {
   }
   stationTypeSelect() {
     this.travelPathAssign();
-    // console.log("Station selected:", this.selectedStationType);
+    // //console.log("Station selected:", this.selectedStationType);
 
     const selectedStation = this.stations.find(
       (station) => station.station_name === this.selectedStationType
 
     );
-    console.log("selected station:" , selectedStation);
+    //console.log("selected station:" , selectedStation);
 
     if (selectedStation) {
       this.selectedcoordinate = selectedStation.geo_format;
@@ -580,21 +580,21 @@ CurrentSelect() {
 
       // Update center and render the map with new station coordinates
       this.center = fromLonLat([this.Lang, this.Lat]);
-      // console.log(this.center)
+      // //console.log(this.center)
       if (this.selectedStationType == 'CWPRS01') {
         const point1 = fromLonLat([this.finallang, this.finallat]) as [
           number,
           number
         ];
-        console.log("nano loc",point1);
+        //console.log("nano loc",point1);
         const point2 = fromLonLat([this.liveloclang1, this.liveloclat1]) as [
           number,
           number
         ];
-        // console.log("point1:== ", point1, this.center);
-        // console.log("point2: ==", point2);
+        // //console.log("point1:== ", point1, this.center);
+        // //console.log("point2: ==", point2);
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // console.log(distance,'m');
+        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       } else if (this.selectedStationType == 'CWPRS02') {
@@ -603,10 +603,10 @@ CurrentSelect() {
           number,
           number
         ];
-        // console.log("point1:== ", point1);
-        // console.log("point2: ==", point2);
+        // //console.log("point1:== ", point1);
+        // //console.log("point2: ==", point2);
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // console.log(distance,'m');
+        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       }
@@ -626,7 +626,7 @@ CurrentSelect() {
     this.mapService.destroyMap();
     const mapContainer = document.getElementById('ol-map'); // Target HTML element for map
     if (this.selectedStationType === 'CWPRS01') {
-      // console.log("map:", mapContainer);
+      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         this.finallat,
@@ -638,7 +638,7 @@ CurrentSelect() {
       );
       this.show = true;
     } else if (this.selectedStationType == 'CWPRS02') {
-      // console.log("map:", mapContainer);
+      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         lat,
@@ -665,29 +665,29 @@ CurrentSelect() {
     this.abovedanger = parseFloat(this.staion.configs[2].above_danger);
     const bin = this.sensor[1].bins;
     const bins = bin.split(',');
-    console.log(bin, bins[0]) 
+    //console.log(bin, bins[0]) 
     this.selectedSurface = bins[0];
     this.selectedMiddle = bins[1];
     this.selectedLower = bins[2];
     const filteredList = this.list.filter(item => !bins[0].includes(item.trim()) && !bins[1].includes(item.trim()) && !bins[2].includes(item.trim()));
     this.filterdList = filteredList;
     this.updatedropdown(bin);
-    // console.log(this.tideOffset, this.selectedUnit, this.selectedcurrentUnit,
+    // //console.log(this.tideOffset, this.selectedUnit, this.selectedcurrentUnit,
     //   this.belowdanger,this.abovedanger, this.belowwarning, this.abovewarning
     // );
     const ee = this.sensor[1].e_bins;
-    // console.log("e_bin:",ee);
+    // //console.log("e_bin:",ee);
     const ejson = JSON.parse(ee);
     
     this.recieved_e_bins = ejson;
-    console.log(this.recieved_e_bins);
+    //console.log(this.recieved_e_bins);
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`edit${i+1}`] = this.recieved_e_bins[i].name;
     }
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`isView${i+1}`] = this.recieved_e_bins[i].show;
     }
-    console.log("view37 is", this.isView37);
+    //console.log("view37 is", this.isView37);
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`e_bin${i+1}`] = this.recieved_e_bins[i].bin;
     }
@@ -745,20 +745,20 @@ CurrentSelect() {
   selecteoption(typee: String) {
     this.slectedOption = typee;
     
-    // console.log(`selectedType : ${this.slectedOption}`);
+    // //console.log(`selectedType : ${this.slectedOption}`);
   }
 
   selectUnit(unit: string) {
     this.selectedUnit = unit;
-    // console.log(`Selected unit: ${this.selectedUnit}`);
+    // //console.log(`Selected unit: ${this.selectedUnit}`);
   }
   selectcurrentUnit(unit: string) {
     this.selectedcurrentUnit = unit;
-    // console.log(`Selected unit: ${this.selectedcurrentUnit}`);
+    // //console.log(`Selected unit: ${this.selectedcurrentUnit}`);
   }
   selectcoordinate(unit: string) {
     this.selectedcoordinate = unit;
-    // console.log(`Selected unit: ${this.selectedcoordinate}`);
+    // //console.log(`Selected unit: ${this.selectedcoordinate}`);
   }
 
 
@@ -766,7 +766,7 @@ CurrentSelect() {
   ngOnInit(): void {
     this.staion.page = 'Setting';
     const a = 1;
-    console.log(`${a.toString()}`);
+    //console.log(`${a.toString()}`);
     const status = navigator.onLine;
     this.online = status;
     if(!this.online){
@@ -778,7 +778,7 @@ CurrentSelect() {
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
     this.data.getSensorLiveData(todayDate, todayDate).subscribe((response) => {
-      // console.log(response);
+      // //console.log(response);
       if(response.buoy1.length !==4){
         this.buoy1 = this.dummyData1;
         this.buoy2 = this.dummyData2
@@ -796,7 +796,7 @@ CurrentSelect() {
     });
     this.data.getStationNames().subscribe((stations) => {
       this.stations = stations;
-      console.log("station setting", stations);
+      //console.log("station setting", stations);
 
       for (let i in stations) {
         this.stationTypes.push(stations[i].station_name);
@@ -804,7 +804,7 @@ CurrentSelect() {
 
       this.data.getsensorConfigs().subscribe((sensor) => {
         this.sensor = sensor;
-        // console.log("Sensors==", this.sensor);
+        // //console.log("Sensors==", this.sensor);
         if (this.sensor != null) {
           this.assign();
         }
@@ -958,7 +958,7 @@ CurrentSelect() {
   }
 
   clickon(typr: String) {
-    // console.log(typr);
+    // //console.log(typr);
   }
 
   //updates
@@ -976,12 +976,12 @@ CurrentSelect() {
         }
       )
     }
-    console.log(e_bins_json);
+    //console.log(e_bins_json);
     const e_bins = JSON.stringify(e_bins_json);
 
     const binnn = `${this.selectedSurface},${this.selectedMiddle},${this.selectedLower}`;
-    console.log("binnss: ===",binnn);
-    // console.log("tapped", this.slectedOption);
+    //console.log("binnss: ===",binnn);
+    // //console.log("tapped", this.slectedOption);
     if(this.selectedItems >2){
       this.taost.error('You can select only 3 items');
       return;
@@ -995,7 +995,7 @@ CurrentSelect() {
         unit: this.selectedUnit,
 
       };
-      // console.log(data);
+      // //console.log(data);
     } else if (this.slectedOption === 'adcp') {
       data = {
         sensor_type: this.slectedOption,
@@ -1003,7 +1003,7 @@ CurrentSelect() {
         bins: binnn,
         e_bins: e_bins
       };
-      // console.log(data);
+      // //console.log(data);
     } else if (this.slectedOption === 'battery') {
       data = {
         sensor_type: this.slectedOption.toString(),
@@ -1012,12 +1012,12 @@ CurrentSelect() {
         above_danger: this.abovedanger.toString(),
         below_danger: this.belowdanger.toString(),
       };
-      // console.log(data);
+      // //console.log(data);
     }
 
     this.http.put('http://localhost:3000/api/config', data).subscribe({
       next: (res) => {
-        // console.log(res);
+        // //console.log(res);
         this.taost.success('Sensor settings Updaeted', 'Success');
       },
       error: (err) => {
@@ -1070,11 +1070,11 @@ CurrentSelect() {
       )
       .subscribe({
         next: (res) => {
-          // console.log('response station config ==', res);
+          // //console.log('response station config ==', res);
           this.taost.success('Station Configuration updated', 'Success');
         },
         error: (err) => {
-          // console.error('Error occurred:', err);
+          // //console.error('Error occurred:', err);
           this.taost.error(
             'Error Updating Station Configuration',
             'Please try again'
@@ -1121,7 +1121,7 @@ CurrentSelect() {
     //   bins.includes(item.item_text)
     // );
   
-    // console.log('Selected Items:', this.selectedItems);
+    // //console.log('Selected Items:', this.selectedItems);
   }
 
 
@@ -1150,7 +1150,7 @@ CurrentSelect() {
     // Add item to the target
     targetBox.splice(event.currentIndex, 0, item);
 
-    console.log(this.rightBox)
+    //console.log(this.rightBox)
   }
 
   // Remove item from right and add back to left
@@ -1170,8 +1170,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1223,8 +1223,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1276,8 +1276,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1333,8 +1333,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -1385,8 +1385,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -1437,8 +1437,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',

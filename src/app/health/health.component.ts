@@ -63,7 +63,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
 
     const firstRow = data[0];
      
-    console.log("profile5",firstRow.profile5);
+    //console.log("profile5",firstRow.profile5);
 
     // Check if all required data is available for each sensor in the first row
     const tideReceived = firstRow.S1_RelativeWaterLevel !== null;
@@ -109,7 +109,7 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
                             firstRow.profile40 !== null ;
 
     const batteryReceived = firstRow.Battery_Voltage!== null;
-    console.log("curremnt", currentReceived)
+    //console.log("curremnt", currentReceived)
     // Update the status and date/time based on data availability
     this.sensorStatus[0].status = tideReceived ? "Recieved" : "Progress";
     this.sensorStatus[1].status = currentReceived ? "Recieved" : "Progress";
@@ -201,8 +201,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "Battery_Voltage": "12.4",
       "Date": "2025-01-08T00:00:00.000Z",
       "GPS_Date": "1970-01-01T00:00:00.000Z",
-      "LAT": 12.90935942,
-      "LONG": 77.59784407,
+      "LAT": 19.01,
+      "LONG": 72.7,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
       "S1_RelativeWaterLevel": '2.37',
@@ -255,8 +255,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "Battery_Voltage": "12.4",
       "Date": "2025-01-08T00:00:00.000Z",
       "GPS_Date": "1970-01-01T00:00:00.000Z",
-      "LAT": 12.90935942,
-      "LONG": 77.59784407,
+      "LAT": 19.01,
+      "LONG": 72.7,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
       "S1_RelativeWaterLevel": '2.37',
@@ -308,8 +308,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
       "Battery_Voltage": "12.4",
       "Date": "2025-01-08T00:00:00.000Z",
       "GPS_Date": "1970-01-01T00:00:00.000Z",
-      "LAT": 12.90935942,
-      "LONG": 77.59784407,
+      "LAT": 19.01,
+      "LONG": 72.7,
       "Lower_CurrentSpeedDirection": "0.32;254.7",
       "Middle_CurrentSpeedDirection": "0.71;249.3",
       "S1_RelativeWaterLevel": '2.37',
@@ -365,8 +365,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "Battery_Voltage": "10.4",
     "Date":"2025-01-08T00:00:00.000Z",
     "GPS_Date":"1900-01-01T00:00:00.000Z",
-    "LAT": 18.994803,
-    "LONG": 72.80921,
+    "LAT": 18.95,
+    "LONG": 72.66,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel":'2.37',
@@ -417,8 +417,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "Battery_Voltage": "10.4",
     "Date":"2025-01-08T00:00:00.000Z",
     "GPS_Date":"1900-01-01T00:00:00.000Z",
-    "LAT": 18.994803,
-    "LONG": 72.80921,
+    "LAT": 18.95,
+    "LONG": 72.66,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel":'2.37',
@@ -469,8 +469,8 @@ constructor(private layout:LayoutComponent, private data:ConfigDataService, priv
     "Battery_Voltage": "10.4",
     "Date":"2025-01-08T00:00:00.000Z",
     "GPS_Date":"1900-01-01T00:00:00.000Z",
-    "LAT": 18.994803,
-    "LONG": 72.80921,
+    "LAT": 18.95,
+    "LONG": 72.66,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel":'2.37',

@@ -39,8 +39,8 @@ export class SidenavComponent implements OnInit {
   }
   isPageSelected(page: string): boolean {
     const currentUrlPage = this.router.url.split('/').pop();
-    // console.log('url', currentUrlPage, page);
-    // console.log('pagename', page);
+    // //console.log('url', currentUrlPage, page);
+    // //console.log('pagename', page);
  
     return page.toLowerCase() === this.currentPage;
   }
@@ -60,7 +60,7 @@ export class SidenavComponent implements OnInit {
       this.layout.page = name.toLowerCase();
       // this.layout.page = name;
       this.router.navigate([`/base/${name.toLowerCase()}`]);
-      console.log(`tapped page-==>${name.toLowerCase()}`);
+      //console.log(`tapped page-==>${name.toLowerCase()}`);
       // this.router.navigate(['/base', name]);
       if (this.layout.page === 'logout') {
         this.router.navigate(['/login']);
@@ -83,10 +83,10 @@ export class SidenavComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentPage =
           this.router.url.split('/').pop()?.toLowerCase() || '';
-        console.log('page changed', this.currentPage);
+        //console.log('page changed', this.currentPage);
       }
     });
-    console.log('hai sidenav');
+    //console.log('hai sidenav');
     this.username = localStorage.getItem('username') ?? '';
     this.renderer.setAttribute(document.body, 'data-theme', this.currentTheme);
     const darkModeMediaQuery = window.matchMedia(
@@ -111,7 +111,7 @@ export class SidenavComponent implements OnInit {
       }
     };
     const usertheme = localStorage.getItem('theme') ?? '';
-    console.log('theme local', usertheme);
+    //console.log('theme local', usertheme);
     if (!usertheme) {
       if (darkModeMediaQuery.matches) {
         this.currentTheme = 'dark';

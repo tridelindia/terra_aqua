@@ -44,7 +44,7 @@ this.getScreenSize();
   }
 data(){
 this.speedType = this.lay.configs[1].unit;
-console.log(this.speedType);
+//console.log(this.speedType);
 }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) {

@@ -22,7 +22,7 @@ const getRoles = async (req, res) => {
     }
 };
 const addRole = async (req, res) => {
-    console.log('Received data:', req.body);
+    //console.log('Received data:', req.body);
     const { role } = req.body;
     
     if (!role) {
@@ -40,7 +40,7 @@ const addRole = async (req, res) => {
             message: 'Role added successfully',
         });
     } catch (error) {
-        console.error('Database error:', error); // Changed 'err' to 'error'
+        //console.error('Database error:', error); // Changed 'err' to 'error'
         res.status(500).send(error);
     }
 };
@@ -56,7 +56,7 @@ const getdesignation = async (req, res) => {
     }
 };
 const adddesignation = async (req, res) => {
-    console.log('Received data:', req.body);
+    //console.log('Received data:', req.body);
     const { designation } = req.body;
     
     if (!designation) {
@@ -74,7 +74,7 @@ const adddesignation = async (req, res) => {
             message: 'designation added successfully',
         });
     } catch (error) {
-        console.error('Database error:', error); // Changed 'err' to 'error'
+        //console.error('Database error:', error); // Changed 'err' to 'error'
         res.status(500).send(error);
     }
 };
@@ -82,7 +82,7 @@ const adddesignation = async (req, res) => {
 
 // Register new user
 const registerUser = async (req, res) => {
-    console.log('Received data:', req.body); // Debugging
+    //console.log('Received data:', req.body); // Debugging
 
     const { name, username, role, designation, email, password } = req.body;
     if (!name || !username || !role || !designation || !email || !password) {
@@ -120,7 +120,7 @@ const registerUser = async (req, res) => {
             email
         });
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).send(err);
     }
 };
@@ -128,7 +128,7 @@ const registerUser = async (req, res) => {
 
 //edit user
 const editUser = async (req, res) => {
-    console.log('Received data for update:', req.body); // Debugging
+    //console.log('Received data for update:', req.body); // Debugging
 
     const { id, name, username, role, designation, email, password } = req.body;
     
@@ -193,7 +193,7 @@ const editUser = async (req, res) => {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).send(err);
     }
 };
@@ -202,7 +202,7 @@ const editUser = async (req, res) => {
 
 // Login user
 const loginUser = async (req, res) => {
-    console.log('recieved' ,req.body);
+    //console.log('recieved' ,req.body);
     const { userName, password } = req.body;
 
 
@@ -242,7 +242,7 @@ const loginUser = async (req, res) => {
             userWithoutPassword
         );
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).send(err);
     }
 };
@@ -250,7 +250,7 @@ const loginUser = async (req, res) => {
 
 //save data
 const saveSensorData = async (req, res) => {
-    console.log('Received data:', req.body); // Debugging
+    //console.log('Received data:', req.body); // Debugging
 
     const {
         StationID,
@@ -398,14 +398,14 @@ const saveSensorData = async (req, res) => {
         // Send response
         res.status(201).json({ message: 'Sensor data saved successfully', data: req.body });
         await axios.get('http://192.168.0.100:3000/api/split');
-        console.log('Successfully triggered test API for tide and currents');
+        //console.log('Successfully triggered test API for tide and currents');
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).json({ message: 'Error saving data', error: err });
     }
 };
 const saveSensorData2 = async (req, res) => {
-    console.log('Received data:', req.body); // Debugging
+    //console.log('Received data:', req.body); // Debugging
 
     const {
         StationID,
@@ -565,9 +565,9 @@ const saveSensorData2 = async (req, res) => {
         // Send response
         res.status(201).json({ message: 'Sensor data saved successfully', data: req.body });
         await axios.get('http://192.168.0.100:3000/api/split');
-        console.log('Successfully triggered test API for tide and currents');
+        //console.log('Successfully triggered test API for tide and currents');
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).json({ message: 'Error saving data', error: err });
     }
 };
@@ -583,10 +583,10 @@ const test = async (req, res) => {
         if (data) {
             // Extract and format time
             const timeString = data.Time; 
-            console.log("fetched time ==", timeString);
+            //console.log("fetched time ==", timeString);
             const timee = new Date(timeString); // Use new Date()
             const formattedTime = timee.toISOString().substr(11, 8); // HH:MM:SS
-            console.log("convetrted time ==", formattedTime);
+            //console.log("convetrted time ==", formattedTime);
             //  formattedTime += '.0000000';
 
             const utctime = data.UTC_Time;
@@ -599,8 +599,8 @@ const test = async (req, res) => {
             const formattedDate = datee.toISOString().substr(0, 10); // YYYY-MM-DD
 
             // Print formatted date and time
-            console.log('Formatted Date == ', formattedDate);
-            console.log('Formatted Time == ', formattedTime);
+            //console.log('Formatted Date == ', formattedDate);
+            //console.log('Formatted Time == ', formattedTime);
 
             // Assign data to variables
             const StationID = data.StationID;
@@ -616,18 +616,18 @@ const test = async (req, res) => {
             const Lower_CurrentSpeedDirection = String(data.Lower_CurrentSpeedDirection);
 
             // Print each piece of data explicitly
-            console.log(`Station ID == ${StationID}`);
-            console.log(`Date == ${formattedDate}`);
-            console.log(`Time == ${formattedTime}`);
-            console.log(`UTC Time == ${formattedUTCTime}`);
-            console.log(`Latitude == ${LAT}`);
-            console.log(`Longitude == ${LONG}`);
-            // console.log(`Battery Voltage == ${Battery_Voltage}`);
-            console.log(`GPS Date == ${GPS_Date}`);
-            console.log(`S1 Relative Water Level == ${S1_RelativeWaterLevel}`);
-            console.log(`S2 Surface Current Speed Direction == ${S2_SurfaceCurrentSpeedDirection}`);
-            console.log(`Middle Current Speed Direction == ${Middle_CurrentSpeedDirection}`);
-            console.log(`Lower Current Speed Direction == ${Lower_CurrentSpeedDirection}`);
+            //console.log(`Station ID == ${StationID}`);
+            //console.log(`Date == ${formattedDate}`);
+            //console.log(`Time == ${formattedTime}`);
+            //console.log(`UTC Time == ${formattedUTCTime}`);
+            //console.log(`Latitude == ${LAT}`);
+            //console.log(`Longitude == ${LONG}`);
+            // //console.log(`Battery Voltage == ${Battery_Voltage}`);
+            //console.log(`GPS Date == ${GPS_Date}`);
+            //console.log(`S1 Relative Water Level == ${S1_RelativeWaterLevel}`);
+            //console.log(`S2 Surface Current Speed Direction == ${S2_SurfaceCurrentSpeedDirection}`);
+            //console.log(`Middle Current Speed Direction == ${Middle_CurrentSpeedDirection}`);
+            //console.log(`Lower Current Speed Direction == ${Lower_CurrentSpeedDirection}`);
 
             // Save data to tide
             const tidequery = `
@@ -666,7 +666,7 @@ const test = async (req, res) => {
                 const tideresult = await request.query(tidequery);
                 const currentresult = await request.query(currentquery);
             } catch (error) {
-                console.error("Error saving currents data: ", error);
+                //console.error("Error saving currents data: ", error);
                 return res.status(500).json({ message: "Error saving currents data.", error: error.message });
             }
             // Send the data as a response after logging
@@ -675,7 +675,7 @@ const test = async (req, res) => {
             return res.status(404).json({ message: "No data found." });
         }
     } catch (err) {
-        console.error(err); // Log the error for debugging
+        //console.error(err); // Log the error for debugging
         return res.status(500).send(err); 
     }
 };
@@ -692,8 +692,8 @@ const getSensors = async (req, res) => {
     }
 
     try {
-        console.log('Received fromDate:', fromDate);
-        console.log('Received toDate:', toDate);
+        //console.log('Received fromDate:', fromDate);
+        //console.log('Received toDate:', toDate);
 
         // Define your queries for both tables
         const querySensorsData = `
@@ -713,8 +713,8 @@ const getSensors = async (req, res) => {
         request.input('toDate', sql.DateTime, new Date(toDate));
 
         // Log the parsed dates
-        console.log('Parsed fromDate:', new Date(fromDate));
-        console.log('Parsed toDate:', new Date(toDate));
+        //console.log('Parsed fromDate:', new Date(fromDate));
+        //console.log('Parsed toDate:', new Date(toDate));
 
         // Execute the first query for tb_cwprs_01
         const resultSensorsData = await request.query(querySensorsData);
@@ -733,7 +733,7 @@ const getSensors = async (req, res) => {
         // Return the structured response
         res.json(response);
     } catch (err) {
-        console.error('Error executing query:', err);
+        //console.error('Error executing query:', err);
         res.status(500).send(err);
     }
 };
@@ -749,15 +749,15 @@ const getSensorsTime = async (req, res) => {
         }
     
         try {
-            console.log('Received fromDate:', fromDate);
-            console.log('Received toDate:', toDate);
+            //console.log('Received fromDate:', fromDate);
+            //console.log('Received toDate:', toDate);
     
             // Convert to local time if necessary
             const fromDateObj = toLocalDate(fromDate);
             const toDateObj = toLocalDate(toDate);
     
-            console.log('Parsed fromDate (local):', fromDateObj);
-            console.log('Parsed toDate (local):', toDateObj);
+            //console.log('Parsed fromDate (local):', fromDateObj);
+            //console.log('Parsed toDate (local):', toDateObj);
     
             const querySensorsData = `
                 SELECT *
@@ -788,7 +788,7 @@ const getSensorsTime = async (req, res) => {
                 buoy2: data2
             });
         } catch (err) {
-            console.error('Error executing query:', err);
+            //console.error('Error executing query:', err);
             res.status(500).send(err);
         }
     };
@@ -823,7 +823,7 @@ const deleteRole = async (req, res) => {
 
         res.status(200).json({ message: 'Role deleted successfully' });
     } catch (error) {
-        console.error('Database error:', error);
+        //console.error('Database error:', error);
         res.status(500).send(error);
     }
 };
@@ -846,7 +846,7 @@ const deleteUser =async(req, res) =>{
         res.status(200).json({message: 'User deleted successfully'});
     
     } catch (error) {
-        console.error('Database error:', error);
+        //console.error('Database error:', error);
         res.status(500).send(error);
     }
     
@@ -873,7 +873,7 @@ const DeleteDesignation = async (req, res) => {
 
         res.status(200).json({ message: 'Designation deleted successfully' });
     } catch (error) {
-        console.error('Database error:', error);
+        //console.error('Database error:', error);
         res.status(500).send(error);
     }
 };
@@ -886,7 +886,7 @@ const DeleteDesignation = async (req, res) => {
 
 const updateConfigs = async (req, res) => {
     const { sensor_type, value, unit, above_warning, below_warning, above_danger, below_danger, bins, e_bins } = req.body;
-    console.log("recieved data", req.body);
+    //console.log("recieved data", req.body);
     // Update logic based on sensor type
     let query = '';
     let params = [];
@@ -934,7 +934,7 @@ const updateConfigs = async (req, res) => {
 
         res.json({ message: 'Sensor data updated successfully' });
     } catch (err) {
-        console.error('Database error:', err);
+        //console.error('Database error:', err);
         res.status(500).json({ message: 'An error occurred while updating sensor data', error: err.message });
     }
 };
@@ -955,7 +955,7 @@ const getconfigs = async (req, res) => {
 
 
 const updateStationConfig = async (req, res) => {
-    console.log('Received update request with body:', req.body);
+    //console.log('Received update request with body:', req.body);
     const {station, station_name, warning_circle, danger_circle, geo_format, latitude_dd, longitude_dd, latitude_deg, latitude_min, latitude_sec, longitude_deg, longitude_min, longitude_sec } = req.body;
 
     // Validate the required fields
@@ -1017,7 +1017,7 @@ const updateStationConfig = async (req, res) => {
 
         res.json({ message: 'Station configuration updated successfully' });
     } catch (error) {
-        console.error('Database error:', error);
+        //console.error('Database error:', error);
         res.status(500).json({ message: 'An error occurred while updating the station configuration', error: error.message });
     }
 };
@@ -1037,7 +1037,7 @@ const getStationconfigs = async (req, res) => {
 
 //logs
 const addLog = async (req, res)=>{
-    console.log('Received update request with body:', req.body);
+    //console.log('Received update request with body:', req.body);
     const {log} = req.body;
 
     if (!log) {
@@ -1056,7 +1056,7 @@ const addLog = async (req, res)=>{
                 logId: result.rowsAffected[0]
             })
     } catch (error) {
-        console.error('Database error:', error);
+        //console.error('Database error:', error);
         res.status(500).send(error);
     }
 }

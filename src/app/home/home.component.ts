@@ -106,25 +106,25 @@ updateMapLayer() {
 online:boolean = false;
 
 ngOnInit(): void {
-  console.log("hai home")
+  //console.log("hai home")
   this.layout.page = 'Home';
   const status = navigator.onLine;
   this.online = status;
   if(this.online == false){
     this.mapUrl = '../../../../assets/western/{z}/{x}/{y}.png';
   }
-  console.log("online status",status);
+  //console.log("online status",status);
   const date = new Date();
   const todayDate = date.toISOString().substr(0, 10);
-  console.log("date",todayDate);
+  //console.log("date",todayDate);
   if(todayDate !=null){
     forkJoin([
       this.data.getSensorLiveData(todayDate, todayDate),
       this.data.getStationNames()
     ]).subscribe(([sensors, configs]) => {
-      console.log("buoy1", sensors.buoy1)
+      //console.log("buoy1", sensors.buoy1)
       if(sensors.buoy1.length < 4){
-        console.log("yes its low data");
+        //console.log("yes its low data");
         this.sensorsliveData =this.dummyData1;
         this.sensorsliveData2 = this.dummyData2;
       }else{
@@ -133,8 +133,8 @@ ngOnInit(): void {
        this.sensorsliveData2 = sensors.buoy2;
       }
 
-      console.log("bin4:", this.sensorsliveData);
-  console.log("sensor location1",this.sensorsliveData[0].LAT, this.sensorsliveData[0].LONG);
+      //console.log("bin4:", this.sensorsliveData);
+  //console.log("sensor location1",this.sensorsliveData[0].LAT, this.sensorsliveData[0].LONG);
       this.livelocationbuoy1 = fromLonLat([this.sensorsliveData[0].LONG, this.sensorsliveData[0].LAT]) as [number, number];
       this.livelocationbuoy2 = fromLonLat([this.sensorsliveData2[0].LONG, this.sensorsliveData2[0].LAT]) as [number, number];
 
@@ -150,13 +150,13 @@ ngOnInit(): void {
       this.imageMarker2 = statusCheck2 ? '../../assets/buoy.png' : '../../assets/buoy_offline.png';
       this.layout.image1 = this.imageMarker1;
       this.layout.image2 = this.imageMarker2;
-      console.log(this.layout.image1, this.layout.image2);
+      //console.log(this.layout.image1, this.layout.image2);
       
  
       if(this.imageMarker1 != null && this.imageMarker2 !=null){
   if (status && !this.map) {
         
-  console.log("ok");
+  //console.log("ok");
         this.MapInit();
       }
       }
@@ -174,7 +174,7 @@ ngOnDestroy(): void {
 coordassign(configs: StationConfigs[]): boolean {
   // Ensure there are at least two configurations in the array to avoid errors
   if (configs.length < 2) {
-    console.error("Insufficient station configurations provided.");
+    //console.error("Insufficient station configurations provided.");
     return false;
   }
 
@@ -200,7 +200,7 @@ coordassign(configs: StationConfigs[]): boolean {
         config.latitude_dd
       ]) as [number, number];
     } else {
-      console.error("Unknown geo_format encountered:", config.geo_format);
+      //console.error("Unknown geo_format encountered:", config.geo_format);
       return [0, 0]; // Return a default value or handle as needed
     }
   };
@@ -265,7 +265,7 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
       this.mapService.registerClickListener((feature: Feature) => {
         const name = feature.get('name');
         if (name) {
-          console.log(`Feature clicked: ${name}`);
+          //console.log(`Feature clicked: ${name}`);
           this.layout.selectedBuoy = name;
           this.data.selectedBuoyforDash = name;
           
@@ -277,7 +277,7 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
       const newCoords = this.livelocationbuoy1;
       const newcoords2 = this.livelocationbuoy2;
       const marker = this.vectorSource.getFeatures().find(f => f.get('name') === 'Buoy 1');
-    console.log("cordas",newCoords, newcoords2)
+    //console.log("cordas",newCoords, newcoords2)
       if (marker) {
         marker.setGeometry(new Point(newCoords));
       }
@@ -358,7 +358,7 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
     //   }, 2);
     //   this.ngOnDestroy();
     // }else{
-    //   console.log("map initialed", this.map);
+    //   //console.log("map initialed", this.map);
     // }
     // this.assign();
     // if(status){
@@ -469,8 +469,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -522,8 +522,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -575,8 +575,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -632,8 +632,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -684,8 +684,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -736,8 +736,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',

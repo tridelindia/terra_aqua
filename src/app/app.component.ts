@@ -17,8 +17,8 @@ export class AppComponent implements OnInit{
   title = 'tems_v2';
  ngOnInit(): void {
      const status = navigator.onLine;
-     console.log("online status",status);
-     console.log(window.location.host);
+     //console.log("online status",status);
+     //console.log(window.location.host);
 
      this.check()
     //  this.setting()
@@ -29,10 +29,10 @@ constructor(private http:HttpClient){}
  check(){
   this.http.get('http://localhost:3000/api/users/reg').subscribe(
     (response)=>{
-      console.log(response);
+      //console.log(response);
     },
     (error)=>{
-      console.log(error);
+      //console.log(error);
     }
   )
  }
@@ -43,10 +43,10 @@ constructor(private http:HttpClient){}
   }
   this.http.post('http://localhost:3000/api/users/validate', data).subscribe(
     (response)=>{
-      console.log(response);
+      //console.log(response);
     },
     (error)=>{
-      console.log(error);
+      //console.log(error);
       }
   )
  }
@@ -54,10 +54,10 @@ constructor(private http:HttpClient){}
  getKey(){
   this.http.get('http://localhost:3000/api/users/getKey').subscribe(
     (response)=>{
-      console.log(response);
+      //console.log(response);
       },
       (error)=>{
-        console.log(error);
+        //console.log(error);
         }
   )
  }

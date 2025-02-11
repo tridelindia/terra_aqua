@@ -9,7 +9,7 @@ import { ConfigDataService } from '../config-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dashMapServiceService } from './dash-map/dash-map-service.service';
-
+import moment from "moment";
 
 export interface e_bins{
   name:string,
@@ -193,7 +193,7 @@ export class DashboardComponent {
   ) {
     // Check if the code is running in the browser
     this.isBrowser = isPlatformBrowser(this.platformId);
-    ////console.log("browser", this.isBrowser)
+    //////console.log("browser", this.isBrowser)
   }
   mapUrl:string='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   online:boolean = false;
@@ -228,10 +228,10 @@ isWithin20Minutes(dateTimeString: string, timeString: string): boolean {
 }
 preInit(){
   if(!this.layout.selectedBuoy){
-    ////console.log("no data");
+    //////console.log("no data");
     const buoy = localStorage.getItem('selectedBuoy');
     this.layout.selectedBuoy = buoy!;
-    //console.log("reviewed buoy name",this.layout.selectedBuoy)
+    ////console.log("reviewed buoy name",this.layout.selectedBuoy)
     this.router.navigate(['/base/home']);
 
   }
@@ -290,7 +290,7 @@ preInit(){
     const maxLevel = 12.4; // Set your maximum level
     const minLevel = 0; // Below which it's considered low
     const fillPercentage = ((this.batteryLevel - minLevel) / (maxLevel - minLevel)) * 100;
-    //console.log("percent", fillPercentage)
+    ////console.log("percent", fillPercentage)
     // Ensure fillPercentage is between 0% and 100%
     this.fillHeight = fillPercentage > 100 ? '100%' : fillPercentage < 0 ? '0%' : fillPercentage + '%';
   }
@@ -312,7 +312,7 @@ initial(){
   // this.assign();
   this.data.getsensorConfigs().subscribe((sensor) => {
     this.sensor = sensor;
-    console.log("Sensors==", this.sensor);
+    //console.log("Sensors==", this.sensor);
     if (this.sensor != null) {
       this.assign();
     }
@@ -340,7 +340,7 @@ setupReload() {
   
   updates(value: string, data: string): number {
     let val!: number;
-    //console.log("value", value);
+    ////console.log("value", value);
   
     // Check if the data is "speed"
     if (data === "speed") {
@@ -545,25 +545,25 @@ setupReload() {
   }
   
   assign(){
-    // //console.log()
+    // ////console.log()
     this.sensorDatelist = [];
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
      this.tide_unit = this.layout.configs[0].unit;
     this.data.getSensorLiveData(todayDate, todayDate).subscribe(datat=>{
-      console.log("buoys",datat)
-//console.log("bouy1 length=>", datat.buoy1.length, "bouy2 length=>", datat.buoy2.length)
+      //console.log("buoys",datat)
+////console.log("bouy1 length=>", datat.buoy1.length, "bouy2 length=>", datat.buoy2.length)
        if(this.layout.selectedBuoy == 'CWPRS01'){
         if(datat.buoy1.length < 4){
-          //console.log("yes low");
+          ////console.log("yes low");
           this.sensorDatelist = this.dummyData1;
-          //console.log("sensorlive data:",this.sensorDatelist);
+          ////console.log("sensorlive data:",this.sensorDatelist);
         }else{
           this.sensorDatelist = datat.buoy1;
-          //console.log("sensorlive data:",this.sensorDatelist);
+          ////console.log("sensorlive data:",this.sensorDatelist);
         }
         
-        //console.log(this.sensorDatelist[0]);
+        ////console.log(this.sensorDatelist[0]);
         this.buoyImage = this.layout.image1;
          if(this.buoyImage !=null){
           this.fetch();
@@ -572,20 +572,20 @@ setupReload() {
         
       }else if(this.layout.selectedBuoy == 'CWPRS02'){
         if(datat.buoy2.length < 4){
-          //console.log("yes low");
+          ////console.log("yes low");
           this.sensorDatelist = this.dummyData2;
-          //console.log("sensorlive data:",this.sensorDatelist);
+          ////console.log("sensorlive data:",this.sensorDatelist);
         }else{
           this.sensorDatelist = datat.buoy2;
-          //console.log("sensorlive data:",this.sensorDatelist);
+          ////console.log("sensorlive data:",this.sensorDatelist);
           
         }
         // this.sensorDatelist = datat.buoy2;
-        //console.log(this.sensorDatelist[0])
+        ////console.log(this.sensorDatelist[0])
         this.buoyImage = this.layout.image2;
-        //console.log(this.buoyImage);
+        ////console.log(this.buoyImage);
         if(this.buoyImage !=null){
-          //console.log("oookkk")
+          ////console.log("oookkk")
           this.fetch();
         }
         
@@ -594,10 +594,20 @@ setupReload() {
       
     },
   (error) => {
-    //console.error('Error fetching sensor data:', error);
+    ////console.error('Error fetching sensor data:', error);
   });
 
   } 
+  utcSplit(date:string):string{
+    const d = new Date(date);
+    const dd = d.toISOString().substr(0, 10);
+   const  formattedDate = dd;
+ 
+   const t = new Date(date);
+   const tt = t.toISOString().substr(11,8);
+   const formattedtime = tt;
+   return `${formattedDate} ${formattedtime}`;
+  }
   format(date:string, time:string):string{
     const d = new Date(date);
     const dd = d.toISOString().substr(0, 10);
@@ -614,7 +624,7 @@ filteredBinsNames:string[] =[];
 binss:string[]=[];
   fetch(){
     try {
-      console.log("buoy", this.layout.selectedBuoy);
+      //console.log("buoy", this.layout.selectedBuoy);
       const num = this.calculateResult(parseFloat(this.sensorDatelist[1].S1_RelativeWaterLevel), this.layout.configs[0].value);
        if(this.sensorDatelist[0].S1_RelativeWaterLevel !=null){
         this.tide= this.calculateResult(parseFloat(this.sensorDatelist[0].S1_RelativeWaterLevel), this.layout.configs[0].value);
@@ -628,36 +638,41 @@ binss:string[]=[];
         this.batteryLevel = this.battery;
         this.calculateBatteryColor();
       this.calculateBatteryFill();
-      //console.log("battery level",this.batteryLevel, this.fillHeight);
+      ////console.log("battery level",this.batteryLevel, this.fillHeight);
       }
-     //console.log("battery===>", this.battery)
+     ////console.log("battery===>", this.battery)
       // this.sensorDatelist=this.layout.sensorDataList;
        this.time = 
       this.format(this.sensorDatelist[0].Date, this.sensorDatelist[0].Time);
-      this.utc = this.format(this.sensorDatelist[0].UTC_Time, this.sensorDatelist[0].UTC_Time);
+      // const local_date = `${this.sensorDatelist[0].Date} ${this.sensorDatelist[0].Time}`
+      
+      const local_date = this.format(this.sensorDatelist[0].Date, this.sensorDatelist[0].Time);
+      console.log(local_date);
+      const utc = moment(local_date).toDate();
+      this.utc = this.utcSplit(utc.toISOString());
       // this.tide= this.sensorDatelist[0].S1_RelativeWaterLevel;
       this.lat = this.sensorDatelist[0].LAT;
       this.lang = this.sensorDatelist[0].LONG;
       this.center = [this.lat, this.lang];
-      console.log("lat",this.center)
+      //console.log("lat",this.center)
       const bin = this.sensor[1].bins;
       const bins = bin.split(',');
   
-      //console.log(bins, this.sensorDatelist[0].profile4)
+      ////console.log(bins, this.sensorDatelist[0].profile4)
       this.binss = bins
       const filteredList = this.list.filter(item => !bins[0].includes(item.trim()) && !bins[1].includes(item.trim()) && !bins[2].includes(item.trim()));
       // const filteredList2 = this.list.filter(item => !bins[1].includes(item.trim()));
       const ff = filteredList[0];
-      //console.log("finterled", filteredList, ff);
+      ////console.log("finterled", filteredList, ff);
       // this.filteredBinsNames = filteredList;
-      console.log("bins",bins);
+      //console.log("bins",bins);
 
       this.s_current = this.updates(bins[0], 'speed');
       // this.m_current = this.updates(bins[1], 'speed');
       this.l_current =this.updates(bins[2], 'speed');
-      console.log(this.s_current, this.m_current, this.l_current);
-      //console.log("currents_inner ",this.innerCurrent1,this.innerCurrent2, this.innerCurrent3, this.innerCurrent4, this.innerCurrent5, this.innerCurrent6, this.innerCurrent7, )
-      //console.log(this.innerCurrent1, this.innerdirection1);
+      //console.log(this.s_current, this.m_current, this.l_current);
+      ////console.log("currents_inner ",this.innerCurrent1,this.innerCurrent2, this.innerCurrent3, this.innerCurrent4, this.innerCurrent5, this.innerCurrent6, this.innerCurrent7, )
+      ////console.log(this.innerCurrent1, this.innerdirection1);
       this.cdr.detectChanges();
       this.compassvalue1 = this.updates(this.binss[0], 'direction');
       this.compval1= this.direction(this.compassvalue1);
@@ -669,22 +684,22 @@ binss:string[]=[];
       // const statusCheck2 = this.isWithin20Minutes(this.sensorsliveData2[0].Date, this.sensorsliveData2[0].Time);
       this.buoyImage = StatusCheck1 ? '../../assets/buoy.png' : '../../assets/buoy_offline.png';
       // this.imageMarker2 = statusCheck2 ? '../../assets/buoy.png' : '../../assets/buoy_offline.png';
-      console.log("end fetch", this.layout.selectedBuoy);
+      //console.log("end fetch", this.layout.selectedBuoy);
       if(this.layout.selectedBuoy === 'CWPRS01'){
         
       }else{
         
       }
     } catch (error) {
-      console.log("eerror", error)
+      //console.log("eerror", error)
     }
     this.loadLeafletAndInitializeMap();
    
     // if (this.isBrowser) {
-      //console.log("is browser true")
+      ////console.log("is browser true")
      
     // }else{
-      //console.log
+      ////console.log
       // ("is browser false")
     // }
   }
@@ -729,7 +744,7 @@ binss:string[]=[];
     }
   }
   async loadLeafletAndInitializeMap(): Promise<void> {
-    console.log("Map location:", this.center);
+    //console.log("Map location:", this.center);
     const L = await import('leaflet'); // Lazy-load Leaflet
     // this.initializeLeafletMap(L);
     this.mapService.initializeMap(
@@ -745,21 +760,21 @@ binss:string[]=[];
   initializeLeafletMap(L: any): void {
     const mapContainer = document.getElementById('leaflet-map');
     if (!mapContainer) {
-      //console.error('Map container not found');
+      ////console.error('Map container not found');
       return;
     }
   
-    //console.log('Initializing map with center:', this.center);
+    ////console.log('Initializing map with center:', this.center);
   
     // Validate the center coordinates
     if (!Array.isArray(this.center) || this.center.length !== 2) {
-      //console.error('Invalid center coordinates:', this.center);
+      ////console.error('Invalid center coordinates:', this.center);
       return;
     }
   
     // Destroy existing map instance if it exists
     if (this.map) {
-      //console.log('Destroying existing map instance.');
+      ////console.log('Destroying existing map instance.');
       this.map.remove();
     }
   
@@ -776,7 +791,7 @@ binss:string[]=[];
       iconSize: [24, 24], // Set the size of the marker
     });
   
-    //console.log('Selected Buoy:', this.layout.selectedBuoy);
+    ////console.log('Selected Buoy:', this.layout.selectedBuoy);
   
     const marker = L.marker(this.center, { icon: markerIcon }).bindTooltip(
       typeof this.layout.selectedBuoy === 'string' ? this.layout.selectedBuoy : 'Unknown Buoy',
@@ -843,6 +858,25 @@ binss:string[]=[];
     this.loadLeafletAndInitializeMap(); // Reinitialize map
     this.innerCurrent1 = 0;
     this.innerdirection1 =0;
+    this.innerCurrent3=0; 
+    this.innerCurrent4 =0;
+    this.innerCurrent5 =0; 
+    this.innerCurrent6=0; 
+    this.innerCurrent7=0;
+    this.inCompval1=''; 
+    this.inCompval2=''; 
+    this.inCompval3=''; 
+    this.inCompval4=''; 
+    this.inCompval5=''; 
+    this.inCompval6=''; 
+    this.inCompval7='';
+    this.innerdirection1 =0; 
+    this.innerdirection2 =0; 
+    this.innerdirection3 =0;
+    this.innerdirection4 =0;
+    this.innerdirection5 =0;
+    this.innerdirection6 =0;
+    this.innerdirection7 =0;
   }
 }
 
@@ -930,15 +964,21 @@ e_bin37_status: boolean = false;
 
   e_bins:e_bins[]=[];
   extraBinAssign():boolean{
-    
+    this.data.getsensorConfigs().subscribe((sensor) => {
+      this.sensor = sensor;
+      console.log("Sensors==", this.sensor);
+      if (this.sensor != null) {
+        // this.assign();
+      }
+    });
    const bstring = this.sensor[1].e_bins;
    const bjson = JSON.parse(bstring);
     this.e_bins = bjson;
+    this.filteredBinsNames = [];
     for(let bin of this.e_bins){
       this.filteredBinsNames.push(bin.bin);
     }
-
-    //console.log("filteredBinsNames", this.e_bins);
+    console.log(this.filteredBinsNames);
     for(let i=0; i<this.filteredBinsNames.length; i++){
       this[`innerCurrent${i+1}`] = this.updates(this.filteredBinsNames[i], 'speed');
       this[`innerdirection${i+1}`] = this.updates(this.filteredBinsNames[i], 'direction');
@@ -946,47 +986,16 @@ e_bin37_status: boolean = false;
       this[`e_bin${i+1}_name`] = this.e_bins[i].name;
       this[`e_bin${i+1}_status`] = this.e_bins[i].show;
     }
-    //console.log("directions",this.innerdirection2);
-
-    // this.innerCurrent1 = this.updates(this.filteredBinsNames[0], 'speed');
-    // this.innerCurrent2 = this.updates(this.filteredBinsNames[1], 'speed');
-    // this.innerCurrent3 = this.updates(this.filteredBinsNames[2], 'speed');
-    // this.innerCurrent4 = this.updates(this.filteredBinsNames[3], 'speed');
-    // this.innerCurrent5 = this.updates(this.filteredBinsNames[4], 'speed');
-    // this.innerCurrent6 = this.updates(this.filteredBinsNames[5], 'speed');
-    // this.innerCurrent7 = this.updates(this.filteredBinsNames[6], 'speed');
-    // this.innerdirection1 = this.updates(this.filteredBinsNames[0], 'direction');
-    // this.innerdirection2 = this.updates(this.filteredBinsNames[1], 'direction');
-    // this.innerdirection3 = this.updates(this.filteredBinsNames[2], 'direction');
-    // this.innerdirection4 = this.updates(this.filteredBinsNames[3], 'direction');
-    // this.innerdirection5 = this.updates(this.filteredBinsNames[4], 'direction');
-    // this.innerdirection6 = this.updates(this.filteredBinsNames[5], 'direction');
-    // this.innerdirection7 = this.updates(this.filteredBinsNames[6], 'direction');
-    // this.inCompval1 = this.direction(this.innerdirection1);
-    // this.inCompval2 = this.direction(this.innerdirection2);
-    // this.inCompval3 = this.direction(this.innerdirection3);
-    // this.inCompval4 = this.direction(this.innerdirection4);
-    // this.inCompval5 = this.direction(this.innerdirection5);
-    // this.inCompval6 = this.direction(this.innerdirection6);
-    // this.inCompval7 = this.direction(this.innerdirection7);
-
-    // this.e_bin1_name = this.e_bins[0].name;
-    // this.e_bin2_name = this.e_bins[1].name;
-    // this.e_bin3_name = this.e_bins[2].name;
-    // this.e_bin4_name = this.e_bins[3].name;
-    // this.e_bin5_name = this.e_bins[4].name;
-    // this.e_bin6_name = this.e_bins[5].name;
-    // this.e_bin7_name = this.e_bins[6].name;
-
-    // this.e_bin1_status = this.e_bins[0].show;
-    // this.e_bin2_status = this.e_bins[1].show;
-    // this.e_bin3_status = this.e_bins[2].show;
-    // this.e_bin4_status = this.e_bins[3].show;
-    // this.e_bin5_status = this.e_bins[4].show;
-    // this.e_bin6_status = this.e_bins[5].show;
-    // this.e_bin7_status = this.e_bins[6].show;
-    
-    return !this.innerCurrent1 && !this.innerCurrent2 && !this.innerCurrent3 && !this.innerCurrent4
+    console.log(
+      this.innerCurrent1, this.innerCurrent2, this.innerCurrent3, this.innerCurrent4, 
+      this.innerCurrent5, this.innerCurrent6, this.innerCurrent7,
+      this.inCompval1, this.inCompval2, this.inCompval3, this.inCompval4, 
+      this.inCompval5, this.inCompval6, this.inCompval7,
+      this.innerdirection1, this.innerdirection2, this.innerdirection3, 
+      this.innerdirection4, this.innerdirection5, this.innerdirection6, this.innerdirection7
+  );
+  
+    const status = !this.innerCurrent1 && !this.innerCurrent2 && !this.innerCurrent3 && !this.innerCurrent4
     && !this.innerCurrent5 && !this.innerCurrent6 && !this.innerCurrent7
     && !this.inCompval1 && !this.inCompval2 && !this.inCompval3
     && !this.inCompval4 && !this.inCompval5 && !this.inCompval6
@@ -998,6 +1007,8 @@ e_bin37_status: boolean = false;
     && !this.innerdirection5
     && !this.innerdirection6
     && !this.innerdirection7 ? false : true;
+    console.log(status);
+    return status;
     
   }
 
@@ -1011,8 +1022,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1064,8 +1075,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1117,8 +1128,8 @@ dummyData1:SensorData[]=[
     "Battery_Voltage": "12.4",
     "Date": "2025-01-08T00:00:00.000Z",
     "GPS_Date": "1970-01-01T00:00:00.000Z",
-    "LAT": 12.90935942,
-    "LONG": 77.59784407,
+    "LAT": 19.01,
+    "LONG": 72.7,
     "Lower_CurrentSpeedDirection": "0.32;254.7",
     "Middle_CurrentSpeedDirection": "0.71;249.3",
     "S1_RelativeWaterLevel": '2.37',
@@ -1174,8 +1185,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -1226,8 +1237,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',
@@ -1278,8 +1289,8 @@ dummyData2:SensorData2[]=[
   "Battery_Voltage": "10.4",
   "Date":"2025-01-08T00:00:00.000Z",
   "GPS_Date":"1900-01-01T00:00:00.000Z",
-  "LAT": 18.994803,
-  "LONG": 72.80921,
+  "LAT": 18.95,
+  "LONG": 72.66,
   "Lower_CurrentSpeedDirection": "0.32;254.7",
   "Middle_CurrentSpeedDirection": "0.71;249.3",
   "S1_RelativeWaterLevel":'2.37',

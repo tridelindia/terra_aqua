@@ -193,7 +193,7 @@ ngOnInit(): void {
   this.onInitFetch(); // Fetch one-day data on page load
   this.subscribeToThemeChanges(); // Listen for theme changes
   this.sensor.getsensorConfigs().subscribe(sensors=>{
-    console.log("sensors config:",sensors[0].value);
+    //console.log("sensors config:",sensors[0].value);
     this.tide_offset = sensors[0].value;
    
     // calculateResult(wateS1 , this.tide_offset)
@@ -242,7 +242,7 @@ onInitFetch(): void {
       });
     },
     error => {
-      console.error('Error fetching initial buoy data', error);
+      //console.error('Error fetching initial buoy data', error);
       this.loading = false;
     }
   );
@@ -261,7 +261,7 @@ sensorConfig(): Promise<{tide: string; adcp: string}>{
     // 
     const josn = JSON.parse(data[1].e_bins);
     this.bins2 = josn;
-    console.log("bins2",this.bins2)
+    //console.log("bins2",this.bins2)
     this.listallBin.push(
       this.surfacebin, this.midbin, this.bottombin
     );
@@ -271,16 +271,16 @@ sensorConfig(): Promise<{tide: string; adcp: string}>{
       }
       
     }
-    console.log("list bins:", this.listallBin)
+    //console.log("list bins:", this.listallBin)
     this.dropdownOptions = this.listallBin.map(bin=> ({label:bin, value:bin}));
     
     // this.listallBin = data[1]?.e_bins?.split(',') || [];
     // this.listallBin = ['All Bins', ...(data[1]?.e_bins?.split(',') || [])]; 
     // this.updateInit(this.midbin);
     // this.updateInit(this.bottombin);
-    console.log(`all-bin ${this.listallBin}`);
-    console.log(`surface: ${this.surfacebin}, Mid: ${this.midbin}, bottom: ${this.bottombin}`)
-    console.log(`tide unit: ${tide}, adcp unit: ${adcp}`);
+    //console.log(`all-bin ${this.listallBin}`);
+    //console.log(`surface: ${this.surfacebin}, Mid: ${this.midbin}, bottom: ${this.bottombin}`)
+    //console.log(`tide unit: ${tide}, adcp unit: ${adcp}`);
     unit({ tide, adcp});
    });
   })
@@ -292,11 +292,11 @@ surfaceData:string[]=[];
 // innerbinDAta:string[]=[];
   
 onBinChange(selectedBin: string) {
-  console.log(`Selected Bin: ${selectedBin}`);
+  //console.log(`Selected Bin: ${selectedBin}`);
   // this.selectedSurfaceBin = selectedBin; 
   this.surfacebin = selectedBin;// Update the selectedSurfaceBin
   this.surfaceData = [...this.updateInit(selectedBin, true)];
-  console.log('Updated newChart Data:', this.surfaceData);
+  //console.log('Updated newChart Data:', this.surfaceData);
   if(selectedBin === this.listallBin[0]){
     this.binName = "Surface Current";
   }else if(selectedBin === this.listallBin[1]){
@@ -310,16 +310,16 @@ onBinChange(selectedBin: string) {
       }
     }
   }
-  console.log("bin name :", this.binName);
+  //console.log("bin name :", this.binName);
 }
 
 updateInit(val: string, isSurface: boolean): string[] {
-  console.log("Received value:", `"${val}, ${this.selectedStation}"`);
-  console.log("updateInit called with val:", val, "isSurface:", isSurface);
+  //console.log("Received value:", `"${val}, ${this.selectedStation}"`);
+  //console.log("updateInit called with val:", val, "isSurface:", isSurface);
 
   let data: string[] = [];
   const stationData = this.selectedStation.toLowerCase() === 'cwprs01' ? this.cwprs01 : this.cwprs02;
-  console.log("Station Data for", this.selectedStation, stationData);
+  //console.log("Station Data for", this.selectedStation, stationData);
 
   switch (val) {
     case 'Profile1': data = stationData.map(item => item.S2_SurfaceCurrentSpeedDirection); break;
@@ -333,7 +333,7 @@ updateInit(val: string, isSurface: boolean): string[] {
     case 'Profile9': data = stationData.map(item => item.profile9); break;
     case 'Profile10': data = stationData.map(item => item.profile10); break;
     default:
-      console.log("Invalid bin selection:", val);
+      //console.log("Invalid bin selection:", val);
       return [];
   }
   return data;
@@ -350,11 +350,11 @@ noInitial:boolean=false;
   // Check and update surfaceData if noInitial is true
   if (this.noInitial && this.surfacebin) {
     this.surfaceData = [...this.updateInit(this.surfacebin, true)];
-    console.log("Surface Data after bin selection:", this.surfaceData);
+    //console.log("Surface Data after bin selection:", this.surfaceData);
   }
 
-  console.log(`Chosen Bin: ${this.surfacebin}`);
-  console.log(`Surface Data: ${this.surfaceData}`);
+  //console.log(`Chosen Bin: ${this.surfacebin}`);
+  //console.log(`Surface Data: ${this.surfaceData}`);
 
     this.SubmitedslectedOption = this.selectedSensor;
 
@@ -382,7 +382,7 @@ noInitial:boolean=false;
         }, 0);
       },
       error => {
-        console.error('Error fetching buoy data', error);
+        //console.error('Error fetching buoy data', error);
         this.loading = false;
 
       }
@@ -1144,9 +1144,9 @@ surfaceSpeedDirection(): void {
   if (data && data.length > 0) {
     surfaceCurrent = [...data]; // Use the returned data
     this.surfaceData = [...data]; // Explicitly update this.surfaceData if required
-    console.log("Updated surfaceData:", this.surfaceData);
+    //console.log("Updated surfaceData:", this.surfaceData);
   } else {
-    console.log("No data for the selected bin.");
+    //console.log("No data for the selected bin.");
   }
   
     
@@ -1380,7 +1380,7 @@ surfaceSpeedDirection(): void {
   }); 
       } 
       else {
-        console.error("Element with id 'waterLevel1' not found");
+        //console.error("Element with id 'waterLevel1' not found");
         this.loading = false;
       }
     }
@@ -1674,7 +1674,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             midspeedanddirection.resize();
           }); 
         } else {
-          console.error("Element with id 'midspeedanddirection' not found");
+          //console.error("Element with id 'midspeedanddirection' not found");
           this.loading = false;
         }
       }
@@ -1928,7 +1928,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             bottomSpeedanddirection.resize();
           });
         } else {
-          console.error("Element with id 'bottomSpeedanddirection' not found");
+          //console.error("Element with id 'bottomSpeedanddirection' not found");
           this.loading = false;
         }
       }
@@ -1949,9 +1949,9 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
         if (data && data.length > 0) {
           surfaceCurrent = [...data]; // Use the returned data
           this.surfaceData = [...data]; // Explicitly update this.surfaceData if required
-          console.log("Updated surfaceData:", this.surfaceData);
+          //console.log("Updated surfaceData:", this.surfaceData);
         } else {
-          console.log("No data for the selected bin.");
+          //console.log("No data for the selected bin.");
         }
           // const surfaceCurrent = this.selectedStation === 'cwprs01'
           // ? this.cwprs01.map(item => item.S2_SurfaceCurrentSpeedDirection)
@@ -2127,7 +2127,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
-       console.table(dataBins);
+       //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
@@ -2315,12 +2315,12 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
  
-      console.table(dataBins);
+      //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
       } else {
-      console.error("Element with id 'rose-plot' not found");
+      //console.error("Element with id 'rose-plot' not found");
       this.loading = false;
       }
       }
@@ -2487,12 +2487,12 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
 
-      console.table(dataBins);
+      //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
       } else {
-      console.error("Element with id 'rose-plot' not found");
+      //console.error("Element with id 'rose-plot' not found");
       this.loading = false;
       }
       }

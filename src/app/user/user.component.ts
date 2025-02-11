@@ -111,7 +111,7 @@ export class UserComponent implements OnInit {
           this.resetForm(); // Reset the form fields after successful registration
         },
         error: (error) => {
-          console.error('Error registering user', error);
+          //console.error('Error registering user', error);
           this.toast.error('Error registering user. Please try again.'); // Show error message
         },
       });
@@ -146,7 +146,7 @@ export class UserComponent implements OnInit {
           this.toast.success(`Role ${newrole.role} Added`, 'Success');
         },
         error: (error) => {
-          console.error('Error adding new role', error);
+          //console.error('Error adding new role', error);
           this.toast.error(`Error adding ${newrole.role}`, 'Please try again');
         },
       });
@@ -178,7 +178,7 @@ export class UserComponent implements OnInit {
           );
         },
         error: (error) => {
-          console.error('Error adding new Designation', error);
+          //console.error('Error adding new Designation', error);
           // alert('Error adding new Designation. Please try again.'); // Show error message
           this.toast.error(
             `Error adding ${newdesignation.designation}`,
@@ -206,7 +206,7 @@ export class UserComponent implements OnInit {
           // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          console.error('Error deleting role', error);
+          //console.error('Error deleting role', error);
           this.toast.error('Error deleting role', 'Please try again');
         },
       });
@@ -221,7 +221,7 @@ export class UserComponent implements OnInit {
           // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          console.error('Error deleting user', error);
+          //console.error('Error deleting user', error);
           this.toast.error('Error deleting User', 'Please try again');
         },
       });

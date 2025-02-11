@@ -21,7 +21,7 @@ export class MapServiceService {
 
   initializeMap(targetId: string, center: [number, number], zoom: number, mapUrl:string): void {
     if (this.map) {
-      console.warn('Map is already initialized.');
+      //console.warn('Map is already initialized.');
       return;
     }
 
@@ -68,7 +68,7 @@ export class MapServiceService {
 
   updateMapLayer(url: string): void {
     if (!this.map) {
-      console.error('Map is not initialized.');
+      //console.error('Map is not initialized.');
       return;
     }
 
@@ -125,7 +125,7 @@ export class MapServiceService {
 
   registerClickListener(callback: (feature: Feature) => void): void {
     if (!this.map) {
-      console.error('Map is not initialized.');
+      //console.error('Map is not initialized.');
       return;
     }
   
@@ -139,7 +139,7 @@ export class MapServiceService {
       });
   
       if (!clickedFeatureFound) {
-        console.log('No feature clicked at this location.');
+        //console.log('No feature clicked at this location.');
       }
     });
   }

@@ -50,15 +50,15 @@ export class InstallationComponent {
  
         // Validate if the device has values
         if (this.device && Object.keys(this.device).length > 0) {
-          console.log('Device has values:', this.device);
+          //console.log('Device has values:', this.device);
           const data = {
             bios_serial : this.device.biosSerial,
             s_id: this.device.sid
           }
           this.http.post('http://trideltechnologiesindia.com:3200/api/get/validation', data).subscribe(
             (response: any) => {
-              console.log("full response", response);
-              console.log('Response:', response.api_key);
+              //console.log("full response", response);
+              //console.log('Response:', response.api_key);
               this.setting(response.api_key);
               if(response['message'] === 'Success'){
                 alert(`you have a valid license \n click "ok" to continue`);
@@ -72,16 +72,16 @@ export class InstallationComponent {
              
             },
             (error: any) => {
-              console.error('Error:', error);
+              //console.error('Error:', error);
               }
  
           );
         } else {
-          console.log('Device is null or empty');
+          //console.log('Device is null or empty');
         }
       },
       (error) => {
-        console.error('Error fetching device info:', error);
+        //console.error('Error fetching device info:', error);
       }
     );
   }
@@ -89,7 +89,7 @@ export class InstallationComponent {
   nextStep() {
     if (this.currentStep < 2) {
       this.currentStep++;
-      console.log(this.currentStep);
+      //console.log(this.currentStep);
     }
     if(this.currentStep == 2){
       this.check()
@@ -126,39 +126,39 @@ export class InstallationComponent {
  
   this.http.post('http://trideltechnologiesindia.com:3200/api/add/deployement', data).subscribe(
     (response:any) => {
-      console.log(response[1].id);
+      //console.log(response[1].id);
       this.addNotify(response[1]);
       this.isWaiting = !this.isWaiting;
-      console.log("apikey",this.ApiKey);
+      //console.log("apikey",this.ApiKey);
       setInterval(() => {
         this.chechStatus(response[1].id, this.ApiKey);
       }, 2000);
     },
     (error) => {
-      console.error(error);
+      //console.error(error);
       }
   )
    
   }
  
   async chechStatus(id: number, api:string) {
-    console.log("apiKey===", api)
+    //console.log("apiKey===", api)
     const data = {
       id: id,
     };
  
     try {
       const response: any = await this.http.get(`http://trideltechnologiesindia.com:3200/api/check/status/${id}/status`).toPromise();
-      console.log(response);
+      //console.log(response);
  
       if (response['status'] === 'active') {
-        console.log(true);
+        //console.log(true);
  
         await this.Rotate(); // Use await here
         this.route.navigate(['/login']);
       }
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   }
  
@@ -166,10 +166,10 @@ export class InstallationComponent {
   addNotify(data:any){
     this.http.post('http://trideltechnologiesindia.com:3200/api/add/notification', data).subscribe(
       (response:any) => {
-        console.log(response);
+        //console.log(response);
         },
         (error) => {
-          console.error(error);
+          //console.error(error);
           }
           )
  
@@ -180,14 +180,14 @@ device!:DeviceIds;
   check(){
     this.http.get('http://localhost:3000/api/users/reg').subscribe(
       (response:any)=>{
-        console.log(response);
+        //console.log(response);
       const  DeviceDetais: DeviceIds = response;
       this.device = DeviceDetais;
       this.deviceID = DeviceDetais.userName;
       this.ApiKey = this.generateLicenseKey();
       },
       (error)=>{
-        console.log(error);
+        //console.log(error);
       }
     )
    }
@@ -226,21 +226,21 @@ device!:DeviceIds;
     const data = {
         apiKey: apiKeyy
     };
-    console.log("Sending data to API:", data);
+    //console.log("Sending data to API:", data);
  
     const headers = { 'Content-Type': 'application/json' };
  
     this.http.post('http://localhost:3000/api/users/validate', data, { headers }).subscribe(
         (response: any) => {
-            console.log("API response:", response);
+            //console.log("API response:", response);
             if (response.status === 'success') {
-                console.log("API key saved successfully:", response);
+                //console.log("API key saved successfully:", response);
             } else {
-                console.log("Error in API response:", response);
+                //console.log("Error in API response:", response);
             }
         },
         (error) => {
-            console.error("Error from API:", error);
+            //console.error("Error from API:", error);
         }
     );
 }

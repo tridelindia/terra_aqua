@@ -78,7 +78,7 @@ export class StationService {
 
     return this.http.get<buoys>(this.apiUrl, { params }).pipe(
       catchError((error) => {
-        console.error('Error fetching stations:', error);
+        //console.error('Error fetching stations:', error);
         return throwError(() => new Error('Failed to fetch stations.'));
       })
     );
@@ -90,6 +90,7 @@ export class StationService {
 
     return this.http.get<buoys>(this.apiUrlrr, { params }).pipe(
       catchError((error) => {
+        
         console.error('Error fetching stations:', error);
         return throwError(() => new Error('Failed to fetch stations.'));
       })

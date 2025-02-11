@@ -16,10 +16,10 @@ export class LoadingComponent implements OnInit{
     // Calling the asynchronous function and handling routing after getting the key.
     this.getKey().then((isActive) => {
       if (!isActive) {
-        console.log(true);
+        //console.log(true);
         this.route.navigate(['/login']);
       } else {
-        console.log(false);
+        //console.log(false);
         this.route.navigate(['/installation'])
       }
     });
@@ -34,11 +34,11 @@ export class LoadingComponent implements OnInit{
         (response: any) => {
           const key: ApiKey = response;
           this.apiKey = key.api_key;
-          console.log(key.api_key);
+          //console.log(key.api_key);
           resolve(true); // Resolve the promise when key is found
         },
         (error) => {
-          console.error(error);
+          //console.error(error);
           resolve(false); // Resolve the promise with false in case of error
         }
       );

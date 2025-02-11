@@ -64,10 +64,10 @@ export class MapService {
   createMap(target: HTMLElement, latitude: number, longitude: number, warning: number, danger: number, show: boolean, mapUrl:string): void {
     // Destroy existing map instance if it exists
     this.destroyMap();
-    console.log(show);
+    //console.log(show);
   
     const center = fromLonLat([longitude, latitude]) as [number, number];
-    console.log("location:", center);
+    //console.log("location:", center);
     this.map = new Map({
       target: target,
       layers: [

@@ -36,10 +36,10 @@ export class LoginComponent implements OnInit {
     //un Comment for production /////**************** */ ********
     this.getKey().then((isActive) => {
       if (!isActive) {
-        console.log(true);
+        //console.log(true);
         // this.router.navigate(['/login']);
       } else {
-        console.log(false);
+        //console.log(false);
         this.router.navigate(['/installation'])
       }
     });
@@ -75,11 +75,11 @@ export class LoginComponent implements OnInit {
         (response: any) => {
           const key: ApiKey = response;
           this.apiKey = key.api_key;
-          console.log(key.api_key);
+          //console.log(key.api_key);
           resolve(true); // Resolve the promise when key is found
         },
         (error) => {
-          console.error(error);
+          //console.error(error);
           resolve(false); // Resolve the promise with false in case of error
         }
       );

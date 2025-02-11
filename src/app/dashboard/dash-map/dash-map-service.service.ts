@@ -29,9 +29,9 @@ export class dashMapServiceService {
     yellowCircleRadius: number
   ): void {
     try {
-      console.log("started map init")
+      //console.log("started map init")
       if (this.map) {
-        console.log('Destroying existing map instance.');
+        //console.log('Destroying existing map instance.');
         this.map.setTarget(undefined);
       }
       const cc = fromLonLat([center[1], center[0]]) as [number, number];
@@ -103,7 +103,7 @@ export class dashMapServiceService {
         }),
       });
     } catch (error) {
-      console.log("map Error",error);
+      //console.log("map Error",error);
     }
     // Cleanup existing map instance
     

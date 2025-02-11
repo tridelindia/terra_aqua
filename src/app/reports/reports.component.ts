@@ -70,7 +70,7 @@ exportOptions = [
     selectedWeek =new Date();
     selectedMonth =new Date();
     selectedYear =new Date();
- 
+    search:string[] = [];
     CWPRS01: BuoyData[] = [];
     CWPRS02: BuoyData[] = [];
  
@@ -81,10 +81,10 @@ exportOptions = [
   binsDAta:conf[]=[];
     getconfigs(){
     this.dataCOnfig.getsensorConfigs().subscribe(sensor=>{
-     console.log("sensor Config: ", sensor);
+     //console.log("sensor Config: ", sensor);
      this.configsData = sensor;
      const data  = JSON.parse(this.configsData[1].e_bins);
-      console.log(data);
+      //console.log(data);
       this.binsDAta = data;
      
       const ibin = this.configsData[1].bins.split(',');
@@ -144,7 +144,7 @@ exportOptions = [
         { field: 'SurfaceDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else if(this.binsDAta[i].bin.toLowerCase() == 'profile2'){
-          console.log("bin2 is checked its yes");
+          //console.log("bin2 is checked its yes");
           this.cols.push(
           { field: 'MiddleSpeed', header: `${this.binsDAta[i].name}Speed` },
         { field: 'MiddleDirection', header: `${this.binsDAta[i].name}Direction` },
@@ -168,7 +168,7 @@ exportOptions = [
           })
           }
 
-          console.log("columns==>",this.cols);
+          //console.log("columns==>",this.cols);
         }
         
         
@@ -206,7 +206,7 @@ exportOptions = [
     this.fetchStations();
     this.getStationNames()
     this.dataCOnfig.getsensorConfigs().subscribe(sensors=>{
-      console.log("sensors config:",sensors[0].value);
+      //console.log("sensors config:",sensors[0].value);
       this.tide_offset = sensors[0].value;
      
       // calculateResult(wateS1 , this.tide_offset)
@@ -242,11 +242,11 @@ staionName2!:string ;
 nameOfStation!:string;
   getStationNames(){
     this.dataCOnfig.getStationNames().subscribe(response =>{
-      console.log("station namez",response);
+      //console.log("station namez",response);
       this.staionName1 = response[0].station;
       this.staionName2 = response[1].station;
       this.nameOfStation = response[0].station;
-      console.log("1 is ==", this.staionName1,  "2nd is==", this.staionName2,  "final ==", this.nameOfStation);
+      //console.log("1 is ==", this.staionName1,  "2nd is==", this.staionName2,  "final ==", this.nameOfStation);
     })
   }
  
@@ -345,95 +345,96 @@ nameOfStation!:string;
       }
     }
  
-    console.log(`Formatted report From Date: ${formattedFromDate}, Formatted report To Date: ${formattedToDate}`);
+    //console.log(`Formatted report From Date: ${formattedFromDate}, Formatted report To Date: ${formattedToDate}`);
  
    
     this.stationService.getSensorssTime(formattedFromDate!, formattedToDate!).subscribe(
       (data: buoys) => {
-        console.log("live Data====", data);
+        //console.log("live Data====", data);
          this.CWPRS01 = data.buoy1.map(buoy => ({
           ...buoy,
           S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
-          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
+          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1] : 'null',
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
-          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
+          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Middle_CurrentSpeedDirection?.split(';')[1] : 'null',
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
-          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4Speed:buoy.profile4.split(';')[0],
-          profile4Direction:buoy.profile4.split(';')[1],
-          profile5Speed:buoy.profile5.split(';')[0],
-          profile5Direction:buoy.profile5.split(';')[1],
-          profile6Speed:buoy.profile6.split(';')[0],
-          profile6Direction:buoy.profile6.split(';')[1],
-          profile7Speed:buoy.profile7.split(';')[0],
-          profile7Direction:buoy.profile7.split(';')[1],
-          profile8Speed:buoy.profile8.split(';')[0],
-          profile8Direction:buoy.profile8.split(';')[1],
-          profile9Speed:buoy.profile9.split(';')[0],
-          profile9Direction:buoy.profile9.split(';')[1],
-          profile10Speed:buoy.profile10.split(';')[0],
-          profile10Direction:buoy.profile10.split(';')[1],
-          profile11Speed:buoy.profile11.split(';')[0],
-          profile11Direction:buoy.profile11.split(';')[1],
-          profile12Speed:buoy.profile12.split(';')[0],
-          profile12Direction:buoy.profile12.split(';')[1],
-          profile13Speed:buoy.profile13.split(';')[0],
-          profile13Direction:buoy.profile13.split(';')[1],
-          profile14Speed:buoy.profile14.split(';')[0],
-          profile14Direction:buoy.profile14.split(';')[1],
-          profile15Speed:buoy.profile15.split(';')[0],
-          profile15Direction:buoy.profile15.split(';')[1],
-          profile16Speed:buoy.profile16.split(';')[0],
-          profile16Direction:buoy.profile16.split(';')[1],
-          profile17Speed:buoy.profile17.split(';')[0],
-          profile17Direction:buoy.profile17.split(';')[1],
-          profile18Speed:buoy.profile18.split(';')[0],
-          profile18Direction:buoy.profile18.split(';')[1],
-          profile19Speed:buoy.profile19.split(';')[0],
-          profile19Direction:buoy.profile19.split(';')[1],
-          profile20Speed:buoy.profile20.split(';')[0],
-          profile20Direction:buoy.profile20.split(';')[1],
-          profile21Speed:buoy.profile21.split(';')[0],
-          profile21Direction:buoy.profile21.split(';')[1],
-          profile22Speed:buoy.profile22.split(';')[0],
-          profile22Direction:buoy.profile22.split(';')[1],
-          profile23Speed:buoy.profile23.split(';')[0],
-          profile23Direction:buoy.profile23.split(';')[1],
-          profile24Speed:buoy.profile24.split(';')[0],
-          profile24Direction:buoy.profile24.split(';')[1],
-          profile25Speed:buoy.profile25.split(';')[0],
-          profile25Direction:buoy.profile25.split(';')[1],
-          profile26Speed:buoy.profile26.split(';')[0],
-          profile26Direction:buoy.profile26.split(';')[1],
-          profile27Speed:buoy.profile27.split(';')[0],
-          profile27Direction:buoy.profile27.split(';')[1],
-          profile28Speed:buoy.profile28.split(';')[0],
-          profile28Direction:buoy.profile28.split(';')[1],
-          profile29Speed:buoy.profile29.split(';')[0],
-          profile29Direction:buoy.profile29.split(';')[1],
-          profile30Speed:buoy.profile30.split(';')[0],
-          profile30Direction:buoy.profile30.split(';')[1],
-          profile31Speed:buoy.profile31.split(';')[0],
-          profile31Direction:buoy.profile31.split(';')[1],
-          profile32Speed:buoy.profile32.split(';')[0],
-          profile32Direction:buoy.profile32.split(';')[1],
-          profile33Speed:buoy.profile33.split(';')[0],
-          profile33Direction:buoy.profile33.split(';')[1],
-          profile34Speed:buoy.profile34.split(';')[0],
-          profile34Direction:buoy.profile34.split(';')[1],
-          profile35Speed:buoy.profile35.split(';')[0],
-          profile35Direction:buoy.profile35.split(';')[1],
-          profile36Speed:buoy.profile36.split(';')[0],
-          profile36Direction:buoy.profile36.split(';')[1],
-          profile37Speed:buoy.profile37.split(';')[0],
-          profile37Direction:buoy.profile37.split(';')[1],
-          profile38Speed:buoy.profile38.split(';')[0],
-          profile38Direction:buoy.profile38.split(';')[1],
-          profile39Speed:buoy.profile39.split(';')[0],
-          profile39Direction:buoy.profile39.split(';')[1],
-          profile40Speed:buoy.profile40.split(';')[0],
-          profile40Direction:buoy.profile40.split(';')[1],
+          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Lower_CurrentSpeedDirection?.split(';')[1] : 'null',
+          profile4Speed: buoy.profile4.split(';')[0],
+          profile4Direction: buoy.profile4.split(';')[0] !== 'null' ? buoy.profile4.split(';')[1] : 'null',
+          profile5Speed: buoy.profile5.split(';')[0],
+          profile5Direction: buoy.profile5.split(';')[0] !== 'null' ? buoy.profile5.split(';')[1] : 'null',
+          profile6Speed: buoy.profile6.split(';')[0],
+          profile6Direction: buoy.profile6.split(';')[0] !== 'null' ? buoy.profile6.split(';')[1] : 'null',
+          profile7Speed: buoy.profile7.split(';')[0],
+          profile7Direction: buoy.profile7.split(';')[0] !== 'null' ? buoy.profile7.split(';')[1] : 'null',
+          profile8Speed: buoy.profile8.split(';')[0],
+          profile8Direction: buoy.profile8.split(';')[0] !== 'null' ? buoy.profile8.split(';')[1] : 'null',
+          profile9Speed: buoy.profile9.split(';')[0],
+          profile9Direction: buoy.profile9.split(';')[0] !== 'null' ? buoy.profile9.split(';')[1] : 'null',
+          profile10Speed: buoy.profile10.split(';')[0],
+          profile10Direction: buoy.profile10.split(';')[0] !== 'null' ? buoy.profile10.split(';')[1] : 'null',
+          profile11Speed: buoy.profile11.split(';')[0],
+          profile11Direction: buoy.profile11.split(';')[0] !== 'null' ? buoy.profile11.split(';')[1] : 'null',
+          profile12Speed: buoy.profile12.split(';')[0],
+          profile12Direction: buoy.profile12.split(';')[0] !== 'null' ? buoy.profile12.split(';')[1] : 'null',
+          profile13Speed: buoy.profile13.split(';')[0],
+          profile13Direction: buoy.profile13.split(';')[0] !== 'null' ? buoy.profile13.split(';')[1] : 'null',
+          profile14Speed: buoy.profile14.split(';')[0],
+          profile14Direction: buoy.profile14.split(';')[0] !== 'null' ? buoy.profile14.split(';')[1] : 'null',
+          profile15Speed: buoy.profile15.split(';')[0],
+          profile15Direction: buoy.profile15.split(';')[0] !== 'null' ? buoy.profile15.split(';')[1] : 'null',
+          profile16Speed: buoy.profile16.split(';')[0],
+          profile16Direction: buoy.profile16.split(';')[0] !== 'null' ? buoy.profile16.split(';')[1] : 'null',
+          profile17Speed: buoy.profile17.split(';')[0],
+          profile17Direction: buoy.profile17.split(';')[0] !== 'null' ? buoy.profile17.split(';')[1] : 'null',
+          profile18Speed: buoy.profile18.split(';')[0],
+          profile18Direction: buoy.profile18.split(';')[0] !== 'null' ? buoy.profile18.split(';')[1] : 'null',
+          profile19Speed: buoy.profile19.split(';')[0],
+          profile19Direction: buoy.profile19.split(';')[0] !== 'null' ? buoy.profile19.split(';')[1] : 'null',
+          profile20Speed: buoy.profile20.split(';')[0],
+          profile20Direction: buoy.profile20.split(';')[0] !== 'null' ? buoy.profile20.split(';')[1] : 'null',
+          profile21Speed: buoy.profile21.split(';')[0],
+          profile21Direction: buoy.profile21.split(';')[0] !== 'null' ? buoy.profile21.split(';')[1] : 'null',
+          profile22Speed: buoy.profile22.split(';')[0],
+          profile22Direction: buoy.profile22.split(';')[0] !== 'null' ? buoy.profile22.split(';')[1] : 'null',
+          profile23Speed: buoy.profile23.split(';')[0],
+          profile23Direction: buoy.profile23.split(';')[0] !== 'null' ? buoy.profile23.split(';')[1] : 'null',
+          profile24Speed: buoy.profile24.split(';')[0],
+          profile24Direction: buoy.profile24.split(';')[0] !== 'null' ? buoy.profile24.split(';')[1] : 'null',
+          profile25Speed: buoy.profile25.split(';')[0],
+          profile25Direction: buoy.profile25.split(';')[0] !== 'null' ? buoy.profile25.split(';')[1] : 'null',
+          profile26Speed: buoy.profile26.split(';')[0],
+          profile26Direction: buoy.profile26.split(';')[0] !== 'null' ? buoy.profile26.split(';')[1] : 'null',
+          profile27Speed: buoy.profile27.split(';')[0],
+          profile27Direction: buoy.profile27.split(';')[0] !== 'null' ? buoy.profile27.split(';')[1] : 'null',
+          profile28Speed: buoy.profile28.split(';')[0],
+          profile28Direction: buoy.profile28.split(';')[0] !== 'null' ? buoy.profile28.split(';')[1] : 'null',
+          profile29Speed: buoy.profile29.split(';')[0],
+          profile29Direction: buoy.profile29.split(';')[0] !== 'null' ? buoy.profile29.split(';')[1] : 'null',
+          profile30Speed: buoy.profile30.split(';')[0],
+          profile30Direction: buoy.profile30.split(';')[0] !== 'null' ? buoy.profile30.split(';')[1] : 'null',
+          profile31Speed: buoy.profile31.split(';')[0],
+          profile31Direction: buoy.profile31.split(';')[0] !== 'null' ? buoy.profile31.split(';')[1] : 'null',
+          profile32Speed: buoy.profile32.split(';')[0],
+          profile32Direction: buoy.profile32.split(';')[0] !== 'null' ? buoy.profile32.split(';')[1] : 'null',
+          profile33Speed: buoy.profile33.split(';')[0],
+          profile33Direction: buoy.profile33.split(';')[0] !== 'null' ? buoy.profile33.split(';')[1] : 'null',
+          profile34Speed: buoy.profile34.split(';')[0],
+          profile34Direction: buoy.profile34.split(';')[0] !== 'null' ? buoy.profile34.split(';')[1] : 'null',
+          profile35Speed: buoy.profile35.split(';')[0],
+          profile35Direction: buoy.profile35.split(';')[0] !== 'null' ? buoy.profile35.split(';')[1] : 'null',
+          profile36Speed: buoy.profile36.split(';')[0],
+          profile36Direction: buoy.profile36.split(';')[0] !== 'null' ? buoy.profile36.split(';')[1] : 'null',
+          profile37Speed: buoy.profile37.split(';')[0],
+          profile37Direction: buoy.profile37.split(';')[0] !== 'null' ? buoy.profile37.split(';')[1] : 'null',
+          profile38Speed: buoy.profile38.split(';')[0],
+          profile38Direction: buoy.profile38.split(';')[0] !== 'null' ? buoy.profile38.split(';')[1] : 'null',
+          profile39Speed: buoy.profile39.split(';')[0],
+          profile39Direction: buoy.profile39.split(';')[0] !== 'null' ? buoy.profile39.split(';')[1] : 'null',
+          profile40Speed: buoy.profile40.split(';')[0],
+          profile40Direction: buoy.profile40.split(';')[0] !== 'null' ? buoy.profile40.split(';')[1] : 'null',
+
           
 
 
@@ -444,85 +445,86 @@ nameOfStation!:string;
           ...buoy,
           S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
-          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
+          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1] : 'null',
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
-          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
+          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Middle_CurrentSpeedDirection?.split(';')[1] : 'null',
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
-          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4Speed:buoy.profile4.split(';')[0],
-          profile4Direction:buoy.profile4.split(';')[1],
-          profile5Speed:buoy.profile5.split(';')[0],
-          profile5Direction:buoy.profile5.split(';')[1],
-          profile6Speed:buoy.profile6.split(';')[0],
-          profile6Direction:buoy.profile6.split(';')[1],
-          profile7Speed:buoy.profile7.split(';')[0],
-          profile7Direction:buoy.profile7.split(';')[1],
-          profile8Speed:buoy.profile8.split(';')[0],
-          profile8Direction:buoy.profile8.split(';')[1],
-          profile9Speed:buoy.profile9.split(';')[0],
-          profile9Direction:buoy.profile9.split(';')[1],
-          profile10Speed:buoy.profile10.split(';')[0],
-          profile10Direction:buoy.profile10.split(';')[1],
-          profile11Speed:buoy.profile11.split(';')[0],
-          profile11Direction:buoy.profile11.split(';')[1],
-          profile12Speed:buoy.profile12.split(';')[0],
-          profile12Direction:buoy.profile12.split(';')[1],
-          profile13Speed:buoy.profile13.split(';')[0],
-          profile13Direction:buoy.profile13.split(';')[1],
-          profile14Speed:buoy.profile14.split(';')[0],
-          profile14Direction:buoy.profile14.split(';')[1],
-          profile15Speed:buoy.profile15.split(';')[0],
-          profile15Direction:buoy.profile15.split(';')[1],
-          profile16Speed:buoy.profile16.split(';')[0],
-          profile16Direction:buoy.profile16.split(';')[1],
-          profile17Speed:buoy.profile17.split(';')[0],
-          profile17Direction:buoy.profile17.split(';')[1],
-          profile18Speed:buoy.profile18.split(';')[0],
-          profile18Direction:buoy.profile18.split(';')[0],
-          profile19Speed:buoy.profile19.split(';')[0],
-          profile19Direction:buoy.profile19.split(';')[1],
-          profile20Speed:buoy.profile20.split(';')[0],
-          profile20Direction:buoy.profile20.split(';')[1],
-          profile21Speed:buoy.profile21.split(';')[0],
-          profile21Direction:buoy.profile21.split(';')[1],
-          profile22Speed:buoy.profile22.split(';')[0],
-          profile22Direction:buoy.profile22.split(';')[1],
-          profile23Speed:buoy.profile23.split(';')[0],
-          profile23Direction:buoy.profile23.split(';')[1],
-          profile24Speed:buoy.profile24.split(';')[0],
-          profile24Direction:buoy.profile24.split(';')[1],
-          profile25Speed:buoy.profile25.split(';')[0],
-          profile25Direction:buoy.profile25.split(';')[1],
-          profile26Speed:buoy.profile26.split(';')[0],
-          profile26Direction:buoy.profile26.split(';')[1],
-          profile27Speed:buoy.profile27.split(';')[0],
-          profile27Direction:buoy.profile27.split(';')[1],
-          profile28Speed:buoy.profile28.split(';')[0],
-          profile28Direction:buoy.profile28.split(';')[1],
-          profile29Speed:buoy.profile29.split(';')[0],
-          profile29Direction:buoy.profile29.split(';')[1],
-          profile30Speed:buoy.profile30.split(';')[0],
-          profile30Direction:buoy.profile30.split(';')[1],
-          profile31Speed:buoy.profile31.split(';')[0],
-          profile31Direction:buoy.profile31.split(';')[1],
-          profile32Speed:buoy.profile32.split(';')[0],
-          profile32Direction:buoy.profile32.split(';')[1],
-          profile33Speed:buoy.profile33.split(';')[0],
-          profile33Direction:buoy.profile33.split(';')[1],
-          profile34Speed:buoy.profile34.split(';')[0],
-          profile34Direction:buoy.profile34.split(';')[1],
-          profile35Speed:buoy.profile35.split(';')[0],
-          profile35Direction:buoy.profile35.split(';')[1],
-          profile36Speed:buoy.profile36.split(';')[0],
-          profile36Direction:buoy.profile36.split(';')[1],
-          profile37Speed:buoy.profile37.split(';')[0],
-          profile37Direction:buoy.profile37.split(';')[1],
-          profile38Speed:buoy.profile38.split(';')[0],
-          profile38Direction:buoy.profile38.split(';')[1],
-          profile39Speed:buoy.profile39.split(';')[0],
-          profile39Direction:buoy.profile39.split(';')[1],
-          profile40Speed:buoy.profile40.split(';')[0],
-          profile40Direction:buoy.profile40.split(';')[1],
+          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Lower_CurrentSpeedDirection?.split(';')[1] : 'null',
+          profile4Speed: buoy.profile4.split(';')[0],
+          profile4Direction: buoy.profile4.split(';')[0] !== 'null' ? buoy.profile4.split(';')[1] : 'null',
+          profile5Speed: buoy.profile5.split(';')[0],
+          profile5Direction: buoy.profile5.split(';')[0] !== 'null' ? buoy.profile5.split(';')[1] : 'null',
+          profile6Speed: buoy.profile6.split(';')[0],
+          profile6Direction: buoy.profile6.split(';')[0] !== 'null' ? buoy.profile6.split(';')[1] : 'null',
+          profile7Speed: buoy.profile7.split(';')[0],
+          profile7Direction: buoy.profile7.split(';')[0] !== 'null' ? buoy.profile7.split(';')[1] : 'null',
+          profile8Speed: buoy.profile8.split(';')[0],
+          profile8Direction: buoy.profile8.split(';')[0] !== 'null' ? buoy.profile8.split(';')[1] : 'null',
+          profile9Speed: buoy.profile9.split(';')[0],
+          profile9Direction: buoy.profile9.split(';')[0] !== 'null' ? buoy.profile9.split(';')[1] : 'null',
+          profile10Speed: buoy.profile10.split(';')[0],
+          profile10Direction: buoy.profile10.split(';')[0] !== 'null' ? buoy.profile10.split(';')[1] : 'null',
+          profile11Speed: buoy.profile11.split(';')[0],
+          profile11Direction: buoy.profile11.split(';')[0] !== 'null' ? buoy.profile11.split(';')[1] : 'null',
+          profile12Speed: buoy.profile12.split(';')[0],
+          profile12Direction: buoy.profile12.split(';')[0] !== 'null' ? buoy.profile12.split(';')[1] : 'null',
+          profile13Speed: buoy.profile13.split(';')[0],
+          profile13Direction: buoy.profile13.split(';')[0] !== 'null' ? buoy.profile13.split(';')[1] : 'null',
+          profile14Speed: buoy.profile14.split(';')[0],
+          profile14Direction: buoy.profile14.split(';')[0] !== 'null' ? buoy.profile14.split(';')[1] : 'null',
+          profile15Speed: buoy.profile15.split(';')[0],
+          profile15Direction: buoy.profile15.split(';')[0] !== 'null' ? buoy.profile15.split(';')[1] : 'null',
+          profile16Speed: buoy.profile16.split(';')[0],
+          profile16Direction: buoy.profile16.split(';')[0] !== 'null' ? buoy.profile16.split(';')[1] : 'null',
+          profile17Speed: buoy.profile17.split(';')[0],
+          profile17Direction: buoy.profile17.split(';')[0] !== 'null' ? buoy.profile17.split(';')[1] : 'null',
+          profile18Speed: buoy.profile18.split(';')[0],
+          profile18Direction: buoy.profile18.split(';')[0] !== 'null' ? buoy.profile18.split(';')[1] : 'null',
+          profile19Speed: buoy.profile19.split(';')[0],
+          profile19Direction: buoy.profile19.split(';')[0] !== 'null' ? buoy.profile19.split(';')[1] : 'null',
+          profile20Speed: buoy.profile20.split(';')[0],
+          profile20Direction: buoy.profile20.split(';')[0] !== 'null' ? buoy.profile20.split(';')[1] : 'null',
+          profile21Speed: buoy.profile21.split(';')[0],
+          profile21Direction: buoy.profile21.split(';')[0] !== 'null' ? buoy.profile21.split(';')[1] : 'null',
+          profile22Speed: buoy.profile22.split(';')[0],
+          profile22Direction: buoy.profile22.split(';')[0] !== 'null' ? buoy.profile22.split(';')[1] : 'null',
+          profile23Speed: buoy.profile23.split(';')[0],
+          profile23Direction: buoy.profile23.split(';')[0] !== 'null' ? buoy.profile23.split(';')[1] : 'null',
+          profile24Speed: buoy.profile24.split(';')[0],
+          profile24Direction: buoy.profile24.split(';')[0] !== 'null' ? buoy.profile24.split(';')[1] : 'null',
+          profile25Speed: buoy.profile25.split(';')[0],
+          profile25Direction: buoy.profile25.split(';')[0] !== 'null' ? buoy.profile25.split(';')[1] : 'null',
+          profile26Speed: buoy.profile26.split(';')[0],
+          profile26Direction: buoy.profile26.split(';')[0] !== 'null' ? buoy.profile26.split(';')[1] : 'null',
+          profile27Speed: buoy.profile27.split(';')[0],
+          profile27Direction: buoy.profile27.split(';')[0] !== 'null' ? buoy.profile27.split(';')[1] : 'null',
+          profile28Speed: buoy.profile28.split(';')[0],
+          profile28Direction: buoy.profile28.split(';')[0] !== 'null' ? buoy.profile28.split(';')[1] : 'null',
+          profile29Speed: buoy.profile29.split(';')[0],
+          profile29Direction: buoy.profile29.split(';')[0] !== 'null' ? buoy.profile29.split(';')[1] : 'null',
+          profile30Speed: buoy.profile30.split(';')[0],
+          profile30Direction: buoy.profile30.split(';')[0] !== 'null' ? buoy.profile30.split(';')[1] : 'null',
+          profile31Speed: buoy.profile31.split(';')[0],
+          profile31Direction: buoy.profile31.split(';')[0] !== 'null' ? buoy.profile31.split(';')[1] : 'null',
+          profile32Speed: buoy.profile32.split(';')[0],
+          profile32Direction: buoy.profile32.split(';')[0] !== 'null' ? buoy.profile32.split(';')[1] : 'null',
+          profile33Speed: buoy.profile33.split(';')[0],
+          profile33Direction: buoy.profile33.split(';')[0] !== 'null' ? buoy.profile33.split(';')[1] : 'null',
+          profile34Speed: buoy.profile34.split(';')[0],
+          profile34Direction: buoy.profile34.split(';')[0] !== 'null' ? buoy.profile34.split(';')[1] : 'null',
+          profile35Speed: buoy.profile35.split(';')[0],
+          profile35Direction: buoy.profile35.split(';')[0] !== 'null' ? buoy.profile35.split(';')[1] : 'null',
+          profile36Speed: buoy.profile36.split(';')[0],
+          profile36Direction: buoy.profile36.split(';')[0] !== 'null' ? buoy.profile36.split(';')[1] : 'null',
+          profile37Speed: buoy.profile37.split(';')[0],
+          profile37Direction: buoy.profile37.split(';')[0] !== 'null' ? buoy.profile37.split(';')[1] : 'null',
+          profile38Speed: buoy.profile38.split(';')[0],
+          profile38Direction: buoy.profile38.split(';')[0] !== 'null' ? buoy.profile38.split(';')[1] : 'null',
+          profile39Speed: buoy.profile39.split(';')[0],
+          profile39Direction: buoy.profile39.split(';')[0] !== 'null' ? buoy.profile39.split(';')[1] : 'null',
+          profile40Speed: buoy.profile40.split(';')[0],
+          profile40Direction: buoy.profile40.split(';')[0] !== 'null' ? buoy.profile40.split(';')[1] : 'null',
+
           
 
 
@@ -530,7 +532,7 @@ nameOfStation!:string;
         this.loading = false;
       },
       error => {
-        console.error('Error fetching buoy data', error);
+        //console.error('Error fetching buoy data', error);
         this.loading = false;
       }
     );
@@ -591,7 +593,7 @@ onSearch(query: string, dt2: any): void {
         FileSaver.saveAs(blob, 'buoy_data.csv');
     } else {
         // Handle case where no data is available
-        console.warn('No data available for CSV export');
+        //console.warn('No data available for CSV export');
     }
 }
  
@@ -693,7 +695,7 @@ exportExcel(dt2: any) {
  
       this.saveAsExcelFile(excelBuffer, this.nameOfStation);
   } else {
-      console.warn('No data available for Excel export');
+      //console.warn('No data available for Excel export');
   }
 }
  
@@ -760,7 +762,7 @@ saveAsExcelFile(buffer: any, fileName: string): void {
 //       doc.save('buoy_data.pdf');
 //   } else {
 //       // Handle case where no data is available
-//       console.warn('No data available for PDF export');
+//       //console.warn('No data available for PDF export');
 //   }
 // }
 
@@ -889,7 +891,7 @@ exportPDF(dt2: any) {
     doc.save(`${this.nameOfStation}.pdf`);
   } else {
     // Handle case where no data is available
-    console.warn('No data available for PDF export');
+    //console.warn('No data available for PDF export');
   }
 }
 }

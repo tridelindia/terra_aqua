@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpClientModule, } from '@angular/common/http';
  
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -20,7 +20,9 @@ import { is } from '@amcharts/amcharts4/core';
 // import { Config } from 'ol/source/TileJSON';
 import { get } from 'http';
 import { ConfigDataService } from '../config-data.service';
-import { Config } from '../../model/config.model';
+import { Config, SensorData } from '../../model/config.model';
+import { response } from 'express';
+import { LayoutComponent } from '../layout/layout.component';
  
  
 interface Column {
@@ -36,7 +38,7 @@ interface conf{
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports:[FormsModule, CommonModule, TableModule, MultiSelectModule, CalendarModule, DropdownModule ],
+  imports:[FormsModule, CommonModule, TableModule, MultiSelectModule, CalendarModule, DropdownModule, HttpClientModule ],
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css'],
   providers:[StationService]
@@ -68,87 +70,105 @@ exportOptions = [
     selectedWeek =new Date();
     selectedMonth =new Date();
     selectedYear =new Date();
- 
+    search:string[] = [];
     CWPRS01: BuoyData[] = [];
     CWPRS02: BuoyData[] = [];
  
     loading: boolean = false;
  
-    constructor(private stationService: StationService, private http:HttpClient, private cd: ChangeDetectorRef , private dataCOnfig:ConfigDataService) {}
+    constructor(private stationService: StationService, private http:HttpClient, private cd: ChangeDetectorRef , private dataCOnfig:ConfigDataService, private layout:LayoutComponent) {}
   configsData:Config[]= [];
   binsDAta:conf[]=[];
     getconfigs(){
     this.dataCOnfig.getsensorConfigs().subscribe(sensor=>{
-     console.log("sensor Config: ", sensor);
+     //console.log("sensor Config: ", sensor);
      this.configsData = sensor;
      const data  = JSON.parse(this.configsData[1].e_bins);
-      console.log(data);
+      //console.log(data);
       this.binsDAta = data;
+     
       const ibin = this.configsData[1].bins.split(',');
-      for(let i=0; i<ibin.length; i++){
-        if(ibin[i].toLowerCase() == 'profile1'){
-          this.cols.push(
-            { field: 'SurfaceSpeed', header: 'Surface Speed' },
-        { field: 'SurfaceDirection', header: 'Surface Direction' },
-        { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
-        { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
-          )
-        }else if(ibin[i].toLowerCase() == 'profile2'){
-          this.cols.push(
-          { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
-          )
-        }else if(ibin[i].toLowerCase() == 'profile3'){
-          this.cols.push(
-            { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
-          )
-        }else{
-          this.cols.push({
-            field:`${ibin[i].toLowerCase()}speed`,
-            header:`${ibin[i].toLowerCase()}speed`
-          },
-          {
-            field:`${ibin[i].toLowerCase()}direction`,
-            header:`${ibin[i].toLowerCase()}direction`
-          })
-        }
+      console.log("BinNames", this.binsDAta, ibin);
+      const sampleBinsname = ['Surface Speed', ]
+      // for(let i=0; i<ibin.length; i++){
+        this.cols.push(
+          {field:ibin[0].toLowerCase()==='profile1'? "SurfaceSpeed" :`${ibin[0].toLowerCase()}Speed`, header:'Surface Speed'},
+          { field:ibin[0].toLowerCase()==='profile1'?"SurfaceDirection": `${ibin[0].toLowerCase()}Direction`, header: 'Surface Direction' },
+        );
+        this.cols.push(
+          {field:ibin[1].toLowerCase()==='profile2'? "MiddleSpeed" :`${ibin[1].toLowerCase()}Speed`, header:'Mid Speed'},
+          { field:ibin[1].toLowerCase()==='profile2'? "MiddleDirection" : `${ibin[1].toLowerCase()}Direction`, header: 'Mid Direction' },
+        );
+        this.cols.push(
+          {field:ibin[2].toLowerCase()==='profile3'? "LowerSpeed" :`${ibin[2].toLowerCase()}Speed`, header:'Bottom Speed'},
+          { field:ibin[2].toLowerCase()==='profile3'? "LowerDirection" : `${ibin[2].toLowerCase()}Direction`, header: 'Bottom Direction' },
+        )
+      // }
+
+      // for(let i=0; i<ibin.length; i++){
+      //   if(ibin[i].toLowerCase() == 'profile1'){
+        //   this.cols.push(
+        //     { field: 'SurfaceSpeed', header: 'Surface Speed' },
+        // { field: 'SurfaceDirection', header: 'Surface Direction' },
+        // { field: 'MiddleSpeed', header: 'Mid Speed' },
+        // { field: 'MiddleDirection', header: 'Mid Direction' },
+        // { field: 'LowerSpeed', header: 'Bottom Speed' },
+        // { field: 'LowerDirection', header: 'Bottom Direction' },
+        //   )
+      //   }else if(ibin[i].toLowerCase() == 'profile2'){
+      //     this.cols.push(
+      //     { field: 'MiddleSpeed', header: 'Mid Speed' },
+      //   { field: 'MiddleDirection', header: 'Mid Direction' },
+      //     )
+      //   }else if(ibin[i].toLowerCase() == 'profile3'){
+      //     this.cols.push(
+      //       { field: 'LowerSpeed', header: 'Bottom Speed' },
+      //   { field: 'LowerDirection', header: 'Bottom Direction' },
+      //     )
+      //   }else{
+      //     this.cols.push({
+      //       field:`${ibin[i].toLowerCase()}speed`,
+      //       header:`${ibin[i].toLowerCase()}speed`
+      //     },
+      //     {
+      //       field:`${ibin[i].toLowerCase()}direction`,
+      //       header:`${ibin[i].toLowerCase()}direction`
+      //     })
+      //   }
         
-      }
+      // }
       for(let i=0; i<this.binsDAta.length;i++){
         if(this.binsDAta[i].bin.toLowerCase() == 'profile1'){
           this.cols.push(
-            { field: 'SurfaceSpeed', header: 'Surface Speed' },
-        { field: 'SurfaceDirection', header: 'Surface Direction' },
+            { field: 'SurfaceSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'SurfaceDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else if(this.binsDAta[i].bin.toLowerCase() == 'profile2'){
-          console.log("bin2 is checked its yes");
+          //console.log("bin2 is checked its yes");
           this.cols.push(
-          { field: 'MiddleSpeed', header: 'Mid Speed' },
-        { field: 'MiddleDirection', header: 'Mid Direction' },
+          { field: 'MiddleSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'MiddleDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else if(this.binsDAta[i].bin.toLowerCase() == 'profile3'){
           this.cols.push(
-            { field: 'LowerSpeed', header: 'Bottom Speed' },
-        { field: 'LowerDirection', header: 'Bottom Direction' },
+            { field: 'LowerSpeed', header: `${this.binsDAta[i].name}Speed` },
+        { field: 'LowerDirection', header: `${this.binsDAta[i].name}Direction` },
           )
         }else{
           if(this.binsDAta[i].show){
             this.cols.push(
-              // {
-              //   field:
-              // },
-              {
-              field: `${this.binsDAta[i].bin.toLowerCase()}speed`,
-              header: `${this.binsDAta[i].name}speed`
-            },
+             
           {
-            field:`${this.binsDAta[i].bin.toLowerCase()}direction`,
-            header:`${this.binsDAta[i].name}direction`
+              field: `${this.binsDAta[i].bin.toLowerCase()}Speed`,
+              header: `${this.binsDAta[i].name}Speed`
+          },
+          {
+            field:`${this.binsDAta[i].bin.toLowerCase()}Direction`,
+            header:`${this.binsDAta[i].name}Direction`
           })
           }
+
+          //console.log("columns==>",this.cols);
         }
         
         
@@ -157,6 +177,7 @@ exportOptions = [
   }
 
     ngOnInit(): void {
+    this.layout.page = 'Reports';
       this.getconfigs();
       this.cols = [
         { field: 'S1_RelativeWaterLevel', header: 'Water Level' },
@@ -179,10 +200,54 @@ exportOptions = [
     // for(let i=0; i<this.binsDAta.length; i++){
     //   this.cols.push({field: this.binsDAta[i].bin.toLowerCase()})
     // }
- 
+    
     this.selectedColumns = this.cols;
     this.fromDate.setHours(0, 0, 0, 0);
     this.fetchStations();
+    this.getStationNames()
+    this.dataCOnfig.getsensorConfigs().subscribe(sensors=>{
+      //console.log("sensors config:",sensors[0].value);
+      this.tide_offset = sensors[0].value;
+     
+      // calculateResult(wateS1 , this.tide_offset)
+    })
+  }
+tide_offset!:string;
+
+  calculateResult(existingData: string, newData: string | number): string {
+    let result: number;
+  
+    // Check if newData is a number
+    if (typeof newData === 'number') {
+      result = parseFloat(existingData) + newData;
+    } 
+    // If newData is a string, handle signs
+    else if (typeof newData === 'string') {
+      if (newData.startsWith('-')) {
+        result = parseFloat(existingData) - parseFloat(newData); // Subtract if "-"
+      } else {
+        result = parseFloat(existingData) + parseFloat(newData); // Add for "+" or no sign
+      }
+    } 
+    // Handle unexpected input
+    else {
+      return existingData.toString();
+    }
+  
+    // Limit the result to 2 decimal places
+    return parseFloat(result.toFixed(2)).toString();
+  }
+staionName1!:string ;
+staionName2!:string ;
+nameOfStation!:string;
+  getStationNames(){
+    this.dataCOnfig.getStationNames().subscribe(response =>{
+      //console.log("station namez",response);
+      this.staionName1 = response[0].station;
+      this.staionName2 = response[1].station;
+      this.nameOfStation = response[0].station;
+      //console.log("1 is ==", this.staionName1,  "2nd is==", this.staionName2,  "final ==", this.nameOfStation);
+    })
   }
  
   onExportOptionSelect(event: any, dt2: any) {
@@ -280,33 +345,97 @@ exportOptions = [
       }
     }
  
-    console.log(`Formatted report From Date: ${formattedFromDate}, Formatted report To Date: ${formattedToDate}`);
+    //console.log(`Formatted report From Date: ${formattedFromDate}, Formatted report To Date: ${formattedToDate}`);
  
    
     this.stationService.getSensorssTime(formattedFromDate!, formattedToDate!).subscribe(
       (data: buoys) => {
+        //console.log("live Data====", data);
          this.CWPRS01 = data.buoy1.map(buoy => ({
           ...buoy,
+          S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
-          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
+          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1] : 'null',
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
-          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
+          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Middle_CurrentSpeedDirection?.split(';')[1] : 'null',
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
-          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4speed:buoy.profile4.split(';')[0],
-          profile4direction:buoy.profile4.split(';')[1],
-          profile5speed:buoy.profile5.split(';')[0],
-          profile5direction:buoy.profile5.split(';')[1],
-          profile6speed:buoy.profile6.split(';')[0],
-          profile6direction:buoy.profile6.split(';')[1],
-          profile7speed:buoy.profile7.split(';')[0],
-          profile7direction:buoy.profile7.split(';')[1],
-          profile8speed:buoy.profile8.split(';')[0],
-          profile8direction:buoy.profile8.split(';')[1],
-          profile9speed:buoy.profile9.split(';')[0],
-          profile9direction:buoy.profile9.split(';')[1],
-          profile10speed:buoy.profile10.split(';')[0],
-          profile10direction:buoy.profile10.split(';')[1],
+          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Lower_CurrentSpeedDirection?.split(';')[1] : 'null',
+          profile4Speed: buoy.profile4.split(';')[0],
+          profile4Direction: buoy.profile4.split(';')[0] !== 'null' ? buoy.profile4.split(';')[1] : 'null',
+          profile5Speed: buoy.profile5.split(';')[0],
+          profile5Direction: buoy.profile5.split(';')[0] !== 'null' ? buoy.profile5.split(';')[1] : 'null',
+          profile6Speed: buoy.profile6.split(';')[0],
+          profile6Direction: buoy.profile6.split(';')[0] !== 'null' ? buoy.profile6.split(';')[1] : 'null',
+          profile7Speed: buoy.profile7.split(';')[0],
+          profile7Direction: buoy.profile7.split(';')[0] !== 'null' ? buoy.profile7.split(';')[1] : 'null',
+          profile8Speed: buoy.profile8.split(';')[0],
+          profile8Direction: buoy.profile8.split(';')[0] !== 'null' ? buoy.profile8.split(';')[1] : 'null',
+          profile9Speed: buoy.profile9.split(';')[0],
+          profile9Direction: buoy.profile9.split(';')[0] !== 'null' ? buoy.profile9.split(';')[1] : 'null',
+          profile10Speed: buoy.profile10.split(';')[0],
+          profile10Direction: buoy.profile10.split(';')[0] !== 'null' ? buoy.profile10.split(';')[1] : 'null',
+          profile11Speed: buoy.profile11.split(';')[0],
+          profile11Direction: buoy.profile11.split(';')[0] !== 'null' ? buoy.profile11.split(';')[1] : 'null',
+          profile12Speed: buoy.profile12.split(';')[0],
+          profile12Direction: buoy.profile12.split(';')[0] !== 'null' ? buoy.profile12.split(';')[1] : 'null',
+          profile13Speed: buoy.profile13.split(';')[0],
+          profile13Direction: buoy.profile13.split(';')[0] !== 'null' ? buoy.profile13.split(';')[1] : 'null',
+          profile14Speed: buoy.profile14.split(';')[0],
+          profile14Direction: buoy.profile14.split(';')[0] !== 'null' ? buoy.profile14.split(';')[1] : 'null',
+          profile15Speed: buoy.profile15.split(';')[0],
+          profile15Direction: buoy.profile15.split(';')[0] !== 'null' ? buoy.profile15.split(';')[1] : 'null',
+          profile16Speed: buoy.profile16.split(';')[0],
+          profile16Direction: buoy.profile16.split(';')[0] !== 'null' ? buoy.profile16.split(';')[1] : 'null',
+          profile17Speed: buoy.profile17.split(';')[0],
+          profile17Direction: buoy.profile17.split(';')[0] !== 'null' ? buoy.profile17.split(';')[1] : 'null',
+          profile18Speed: buoy.profile18.split(';')[0],
+          profile18Direction: buoy.profile18.split(';')[0] !== 'null' ? buoy.profile18.split(';')[1] : 'null',
+          profile19Speed: buoy.profile19.split(';')[0],
+          profile19Direction: buoy.profile19.split(';')[0] !== 'null' ? buoy.profile19.split(';')[1] : 'null',
+          profile20Speed: buoy.profile20.split(';')[0],
+          profile20Direction: buoy.profile20.split(';')[0] !== 'null' ? buoy.profile20.split(';')[1] : 'null',
+          profile21Speed: buoy.profile21.split(';')[0],
+          profile21Direction: buoy.profile21.split(';')[0] !== 'null' ? buoy.profile21.split(';')[1] : 'null',
+          profile22Speed: buoy.profile22.split(';')[0],
+          profile22Direction: buoy.profile22.split(';')[0] !== 'null' ? buoy.profile22.split(';')[1] : 'null',
+          profile23Speed: buoy.profile23.split(';')[0],
+          profile23Direction: buoy.profile23.split(';')[0] !== 'null' ? buoy.profile23.split(';')[1] : 'null',
+          profile24Speed: buoy.profile24.split(';')[0],
+          profile24Direction: buoy.profile24.split(';')[0] !== 'null' ? buoy.profile24.split(';')[1] : 'null',
+          profile25Speed: buoy.profile25.split(';')[0],
+          profile25Direction: buoy.profile25.split(';')[0] !== 'null' ? buoy.profile25.split(';')[1] : 'null',
+          profile26Speed: buoy.profile26.split(';')[0],
+          profile26Direction: buoy.profile26.split(';')[0] !== 'null' ? buoy.profile26.split(';')[1] : 'null',
+          profile27Speed: buoy.profile27.split(';')[0],
+          profile27Direction: buoy.profile27.split(';')[0] !== 'null' ? buoy.profile27.split(';')[1] : 'null',
+          profile28Speed: buoy.profile28.split(';')[0],
+          profile28Direction: buoy.profile28.split(';')[0] !== 'null' ? buoy.profile28.split(';')[1] : 'null',
+          profile29Speed: buoy.profile29.split(';')[0],
+          profile29Direction: buoy.profile29.split(';')[0] !== 'null' ? buoy.profile29.split(';')[1] : 'null',
+          profile30Speed: buoy.profile30.split(';')[0],
+          profile30Direction: buoy.profile30.split(';')[0] !== 'null' ? buoy.profile30.split(';')[1] : 'null',
+          profile31Speed: buoy.profile31.split(';')[0],
+          profile31Direction: buoy.profile31.split(';')[0] !== 'null' ? buoy.profile31.split(';')[1] : 'null',
+          profile32Speed: buoy.profile32.split(';')[0],
+          profile32Direction: buoy.profile32.split(';')[0] !== 'null' ? buoy.profile32.split(';')[1] : 'null',
+          profile33Speed: buoy.profile33.split(';')[0],
+          profile33Direction: buoy.profile33.split(';')[0] !== 'null' ? buoy.profile33.split(';')[1] : 'null',
+          profile34Speed: buoy.profile34.split(';')[0],
+          profile34Direction: buoy.profile34.split(';')[0] !== 'null' ? buoy.profile34.split(';')[1] : 'null',
+          profile35Speed: buoy.profile35.split(';')[0],
+          profile35Direction: buoy.profile35.split(';')[0] !== 'null' ? buoy.profile35.split(';')[1] : 'null',
+          profile36Speed: buoy.profile36.split(';')[0],
+          profile36Direction: buoy.profile36.split(';')[0] !== 'null' ? buoy.profile36.split(';')[1] : 'null',
+          profile37Speed: buoy.profile37.split(';')[0],
+          profile37Direction: buoy.profile37.split(';')[0] !== 'null' ? buoy.profile37.split(';')[1] : 'null',
+          profile38Speed: buoy.profile38.split(';')[0],
+          profile38Direction: buoy.profile38.split(';')[0] !== 'null' ? buoy.profile38.split(';')[1] : 'null',
+          profile39Speed: buoy.profile39.split(';')[0],
+          profile39Direction: buoy.profile39.split(';')[0] !== 'null' ? buoy.profile39.split(';')[1] : 'null',
+          profile40Speed: buoy.profile40.split(';')[0],
+          profile40Direction: buoy.profile40.split(';')[0] !== 'null' ? buoy.profile40.split(';')[1] : 'null',
+
+          
 
 
 
@@ -314,31 +443,96 @@ exportOptions = [
         }));
         this.CWPRS02 = data.buoy2.map(buoy => ({
           ...buoy,
+          S1_RelativeWaterLevel:this.calculateResult(buoy.S1_RelativeWaterLevel, this.tide_offset),
           SurfaceSpeed: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0],
-          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1],
+          SurfaceDirection: buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.S2_SurfaceCurrentSpeedDirection?.split(';')[1] : 'null',
           MiddleSpeed: buoy.Middle_CurrentSpeedDirection?.split(';')[0],
-          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[1],
+          MiddleDirection: buoy.Middle_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Middle_CurrentSpeedDirection?.split(';')[1] : 'null',
           LowerSpeed: buoy.Lower_CurrentSpeedDirection?.split(';')[0],
-          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[1],
-          profile4speed:buoy.profile4.split(';')[0],
-          profile4direction:buoy.profile4.split(';')[1],
-          profile5speed:buoy.profile5.split(';')[0],
-          profile5direction:buoy.profile5.split(';')[1],
-          profile6speed:buoy.profile6.split(';')[0],
-          profile6direction:buoy.profile6.split(';')[1],
-          profile7speed:buoy.profile7.split(';')[0],
-          profile7direction:buoy.profile7.split(';')[1],
-          profile8speed:buoy.profile8.split(';')[0],
-          profile8direction:buoy.profile8.split(';')[1],
-          profile9speed:buoy.profile9.split(';')[0],
-          profile9direction:buoy.profile9.split(';')[1],
-          profile10speed:buoy.profile10.split(';')[0],
-          profile10direction:buoy.profile10.split(';')[1],
+          LowerDirection: buoy.Lower_CurrentSpeedDirection?.split(';')[0] !== 'null' ? buoy.Lower_CurrentSpeedDirection?.split(';')[1] : 'null',
+          profile4Speed: buoy.profile4.split(';')[0],
+          profile4Direction: buoy.profile4.split(';')[0] !== 'null' ? buoy.profile4.split(';')[1] : 'null',
+          profile5Speed: buoy.profile5.split(';')[0],
+          profile5Direction: buoy.profile5.split(';')[0] !== 'null' ? buoy.profile5.split(';')[1] : 'null',
+          profile6Speed: buoy.profile6.split(';')[0],
+          profile6Direction: buoy.profile6.split(';')[0] !== 'null' ? buoy.profile6.split(';')[1] : 'null',
+          profile7Speed: buoy.profile7.split(';')[0],
+          profile7Direction: buoy.profile7.split(';')[0] !== 'null' ? buoy.profile7.split(';')[1] : 'null',
+          profile8Speed: buoy.profile8.split(';')[0],
+          profile8Direction: buoy.profile8.split(';')[0] !== 'null' ? buoy.profile8.split(';')[1] : 'null',
+          profile9Speed: buoy.profile9.split(';')[0],
+          profile9Direction: buoy.profile9.split(';')[0] !== 'null' ? buoy.profile9.split(';')[1] : 'null',
+          profile10Speed: buoy.profile10.split(';')[0],
+          profile10Direction: buoy.profile10.split(';')[0] !== 'null' ? buoy.profile10.split(';')[1] : 'null',
+          profile11Speed: buoy.profile11.split(';')[0],
+          profile11Direction: buoy.profile11.split(';')[0] !== 'null' ? buoy.profile11.split(';')[1] : 'null',
+          profile12Speed: buoy.profile12.split(';')[0],
+          profile12Direction: buoy.profile12.split(';')[0] !== 'null' ? buoy.profile12.split(';')[1] : 'null',
+          profile13Speed: buoy.profile13.split(';')[0],
+          profile13Direction: buoy.profile13.split(';')[0] !== 'null' ? buoy.profile13.split(';')[1] : 'null',
+          profile14Speed: buoy.profile14.split(';')[0],
+          profile14Direction: buoy.profile14.split(';')[0] !== 'null' ? buoy.profile14.split(';')[1] : 'null',
+          profile15Speed: buoy.profile15.split(';')[0],
+          profile15Direction: buoy.profile15.split(';')[0] !== 'null' ? buoy.profile15.split(';')[1] : 'null',
+          profile16Speed: buoy.profile16.split(';')[0],
+          profile16Direction: buoy.profile16.split(';')[0] !== 'null' ? buoy.profile16.split(';')[1] : 'null',
+          profile17Speed: buoy.profile17.split(';')[0],
+          profile17Direction: buoy.profile17.split(';')[0] !== 'null' ? buoy.profile17.split(';')[1] : 'null',
+          profile18Speed: buoy.profile18.split(';')[0],
+          profile18Direction: buoy.profile18.split(';')[0] !== 'null' ? buoy.profile18.split(';')[1] : 'null',
+          profile19Speed: buoy.profile19.split(';')[0],
+          profile19Direction: buoy.profile19.split(';')[0] !== 'null' ? buoy.profile19.split(';')[1] : 'null',
+          profile20Speed: buoy.profile20.split(';')[0],
+          profile20Direction: buoy.profile20.split(';')[0] !== 'null' ? buoy.profile20.split(';')[1] : 'null',
+          profile21Speed: buoy.profile21.split(';')[0],
+          profile21Direction: buoy.profile21.split(';')[0] !== 'null' ? buoy.profile21.split(';')[1] : 'null',
+          profile22Speed: buoy.profile22.split(';')[0],
+          profile22Direction: buoy.profile22.split(';')[0] !== 'null' ? buoy.profile22.split(';')[1] : 'null',
+          profile23Speed: buoy.profile23.split(';')[0],
+          profile23Direction: buoy.profile23.split(';')[0] !== 'null' ? buoy.profile23.split(';')[1] : 'null',
+          profile24Speed: buoy.profile24.split(';')[0],
+          profile24Direction: buoy.profile24.split(';')[0] !== 'null' ? buoy.profile24.split(';')[1] : 'null',
+          profile25Speed: buoy.profile25.split(';')[0],
+          profile25Direction: buoy.profile25.split(';')[0] !== 'null' ? buoy.profile25.split(';')[1] : 'null',
+          profile26Speed: buoy.profile26.split(';')[0],
+          profile26Direction: buoy.profile26.split(';')[0] !== 'null' ? buoy.profile26.split(';')[1] : 'null',
+          profile27Speed: buoy.profile27.split(';')[0],
+          profile27Direction: buoy.profile27.split(';')[0] !== 'null' ? buoy.profile27.split(';')[1] : 'null',
+          profile28Speed: buoy.profile28.split(';')[0],
+          profile28Direction: buoy.profile28.split(';')[0] !== 'null' ? buoy.profile28.split(';')[1] : 'null',
+          profile29Speed: buoy.profile29.split(';')[0],
+          profile29Direction: buoy.profile29.split(';')[0] !== 'null' ? buoy.profile29.split(';')[1] : 'null',
+          profile30Speed: buoy.profile30.split(';')[0],
+          profile30Direction: buoy.profile30.split(';')[0] !== 'null' ? buoy.profile30.split(';')[1] : 'null',
+          profile31Speed: buoy.profile31.split(';')[0],
+          profile31Direction: buoy.profile31.split(';')[0] !== 'null' ? buoy.profile31.split(';')[1] : 'null',
+          profile32Speed: buoy.profile32.split(';')[0],
+          profile32Direction: buoy.profile32.split(';')[0] !== 'null' ? buoy.profile32.split(';')[1] : 'null',
+          profile33Speed: buoy.profile33.split(';')[0],
+          profile33Direction: buoy.profile33.split(';')[0] !== 'null' ? buoy.profile33.split(';')[1] : 'null',
+          profile34Speed: buoy.profile34.split(';')[0],
+          profile34Direction: buoy.profile34.split(';')[0] !== 'null' ? buoy.profile34.split(';')[1] : 'null',
+          profile35Speed: buoy.profile35.split(';')[0],
+          profile35Direction: buoy.profile35.split(';')[0] !== 'null' ? buoy.profile35.split(';')[1] : 'null',
+          profile36Speed: buoy.profile36.split(';')[0],
+          profile36Direction: buoy.profile36.split(';')[0] !== 'null' ? buoy.profile36.split(';')[1] : 'null',
+          profile37Speed: buoy.profile37.split(';')[0],
+          profile37Direction: buoy.profile37.split(';')[0] !== 'null' ? buoy.profile37.split(';')[1] : 'null',
+          profile38Speed: buoy.profile38.split(';')[0],
+          profile38Direction: buoy.profile38.split(';')[0] !== 'null' ? buoy.profile38.split(';')[1] : 'null',
+          profile39Speed: buoy.profile39.split(';')[0],
+          profile39Direction: buoy.profile39.split(';')[0] !== 'null' ? buoy.profile39.split(';')[1] : 'null',
+          profile40Speed: buoy.profile40.split(';')[0],
+          profile40Direction: buoy.profile40.split(';')[0] !== 'null' ? buoy.profile40.split(';')[1] : 'null',
+
+          
+
+
         }));
         this.loading = false;
       },
       error => {
-        console.error('Error fetching buoy data', error);
+        //console.error('Error fetching buoy data', error);
         this.loading = false;
       }
     );
@@ -384,8 +578,10 @@ onSearch(query: string, dt2: any): void {
   this.selectedStation = type;
  
   if(this.selectedStation == 'CWPRS01'){
+    this.nameOfStation = this.staionName1;
    }else if(this.selectedStation == 'CWPRS02'){
-   }
+    this.nameOfStation = this.staionName2
+  }
    }
    
   exportCSV(dt2: any) {
@@ -397,7 +593,7 @@ onSearch(query: string, dt2: any): void {
         FileSaver.saveAs(blob, 'buoy_data.csv');
     } else {
         // Handle case where no data is available
-        console.warn('No data available for CSV export');
+        //console.warn('No data available for CSV export');
     }
 }
  
@@ -497,76 +693,205 @@ exportExcel(dt2: any) {
       const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
  
-      this.saveAsExcelFile(excelBuffer, 'buoy_data');
+      this.saveAsExcelFile(excelBuffer, this.nameOfStation);
   } else {
-      console.warn('No data available for Excel export');
+      //console.warn('No data available for Excel export');
   }
 }
  
 saveAsExcelFile(buffer: any, fileName: string): void {
   const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-  saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
+  saveAs(data, `${this.nameOfStation}.xlsx`);
 }
  
  
  
  
+// exportPDF(dt2: any) {
+//   const filteredData: BuoyData[] = dt2.value;
+ 
+//   if (filteredData && filteredData.length > 0) {
+//       // Define fixed headers and fields to always include
+//       const fixedHeaders = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
+//       const fixedFields = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
+ 
+//       // Get dynamic headers and fields from selected columns
+//       const dynamicHeaders = this.selectedColumns.map(col => col.header);
+//       const dynamicFields = this.selectedColumns.map(col => col.field);
+ 
+//       // Combine fixed and dynamic headers and fields
+//       const headers = [...fixedHeaders, ...dynamicHeaders];
+//       const fields = [...fixedFields, ...dynamicFields];
+ 
+//       // Create a PDF with landscape orientation
+//       const doc = new jsPDF('landscape');
+ 
+//       // Set document properties
+//       doc.setFontSize(12);
+//       doc.text(this.selectedStation, 14, 16);
+ 
+//       // Prepare headers for the table
+//       const headerObjects = headers.map(header => ({ title: header, dataKey: header }));
+ 
+//       // Map data to include both fixed and dynamic fields
+//       const data1 = filteredData.map((row: any) => {
+//           return fields.map(field => row[field] || '');
+//       });
+ 
+//       const data = filteredData.map((row: any) => {
+//         return fields.map(field => {
+//           if (field === 'Date'){
+//             const isoDate = row[field];
+//             return isoDate ? isoDate.split('T')[0] : '';
+//           }
+//           return row[field] || '';
+//         });
+//     });
+ 
+//       // Add table to PDF with fixed and dynamic fields
+//       (doc as any).autoTable({
+//           head: [headerObjects.map(h => h.title)], // Headers row
+//           body: data, // Body of the table
+//           startY: 22, // Start position after the title
+//           margin: { top: 20 }, // Adjust top margin
+//           styles: { fontSize: 8 }, // Adjust font size to fit more data
+//       });
+ 
+//       // Save the PDF in landscape mode
+//       doc.save('buoy_data.pdf');
+//   } else {
+//       // Handle case where no data is available
+//       //console.warn('No data available for PDF export');
+//   }
+// }
+
 exportPDF(dt2: any) {
-  const filteredData: BuoyData[] = dt2.value;
- 
+  const filteredData: SensorData[] = dt2.value;
+
   if (filteredData && filteredData.length > 0) {
-      // Define fixed headers and fields to always include
-      const fixedHeaders = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
-      const fixedFields = ['StationID', 'Date','Time', 'UTC_Time', 'LAT', 'LONG', 'Battery_Voltage', 'GPS_Date'];
- 
-      // Get dynamic headers and fields from selected columns
-      const dynamicHeaders = this.selectedColumns.map(col => col.header);
-      const dynamicFields = this.selectedColumns.map(col => col.field);
- 
-      // Combine fixed and dynamic headers and fields
-      const headers = [...fixedHeaders, ...dynamicHeaders];
-      const fields = [...fixedFields, ...dynamicFields];
- 
-      // Create a PDF with landscape orientation
-      const doc = new jsPDF('landscape');
- 
-      // Set document properties
-      doc.setFontSize(12);
-      doc.text(this.selectedStation, 14, 16);
- 
-      // Prepare headers for the table
-      const headerObjects = headers.map(header => ({ title: header, dataKey: header }));
- 
-      // Map data to include both fixed and dynamic fields
-      const data1 = filteredData.map((row: any) => {
-          return fields.map(field => row[field] || '');
-      });
- 
-      const data = filteredData.map((row: any) => {
-        return fields.map(field => {
-          if (field === 'Date'){
-            const isoDate = row[field];
-            return isoDate ? isoDate.split('T')[0] : '';
-          }
-          return row[field] || '';
-        });
+    // Define fixed headers and fields to always include
+    const fixedHeaders = [
+      'StationID',
+      'Date',
+      'Time',
+      'UTC_Time',
+      'LAT',
+      'LONG',
+      'Battery_Voltage',
+      'GPS_Date',
+    ];
+    const fixedFields = [
+      'StationID',
+      'Date',
+      'Time',
+      'UTC_Time',
+      'LAT',
+      'LONG',
+      'Battery_Voltage',
+      'GPS_Date',
+    ];
+
+    // Get dynamic headers and fields from selected columns
+    const dynamicHeaders = this.selectedColumns.map((col) => col.header);
+    const dynamicFields = this.selectedColumns.map((col) => col.field);
+
+    // Combine fixed and dynamic headers and fields
+    const headers = [...fixedHeaders, ...dynamicHeaders];
+    const fields = [...fixedFields, ...dynamicFields];
+
+    // Create a PDF with landscape orientation
+    const doc = new jsPDF('landscape');
+
+    // Set document properties
+    doc.setFontSize(12);
+    doc.text(this.selectedStation, 14, 16);
+
+    // Map data to include both fixed and dynamic fields
+    const data = filteredData.map((row: any) => {
+      return fields.reduce((acc: any, field) => {
+        if (field === 'Date') {
+          // Split the date to get only the date portion (YYYY-MM-DD)
+          acc[field] = row[field]?.split('T')[0] || '';
+        } else if (field === 'Time') {
+          // Split the time to get only the time portion (HH:mm:ss)
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else if (field === 'UTC_Time') {
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else if (field === 'GPS_Date') {
+          acc[field] = row[field]?.split('T')[1]?.split('Z')[0] || '';
+        } else {
+          // For other fields, assign the value directly or empty if undefined
+          acc[field] = row[field] || '';
+        }
+        return acc;
+      }, {});
     });
- 
-      // Add table to PDF with fixed and dynamic fields
-      (doc as any).autoTable({
-          head: [headerObjects.map(h => h.title)], // Headers row
-          body: data, // Body of the table
-          startY: 22, // Start position after the title
-          margin: { top: 20 }, // Adjust top margin
-          styles: { fontSize: 8 }, // Adjust font size to fit more data
+
+    // Divide columns into chunks to fit across pages
+    const chunkSize = 10; // Number of columns per chunk
+    const totalChunks = Math.ceil(fields.length / chunkSize);
+
+    let startY = 22; // Initial Y position for the first table
+    for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+      // Get the current chunk of fields and headers
+      const chunkFields = fields.slice(
+        chunkIndex * chunkSize,
+        (chunkIndex + 1) * chunkSize
+      );
+      const chunkHeaders = headers.slice(
+        chunkIndex * chunkSize,
+        (chunkIndex + 1) * chunkSize
+      );
+
+      // Map data for the current chunk
+      const chunkData = data.map((row) => {
+        return chunkFields.reduce((acc: any, field) => {
+          acc[field] = row[field];
+          return acc;
+        }, {});
       });
- 
-      // Save the PDF in landscape mode
-      doc.save('buoy_data.pdf');
+
+      // Generate the table for the current chunk
+      (doc as any).autoTable({
+        head: [chunkHeaders], // Headers for the current chunk
+        body: chunkData.map((row) => chunkFields.map((field) => row[field])), // Data for the current chunk
+        startY: startY, // Start position for the table
+        margin: { top: 20 }, // Adjust top margin
+        styles: {
+          fontSize: 8, // Reduce font size for better fit
+          cellPadding: 1, // Reduce padding for tighter rows
+          overflow: 'linebreak', // Enable line breaking for long text
+          valign: 'middle', // Vertically center-align text
+        },
+        headStyles: {
+          fillColor: [41, 128, 185], // Header background color
+          textColor: [255, 255, 255], // Header text color
+          halign: 'center', // Align header text to the center
+          fontSize: 9, // Header font size
+        },
+        bodyStyles: {
+          halign: 'center', // Align body text to the center
+        },
+        columnStyles: {
+          0: { cellWidth: 20 }, // Example of specific column width for StationID
+        },
+        pageBreak: 'auto', // Automatically add page breaks
+        showHead: 'everyPage', // Repeat headers on each page
+      });
+
+      // Update startY for the next table
+      startY = 22; // Reset to the top for new page
+      if (chunkIndex < totalChunks - 1) {
+        doc.addPage(); // Add a new page for the next chunk
+      }
+    }
+
+    // Save the PDF
+    doc.save(`${this.nameOfStation}.pdf`);
   } else {
-      // Handle case where no data is available
-      console.warn('No data available for PDF export');
+    // Handle case where no data is available
+    //console.warn('No data available for PDF export');
   }
 }
 }

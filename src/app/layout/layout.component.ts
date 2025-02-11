@@ -49,6 +49,7 @@ export class LayoutComponent implements OnInit {
   image1!: string;
   image2!: string;
   // currentUser!:CurrentUser;
+  showDash:boolean =  true;
 
   getScreenSize() {
     return { width: window.innerWidth, height: window.innerHeight };
@@ -75,6 +76,12 @@ export class LayoutComponent implements OnInit {
     }, 2);
   }
 
+
+
+  reloadDash(){
+
+  }
+
   assign() {}
 
   sensors() {
@@ -83,8 +90,7 @@ export class LayoutComponent implements OnInit {
         'http://localhost:3000/api/users/sensorData?fromDate=2024-01-10&toDate=2024-11-09'
       )
       .subscribe((data: any) => {
-        // this.sensorDataList = data;
-        // Optionally log the sensorDataList to verify
+       
       });
   }
 
@@ -96,29 +102,4 @@ export class LayoutComponent implements OnInit {
       });
   }
 
-  // getStationConfig(){
-  //   this.httpClient.get('http://localhost:3000/api/getstationconfig')
-  //   .subscribe((data:any)=>{
-  //     this.StationConfig=data;
-
-  //   // this.StationConfig = this.layout.StationConfig;
-  //   this.stationName1 = this.StationConfig[0].station_name;
-  //   this.stationName2 = this.StationConfig[1].station_name;
-
-  //   if(this.StationConfig[0].geo_format === "DMS"){
-
-  //     const lat = this.StationConfig[0].latitude_deg + (this.StationConfig[0].latitude_min/60)+(this.StationConfig[0].latitude_min/3600);
-  //     const lan = this.StationConfig[0].longitude_deg + (this.StationConfig[0].longitude_min/60)+(this.StationConfig[0].longitude_sec/3600);
-
-  //   }else if(this.StationConfig[0].geo_format == "DD"){
-
-  //   }else
-
-  //   {
-
-  //   }
-  //     // this.assign();
-
-  //   })
-  // }
 }

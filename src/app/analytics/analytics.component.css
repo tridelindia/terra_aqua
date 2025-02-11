@@ -338,3 +338,33 @@
 
 
 
+
+
+
+
+::ng-deep .p-datepicker table td > span {
+  height: 25px;
+  width: 20px;
+  transition: box-shadow 0.2s;
+}
+
+::ng-deep .custom-calendar .p-inputtext  {
+  height: 30px;
+  width: 100%;
+  background-color:  rgba(103, 100, 100, 0.678); /* Adjust the color as needed */
+  border-radius: 10px;
+  color: #fff !important;
+  border: none;
+}
+
+::ng-deep .custom-calendar .p-inputtext:focus {
+  outline: none;
+  border-color: white;
+}
+
+::ng-deep .custom-calendar .p-datepicker-monthpicker .p-monthpicker-month {
+  width: 50px; 
+  height: 40px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

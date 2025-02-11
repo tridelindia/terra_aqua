@@ -16,7 +16,7 @@ export interface BuoyData {
   GPS_Date: string;
   Lower_CurrentSpeedDirection: string;
   Middle_CurrentSpeedDirection: string;
-  S1_RelativeWaterLevel: number;
+  S1_RelativeWaterLevel: string;
   S2_SurfaceCurrentSpeedDirection: string;
   profile4: string;
   profile5: string;
@@ -25,6 +25,37 @@ export interface BuoyData {
   profile8: string;
   profile9: string;
   profile10: string;
+  profile11:string;
+    profile12:string;
+    profile13:string;
+    profile14:string;
+    profile15:string;
+    profile16:string;
+    profile17:string;
+    profile18:string;
+    profile19:string;
+    profile20:string;
+    profile21:string;
+    profile22:string;
+    profile23:string;
+    profile24:string;
+    profile25:string;
+    profile26:string;
+    profile27:string;
+    profile28:string;
+    profile29:string;
+    profile30:string;
+    profile31:string;
+    profile32:string;
+    profile33:string;
+    profile34:string;
+    profile35:string;
+    profile36:string;
+    profile37:string;
+    profile38:string;
+    profile39:string;
+    profile40:string;
+
 }
 
 export interface buoys {
@@ -47,7 +78,7 @@ export class StationService {
 
     return this.http.get<buoys>(this.apiUrl, { params }).pipe(
       catchError((error) => {
-        console.error('Error fetching stations:', error);
+        //console.error('Error fetching stations:', error);
         return throwError(() => new Error('Failed to fetch stations.'));
       })
     );
@@ -59,6 +90,7 @@ export class StationService {
 
     return this.http.get<buoys>(this.apiUrlrr, { params }).pipe(
       catchError((error) => {
+        
         console.error('Error fetching stations:', error);
         return throwError(() => new Error('Failed to fetch stations.'));
       })

@@ -11,40 +11,41 @@ import { NgModule } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { UserComponent } from './user/user.component';
+import { ConfigurationsComponent } from './configurations/configurations.component';
+import { LoadingComponent } from './loading/loading.component';
+import { InstallationComponent } from './installation/installation.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login' // Redirect to the login page instead of base
+    redirectTo: 'loading' // Redirect to the login page
   },
   {
-    path: 'login', // Enable login route
+    path:'loading',
+    component:LoadingComponent,
+  },
+  {
+    path:'installation',
+    component:InstallationComponent
+  },
+  {
+    path: 'login', // Route for the login page
     component: LoginComponent
   },
   {
-    path: 'base', // Correct path to navigate after login
+    path: 'base', // Base layout route
     component: LayoutComponent,
-    canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'home',
-      //   component: HomeComponent
-      // },
-      // {
-      //   path: 'dashboard',
-      //   component: DashboardComponent
-      // },
-      // {
-      //   path: 'report',
-      //   component: ReportsComponent
-      // },
-      // {
-      //   path: 'analytics',
-      //   component: AnalyticsComponent
-      // }
+      { path: 'home', component: HomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'analytics', component: AnalyticsComponent },
+      { path: 'user', component: UserComponent },
+      { path: 'setting', component: ConfigurationsComponent },
     ]
   },
-  { path: '**', redirectTo: 'login' }
-  
+  { path: '**', redirectTo: 'loading' } // Catch-all route to redirect to login
 ];

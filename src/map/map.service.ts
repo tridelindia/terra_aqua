@@ -64,10 +64,10 @@ export class MapService {
   createMap(target: HTMLElement, latitude: number, longitude: number, warning: number, danger: number, show: boolean, mapUrl:string): void {
     // Destroy existing map instance if it exists
     this.destroyMap();
-    console.log(show);
+    //console.log(show);
   
     const center = fromLonLat([longitude, latitude]) as [number, number];
-    console.log("location:", center);
+    //console.log("location:", center);
     this.map = new Map({
       target: target,
       layers: [
@@ -80,7 +80,9 @@ export class MapService {
       ],
       view: new View({
         center: center,
-        zoom: 12,
+        zoom: mapUrl === '../../../../assets/western/{z}/{x}/{y}.png'? 10: 12,
+        maxZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 18 : undefined,
+        minZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 8 : undefined,
       })
     });
   

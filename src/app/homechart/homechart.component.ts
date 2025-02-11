@@ -72,7 +72,7 @@ export class HomechartComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.error('Error fetching data:', error);
+          //console.error('Error fetching data:', error);
         }
       );
   }

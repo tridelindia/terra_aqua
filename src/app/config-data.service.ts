@@ -9,6 +9,8 @@ import {
   sensorLiveData,
   StationConfigs,
 } from '../model/config.model';
+import { Router } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +18,11 @@ import {
 export class ConfigDataService {
   CurrentUser!: CurrentUser;
   images!: images;
+  selectedBuoyforDash!:string;
+  pagename!:string;
 
   private apiUrl = 'http://localhost:3000/api/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router) {}
   getStationNames(): Observable<StationConfigs[]> {
     return this.http.get<StationConfigs[]>(`${this.apiUrl}getstationconfig`); // Adjust the endpoint
   }
@@ -47,4 +51,6 @@ export class ConfigDataService {
   login(cred: any): Observable<CurrentUser> {
     return this.http.post<CurrentUser>(`${this.apiUrl}users/login`, cred);
   }
+
+ 
 }

@@ -147,8 +147,10 @@
             <label>
                 <h5>{{selectedStation | uppercase}}</h5>
             </label>
-            <p-table rowHover="true" #dt2 [columns]="selectedColumns" [loading]="loading"
-                [globalFilterFields]="['StationID', 'Date', 'Time', 'S1_RelativeWaterLevel', 'S2_SurfaceCurrentSpeedDirection', 'Lower_CurrentSpeedDirection', 'Middle_CurrentSpeedDirection']"
+            <!-- this string for search only by mentioned columns  -->
+            <!-- ['StationID', 'Date', 'Time','S1_RelativeWaterLevel', 'S2_SurfaceCurrentSpeedDirection', 'Lower_CurrentSpeedDirection', 'Middle_CurrentSpeedDirection', 'profile10'] -->
+            <!-- 'S1_RelativeWaterLevel', 'S2_SurfaceCurrentSpeedDirection', 'Lower_CurrentSpeedDirection', 'Middle_CurrentSpeedDirection', 'profile10', ] -->
+            <p-table rowHover="true" #dt2 [columns]="selectedColumns" [loading]="loading" [globalFilterFields]=""
                 [value]="selectedStation === 'CWPRS01' ? CWPRS01 : selectedStation === 'CWPRS02' ? CWPRS02 : CWPRS01"
                 paginator="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" showCurrentPageReport="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
@@ -196,7 +198,7 @@
                 <!-- Table Body -->
                 <ng-template pTemplate="body" let-buoy let-columns="columns">
                     <tr>
-                        <td>{{'sd'}}</td>
+                        <td>{{nameOfStation}}</td>
                         <td [innerHTML]="highlightSearchText(buoy.StationID)"></td>
                         <td [innerHTML]="highlightSearchText(buoy.Date?.split('T')[0])"></td>
                         <td [innerHTML]="highlightSearchText(buoy.Time?.split('T')[1]?.split('.')[0])"></td>

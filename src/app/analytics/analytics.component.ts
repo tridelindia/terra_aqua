@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, } from '@angular/forms';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpClientModule, } from '@angular/common/http';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -13,6 +13,7 @@ import { StationService, buoys} from '../station_service/station.service';
 import { ThemeService } from '../theme_service/theme.service';
 import { ConfigDataService } from '../config-data.service';
 import { SensorData, SensorData2 } from '../../model/config.model';
+import { LayoutComponent } from '../layout/layout.component';
 interface binJson{
   name:string,
   bin:string;
@@ -21,7 +22,7 @@ interface binJson{
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [CommonModule, FormsModule, MultiSelectModule, DropdownModule, CalendarModule],
+  imports: [CommonModule, FormsModule, MultiSelectModule, DropdownModule, CalendarModule, HttpClientModule],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css',
   providers:[StationService]
@@ -184,14 +185,22 @@ bins2:binJson[]=[];
 dropdownOptions: { label: string; value: string }[] = [];
 binName:string = "0 to 5m";
 
-constructor(private stationService: StationService, private themeService: ThemeService, private http:HttpClient, private cd: ChangeDetectorRef, private sensor:ConfigDataService) {}
+constructor(private stationService: StationService, private themeService: ThemeService, private http:HttpClient, private cd: ChangeDetectorRef, private sensor:ConfigDataService, private layout:LayoutComponent) {}
 
 ngOnInit(): void {
+  this.layout.page = 'Analytics';
   this.initializeDropdown();
   this.onInitFetch(); // Fetch one-day data on page load
   this.subscribeToThemeChanges(); // Listen for theme changes
+  this.sensor.getsensorConfigs().subscribe(sensors=>{
+    //console.log("sensors config:",sensors[0].value);
+    this.tide_offset = sensors[0].value;
+   
+    // calculateResult(wateS1 , this.tide_offset)
+  })
 }
 
+tide_offset!:string;
 initializeDropdown(): void {
   this.dropdownOptions = this.listallBin.map(bin => ({ label: bin, value: bin }));
 }
@@ -233,7 +242,7 @@ onInitFetch(): void {
       });
     },
     error => {
-      console.error('Error fetching initial buoy data', error);
+      //console.error('Error fetching initial buoy data', error);
       this.loading = false;
     }
   );
@@ -252,7 +261,7 @@ sensorConfig(): Promise<{tide: string; adcp: string}>{
     // 
     const josn = JSON.parse(data[1].e_bins);
     this.bins2 = josn;
-    console.log("bins2",this.bins2)
+    //console.log("bins2",this.bins2)
     this.listallBin.push(
       this.surfacebin, this.midbin, this.bottombin
     );
@@ -262,16 +271,16 @@ sensorConfig(): Promise<{tide: string; adcp: string}>{
       }
       
     }
-    console.log("list bins:", this.listallBin)
+    //console.log("list bins:", this.listallBin)
     this.dropdownOptions = this.listallBin.map(bin=> ({label:bin, value:bin}));
     
     // this.listallBin = data[1]?.e_bins?.split(',') || [];
     // this.listallBin = ['All Bins', ...(data[1]?.e_bins?.split(',') || [])]; 
     // this.updateInit(this.midbin);
     // this.updateInit(this.bottombin);
-    console.log(`all-bin ${this.listallBin}`);
-    console.log(`surface: ${this.surfacebin}, Mid: ${this.midbin}, bottom: ${this.bottombin}`)
-    console.log(`tide unit: ${tide}, adcp unit: ${adcp}`);
+    //console.log(`all-bin ${this.listallBin}`);
+    //console.log(`surface: ${this.surfacebin}, Mid: ${this.midbin}, bottom: ${this.bottombin}`)
+    //console.log(`tide unit: ${tide}, adcp unit: ${adcp}`);
     unit({ tide, adcp});
    });
   })
@@ -283,11 +292,11 @@ surfaceData:string[]=[];
 // innerbinDAta:string[]=[];
   
 onBinChange(selectedBin: string) {
-  console.log(`Selected Bin: ${selectedBin}`);
+  //console.log(`Selected Bin: ${selectedBin}`);
   // this.selectedSurfaceBin = selectedBin; 
   this.surfacebin = selectedBin;// Update the selectedSurfaceBin
   this.surfaceData = [...this.updateInit(selectedBin, true)];
-  console.log('Updated newChart Data:', this.surfaceData);
+  //console.log('Updated newChart Data:', this.surfaceData);
   if(selectedBin === this.listallBin[0]){
     this.binName = "Surface Current";
   }else if(selectedBin === this.listallBin[1]){
@@ -301,16 +310,16 @@ onBinChange(selectedBin: string) {
       }
     }
   }
-  console.log("bin name :", this.binName);
+  //console.log("bin name :", this.binName);
 }
 
 updateInit(val: string, isSurface: boolean): string[] {
-  console.log("Received value:", `"${val}, ${this.selectedStation}"`);
-  console.log("updateInit called with val:", val, "isSurface:", isSurface);
+  //console.log("Received value:", `"${val}, ${this.selectedStation}"`);
+  //console.log("updateInit called with val:", val, "isSurface:", isSurface);
 
   let data: string[] = [];
   const stationData = this.selectedStation.toLowerCase() === 'cwprs01' ? this.cwprs01 : this.cwprs02;
-  console.log("Station Data for", this.selectedStation, stationData);
+  //console.log("Station Data for", this.selectedStation, stationData);
 
   switch (val) {
     case 'Profile1': data = stationData.map(item => item.S2_SurfaceCurrentSpeedDirection); break;
@@ -324,7 +333,7 @@ updateInit(val: string, isSurface: boolean): string[] {
     case 'Profile9': data = stationData.map(item => item.profile9); break;
     case 'Profile10': data = stationData.map(item => item.profile10); break;
     default:
-      console.log("Invalid bin selection:", val);
+      //console.log("Invalid bin selection:", val);
       return [];
   }
   return data;
@@ -341,11 +350,11 @@ noInitial:boolean=false;
   // Check and update surfaceData if noInitial is true
   if (this.noInitial && this.surfacebin) {
     this.surfaceData = [...this.updateInit(this.surfacebin, true)];
-    console.log("Surface Data after bin selection:", this.surfaceData);
+    //console.log("Surface Data after bin selection:", this.surfaceData);
   }
 
-  console.log(`Chosen Bin: ${this.surfacebin}`);
-  console.log(`Surface Data: ${this.surfaceData}`);
+  //console.log(`Chosen Bin: ${this.surfacebin}`);
+  //console.log(`Surface Data: ${this.surfaceData}`);
 
     this.SubmitedslectedOption = this.selectedSensor;
 
@@ -373,7 +382,7 @@ noInitial:boolean=false;
         }, 0);
       },
       error => {
-        console.error('Error fetching buoy data', error);
+        //console.error('Error fetching buoy data', error);
         this.loading = false;
 
       }
@@ -481,6 +490,30 @@ onSensorChange() {
     endDate.setHours(23, 59, 59, 999);
     return endDate;
   } 
+  calculateResult(existingData: number, newData: string | number): number {
+    let result: number;
+  
+    // Check if newData is a number
+    if (typeof newData === 'number') {
+      result = existingData + newData;
+    } 
+    // If newData is a string, handle signs
+    else if (typeof newData === 'string') {
+      if (newData.startsWith('-')) {
+        result = existingData - parseFloat(newData); // Subtract if "-"
+      } else {
+        result = existingData + parseFloat(newData); // Add for "+" or no sign
+      }
+    } 
+    // Handle unexpected input
+    else {
+      return existingData;
+    }
+  
+    // Limit the result to 2 decimal places
+    return parseFloat(result.toFixed(2));
+  }
+
 
 Tide(): void {
 
@@ -894,8 +927,8 @@ Tide(): void {
       }
       const tideLevel = echarts.init(tide);
   
-    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => item.S1_RelativeWaterLevel) : 
-                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => item.S1_RelativeWaterLevel) : []
+    const waterLevels = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item => this.calculateResult(parseFloat(item.S1_RelativeWaterLevel), this.tide_offset)) : 
+                        this.selectedStation === 'cwprs02' ? this.cwprs02.map(item => this.calculateResult(parseFloat(item.S1_RelativeWaterLevel), this.tide_offset)) : []
 
     const dates = this.selectedStation === 'cwprs01' ? this.cwprs01.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) :
                   this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split('T')[0]} ${item.Time?.split('T')[1]?.split('.')[0]}`) : []
@@ -930,7 +963,7 @@ Tide(): void {
         },
         xAxis: {
           type: 'time',
-          name: 'Date',  // X-axis legend (title)
+          name: 'DateTime',  // X-axis legend (title)
           nameLocation: 'middle',
           nameTextStyle: {
             color: mainText,
@@ -991,13 +1024,16 @@ Tide(): void {
         toolbox: {
           // right: 10,
           feature: {
-            dataZoom: {
-              yAxisIndex: 'none',
-              title: {
-                zoom: 'Zoom',
-                back: 'Reset Zoom'
-              }
-            },
+            // dataZoom: {
+              
+            //   type: 'slider', // or 'slider'
+            //   xAxisIndex: 10, // Specify the x-axis index
+            //   // yAxisIndex: 10,
+            //   title: {
+            //     zoom: 'Zoom',
+            //     back: 'Zoom Out'
+            //   }
+            // },
             restore: {},
             saveAsImage: {
               backgroundColor: bgColor,
@@ -1108,9 +1144,9 @@ surfaceSpeedDirection(): void {
   if (data && data.length > 0) {
     surfaceCurrent = [...data]; // Use the returned data
     this.surfaceData = [...data]; // Explicitly update this.surfaceData if required
-    console.log("Updated surfaceData:", this.surfaceData);
+    //console.log("Updated surfaceData:", this.surfaceData);
   } else {
-    console.log("No data for the selected bin.");
+    //console.log("No data for the selected bin.");
   }
   
     
@@ -1149,7 +1185,7 @@ surfaceSpeedDirection(): void {
         xAxis: {
           // '#ffcc00' // yellow code
             type: 'time', // Set x-axis type to time
-            name: 'Time',
+            name: 'DateTime',
             nameLocation: 'middle',
             nameTextStyle: {
                 color: mainText,
@@ -1216,14 +1252,14 @@ surfaceSpeedDirection(): void {
               axisLine: {
                   show: true,
                   lineStyle: {
-                    color: 'red'
+                    color: 'blue'
                 }
               },
               splitLine: {
                   show: true, // Show grid lines
                   lineStyle: {
                     type: 'dashed', // Dashed gridlines for yAxis 1 (right axis)
-                    color: 'red'
+                    color: 'blue'
                 }
               },
               position: this.isSpeedChecked && this.isCurrentChecked ? 'right' : '', 
@@ -1251,9 +1287,9 @@ surfaceSpeedDirection(): void {
         toolbox: {
             // right: 10,
             feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
+                // dataZoom: {
+                //     yAxisIndex: 'none'
+                // },
                 restore: {},
                  saveAsImage: {
               backgroundColor: bgColor,
@@ -1280,7 +1316,7 @@ surfaceSpeedDirection(): void {
           {
             type: 'inside',  // Enable interactive zooming
             xAxisIndex: 0,   // Apply zooming to the x-axis (time axis)
-            filterMode: 'filter',  // Filter out of view data
+            // filterMode: 'filter',  // Filter out of view data
             start: 0,        // Start position for zooming (0%)
             end: 100         // End position for zooming (100%)
           },
@@ -1328,8 +1364,8 @@ surfaceSpeedDirection(): void {
             data: dates.map((date, index) => ({ value: [date, surfaceCurrent[index]?.split(';')[1]] })),
             // data: this.sampleDataAdcp.map(item => [item.timestamp, item.current_direction]),
             type:  chartType,
-            lineStyle: { normal: { color: 'red', type: 'dashed' } },
-            itemStyle: { color: 'red' },
+            lineStyle: { normal: { color: 'blue', type: 'dashed' } },
+            itemStyle: { color: 'blue' },
             showSymbol: true,
             yAxisIndex: this.isSpeedChecked ? 1 : 0 // Bind to right y-axis
           }] : [])
@@ -1344,7 +1380,7 @@ surfaceSpeedDirection(): void {
   }); 
       } 
       else {
-        console.error("Element with id 'waterLevel1' not found");
+        //console.error("Element with id 'waterLevel1' not found");
         this.loading = false;
       }
     }
@@ -1423,7 +1459,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               },
               xAxis: {
                   type: 'time', // Set x-axis type to time
-                  name: 'Time',
+                  name: 'DateTime',
                   nameLocation: 'middle',
                   nameTextStyle: {
                       color: mainText,
@@ -1522,9 +1558,9 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               toolbox: {
                   // right: 10,s
                   feature: {
-                      dataZoom: {
-                          yAxisIndex: 'none'
-                      },
+                      // dataZoom: {
+                      //     yAxisIndex: 'none'
+                      // },
                       restore: {},
                        saveAsImage: {
               backgroundColor: bgColor,
@@ -1638,7 +1674,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             midspeedanddirection.resize();
           }); 
         } else {
-          console.error("Element with id 'midspeedanddirection' not found");
+          //console.error("Element with id 'midspeedanddirection' not found");
           this.loading = false;
         }
       }
@@ -1717,7 +1753,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             },
             xAxis: {
               type: 'time',
-              name: 'Time',
+              name: 'DateTime',
               nameLocation: 'middle',
               nameTextStyle: {
                 color: mainText,
@@ -1808,7 +1844,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             toolbox: {
               // right: 10,
               feature: {
-                dataZoom: { yAxisIndex: 'none' },
+                // dataZoom: { yAxisIndex: 'none' },
                 restore: {},
                  saveAsImage: {
               backgroundColor: bgColor,
@@ -1826,7 +1862,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
               {
                 type: 'inside',  // Enable interactive zooming
                 xAxisIndex: 0,   // Apply zooming to the x-axis (time axis)
-                filterMode: 'filter',  // Filter out of view data
+                // filterMode: 'filter',  // Filter out of view data
                 start: 0,        // Start position for zooming (0%)
                 end: 100         // End position for zooming (100%)
               },
@@ -1892,7 +1928,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             bottomSpeedanddirection.resize();
           });
         } else {
-          console.error("Element with id 'bottomSpeedanddirection' not found");
+          //console.error("Element with id 'bottomSpeedanddirection' not found");
           this.loading = false;
         }
       }
@@ -1908,12 +1944,20 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
         const mainText = computedStyle.getPropertyValue('--chart-maintext').trim();
         const subText = computedStyle.getPropertyValue('--main-text').trim();
         const text = computedStyle.getPropertyValue('--text-color').trim();
-      
-          const surfaceCurrent = this.selectedStation === 'cwprs01'
-          ? this.cwprs01.map(item => item.S2_SurfaceCurrentSpeedDirection)
-          : this.selectedStation === 'cwprs02'
-          ? this.cwprs02.map(item => item.S2_SurfaceCurrentSpeedDirection)
-          : [];
+        let surfaceCurrent: string[] = [];
+        const data = this.updateInit(this.surfacebin, true);
+        if (data && data.length > 0) {
+          surfaceCurrent = [...data]; // Use the returned data
+          this.surfaceData = [...data]; // Explicitly update this.surfaceData if required
+          //console.log("Updated surfaceData:", this.surfaceData);
+        } else {
+          //console.log("No data for the selected bin.");
+        }
+          // const surfaceCurrent = this.selectedStation === 'cwprs01'
+          // ? this.cwprs01.map(item => item.S2_SurfaceCurrentSpeedDirection)
+          // : this.selectedStation === 'cwprs02'
+          // ? this.cwprs02.map(item => item.S2_SurfaceCurrentSpeedDirection)
+          // : [];
       
           const surfacePolar = surfaceCurrent.map((data) => {
             const [speed, direction] = data.split(';').map(Number);
@@ -1921,7 +1965,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
           });
 
           const directionLabels = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-          const speedCategories = ['<0.5 m/s', '0.5-2 m/s', '2-4 m/s', '4-6 m/s', '6-8 m/s', '>8 m/s'] as const;
+          const speedCategories = ['<0.5', '0.5-2', '2-4', '4-6', '6-8', '>8'] as const;
           
           const speedColors = ['#0000FF', '#3399FF', '#66CCFF', '#FFFF66', '#FF9933', '#FF3300'];  // Blue to red gradient
           
@@ -1933,22 +1977,22 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
           
           // Function to bin speeds
           function categorizeSpeed(speed: number): SpeedCategory {
-              if (speed < 0.5) return '<0.5 m/s';
-              if (speed < 2) return '0.5-2 m/s';
-              if (speed < 4) return '2-4 m/s';
-              if (speed < 6) return '4-6 m/s';
-              if (speed < 8) return '6-8 m/s';
-              return '>8 m/s';
+              if (speed < 0.5) return '<0.5';
+              if (speed < 2) return '0.5-2';
+              if (speed < 4) return '2-4';
+              if (speed < 6) return '4-6';
+              if (speed < 8) return '6-8';
+              return '>8';
           }
           
           // Initialize bins
           const dataBins:  DirectionBin[] = directionLabels.map(() => ({
-              '<0.5 m/s': 0,
-              '0.5-2 m/s': 0,
-              '2-4 m/s': 0,
-              '4-6 m/s': 0,
-              '6-8 m/s': 0,
-              '>8 m/s': 0
+              '<0.5': 0,
+              '0.5-2': 0,
+              '2-4': 0,
+              '4-6': 0,
+              '6-8': 0,
+              '>8': 0
           }));
           
           // Map directions to labels and fill dataBins with counts
@@ -1982,7 +2026,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       const option = {
         // backgroundColor: bgColor,
         title: {
-          text: 'Surface',  // Changed from 'Surface' to 'Low'
+          text: this.noInitial? this.binName: 'Surface',  // Changed from 'Surface' to 'Low'
           // left: '1%',
           top: '18%',
           textStyle: {
@@ -1990,7 +2034,16 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
             fontSize: 20,
           },
         },
-          
+        legend: {
+          data: speedCategories,
+          top: 10,
+          right: 0,
+          orient: 'vertical', 
+          textStyle: {
+            color: subText, // White legend text
+            fontSize: 12,
+          }        
+      },
           polar: {},
           angleAxis: {
               type: 'category',
@@ -2074,7 +2127,7 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
-       console.table(dataBins);
+       //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
@@ -2262,12 +2315,12 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
  
-      console.table(dataBins);
+      //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
       } else {
-      console.error("Element with id 'rose-plot' not found");
+      //console.error("Element with id 'rose-plot' not found");
       this.loading = false;
       }
       }
@@ -2434,12 +2487,12 @@ this.selectedStation === 'cwprs02' ? this.cwprs02.map(item =>`${item.Date?.split
       // Render the chart and handle resizing
       windRoseChart1.setOption(option);
 
-      console.table(dataBins);
+      //console.table(dataBins);
       
       this.loading = false;
       window.addEventListener('resize', () => windRoseChart1.resize());
       } else {
-      console.error("Element with id 'rose-plot' not found");
+      //console.error("Element with id 'rose-plot' not found");
       this.loading = false;
       }
       }

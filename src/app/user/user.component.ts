@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { response } from 'express';
 import { use } from 'echarts';
 import { ConfigDataService } from '../config-data.service';
 import { LoginComponent } from '../login/login.component';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'console';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
@@ -34,9 +35,11 @@ export class UserComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private config: ConfigDataService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private layout:LayoutComponent
   ) {}
   ngOnInit(): void {
+    this.layout.page = 'user';
     this.getUsers();
     this.getRoles();
     this.getDesignation();
@@ -108,7 +111,7 @@ export class UserComponent implements OnInit {
           this.resetForm(); // Reset the form fields after successful registration
         },
         error: (error) => {
-          console.error('Error registering user', error);
+          //console.error('Error registering user', error);
           this.toast.error('Error registering user. Please try again.'); // Show error message
         },
       });
@@ -143,7 +146,7 @@ export class UserComponent implements OnInit {
           this.toast.success(`Role ${newrole.role} Added`, 'Success');
         },
         error: (error) => {
-          console.error('Error adding new role', error);
+          //console.error('Error adding new role', error);
           this.toast.error(`Error adding ${newrole.role}`, 'Please try again');
         },
       });
@@ -175,7 +178,7 @@ export class UserComponent implements OnInit {
           );
         },
         error: (error) => {
-          console.error('Error adding new Designation', error);
+          //console.error('Error adding new Designation', error);
           // alert('Error adding new Designation. Please try again.'); // Show error message
           this.toast.error(
             `Error adding ${newdesignation.designation}`,
@@ -203,7 +206,7 @@ export class UserComponent implements OnInit {
           // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          console.error('Error deleting role', error);
+          //console.error('Error deleting role', error);
           this.toast.error('Error deleting role', 'Please try again');
         },
       });
@@ -218,7 +221,7 @@ export class UserComponent implements OnInit {
           // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          console.error('Error deleting user', error);
+          //console.error('Error deleting user', error);
           this.toast.error('Error deleting User', 'Please try again');
         },
       });

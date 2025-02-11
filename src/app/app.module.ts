@@ -24,7 +24,7 @@ import { ReportsComponent } from './reports/reports.component';
     HttpClientModule,
     FormsModule,
     DragDropModule,
-    RouterModule.forRoot(routes), // Ensure RouterModule is imported correctly
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }), // Ensure RouterModule is imported correctly
     NgCircleProgressModule.forRoot({
       radius: 100,
       outerStrokeWidth: 16,

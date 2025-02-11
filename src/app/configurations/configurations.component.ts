@@ -17,7 +17,7 @@ import { number, vector } from 'echarts';
 import { parseNumber } from 'devextreme/localization';
 import { UnitsComponent } from '../units/units.component';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FLOAT } from 'ol/webgl';
 import { ConfigDataService } from '../config-data.service';
 import {
@@ -43,7 +43,7 @@ export interface e_bins{
 @Component({
   selector: 'app-configurations',
   standalone: true,
-  imports: [FormsModule, UnitsComponent, CommonModule,NgMultiSelectDropDownModule , DragDropModule],
+  imports: [FormsModule, HttpClientModule, CommonModule,NgMultiSelectDropDownModule , DragDropModule],
   templateUrl: './configurations.component.html',
   styleUrl: './configurations.component.css',
 })
@@ -94,7 +94,8 @@ export class ConfigurationsComponent implements OnInit {
   selectedItems:any = [];
   dropdownSettings:IDropdownSettings = {};
 
-  listBins: string[] = ['Profile1', 'Profile2', 'Profile3', 'Profile4', 'Profile5', 'Profile6', 'Profile7', 'Profile8', 'Profile9', 'Profile10'];
+  listBins: string[] = Array.from({length:40}, (_,i)=> `Profile${i+1}`);
+  //  ['Profile1', 'Profile2', 'Profile3', 'Profile4', 'Profile5', 'Profile6', 'Profile7', 'Profile8', 'Profile9', 'Profile10'];
 selectedSurface: string = '';
 selectedMiddle: string = '';
 selectedLower: string = '';
@@ -105,15 +106,78 @@ e_bin4:string = '';
 e_bin5:string = '';
 e_bin6:string = '';
 e_bin7:string = '';
+e_bin8:string = '';
+e_bin9:string = '';
+e_bin10:string = '';
+e_bin11:string = '';
+e_bin12:string = '';
+e_bin13:string = '';
+e_bin14:string = '';
+e_bin15:string = '';
+e_bin16:string = '';
+e_bin17:string = '';
+e_bin18:string = '';
+e_bin19:string = '';
+e_bin20:string = '';
+e_bin21:string = '';
+e_bin22:string = '';
+e_bin23:string = '';
+e_bin24:string = '';
+e_bin25:string = '';
+e_bin26:string = '';
+e_bin27:string = '';
+e_bin28:string = '';
+e_bin29:string = '';
+e_bin30:string = '';
+e_bin31:string = '';
+e_bin32:string = '';
+e_bin33:string = '';
+e_bin34:string = '';
+e_bin35:string = '';
+e_bin36:string = '';
+e_bin37:string = '';
+
 
 //edit text
-editone:string = '';
-edittwo:string = '';
-editthree:string = '';
-editfour:string = '';
-editfive:string = '';
-editsix:string = '';
-editseven:string = '';
+edit1:string = '';
+edit2:string = '';
+edit3:string = '';
+edit4:string = '';
+edit5:string = '';
+edit6:string = '';
+edit7:string = '';
+edit8:string = '';
+edit9:string = '';
+edit10:string = '';
+edit11:string = '';
+edit12:string = '';
+edit13:string = '';
+edit14:string = '';
+edit15:string = '';
+edit16:string = '';
+edit17:string = '';
+edit18:string ='';
+edit19:string = '';
+edit20:string = '';
+edit21:string = '';
+edit22:string = '';
+edit23:string = '';
+edit24:string = '';
+edit25:string = '';
+edit26:string = '';
+edit27:string = '';
+edit28:string = '';
+edit29:string = '';
+edit30:string = '';
+edit31:string = '';
+edit32:string = '';
+edit33:string = '';
+edit34:string = '';
+edit35:string = '';
+edit36:string = '';
+edit37:string = '';
+
+
 
 isEdit1:boolean = false;
 isEdit2:boolean = false;
@@ -122,105 +186,236 @@ isEdit4:boolean = false;
 isEdit5:boolean = false;
 isEdit6:boolean = false;
 isEdit7:boolean = false;
+isEdit8:boolean = false;
+isEdit9:boolean = false;
+isEdit10:boolean = false;
+isEdit11:boolean = false;
+isEdit12:boolean = false;
+isEdit13:boolean = false;
+isEdit14:boolean = false;
+isEdit15:boolean = false;
+isEdit16:boolean = false;
+isEdit17:boolean = false;
+isEdit18:boolean = false;
+isEdit19:boolean = false;
+isEdit20:boolean = false;
+isEdit21:boolean = false;
+isEdit22:boolean = false;
+isEdit23:boolean = false;
+isEdit24:boolean = false;
+isEdit25:boolean = false;
+isEdit26:boolean = false;
+isEdit27:boolean = false;
+isEdit28:boolean = false;
+isEdit29:boolean = false;
+isEdit30:boolean = false;
+isEdit31:boolean = false;
+isEdit32:boolean = false;
+isEdit33:boolean = false;
+isEdit34:boolean = false;
+isEdit35:boolean = false;
+isEdit36:boolean = false;
+isEdit37:boolean = false;
 
 
-isView1!:boolean;
-isView2!:boolean;
-isView3!:boolean;
-isView4!:boolean;
-isView5!:boolean;
-isView6!:boolean;
-isView7!:boolean;
+
+
+isView1!: boolean;
+isView2!: boolean;
+isView3!: boolean;
+isView4!: boolean;
+isView5!: boolean;
+isView6!: boolean;
+isView7!: boolean;
+isView8!: boolean;
+isView9!: boolean;
+isView10!: boolean;
+isView11!: boolean;
+isView12!: boolean;
+isView13!: boolean;
+isView14!: boolean;
+isView15!: boolean;
+isView16!: boolean;
+isView17!: boolean;
+isView18!: boolean;
+isView19!: boolean;
+isView20!: boolean;
+isView21!: boolean;
+isView22!: boolean;
+isView23!: boolean;
+isView24!: boolean;
+isView25!: boolean;
+isView26!: boolean;
+isView27!: boolean;
+isView28!: boolean;
+isView29!: boolean;
+isView30!: boolean;
+isView31!: boolean;
+isView32!: boolean;
+isView33!: boolean;
+isView34!: boolean;
+isView35!: boolean;
+isView36!: boolean;
+isView37!: boolean;
+
 
 recieved_e_bins:e_bins[]=[
 
 ];
+[key: string]: any; 
+wordToNumberMap: { [key: string]: number } = {
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10,
+  eleven: 11,
+  twelve: 12,
+  thirteen: 13,
+  fourteen: 14,
+  fifteen: 15,
+  sixteen: 16,
+  seventeen: 17,
+  eighteen: 18,
+  nineteen: 19,
+  twenty: 20,
+  twentyone: 21,
+  twentytwo: 22,
+  twentythree: 23,
+  twentyfour: 24,
+  twentyfive: 25,
+  twentysix: 26,
+  twentyseven: 27,
+  twentyeight: 28,
+  twentynine: 29,
+  thirty: 30,
+  thirtyone: 31,
+  thirtytwo: 32,
+  thirtythree: 33,
+  thirtyfour: 34,
+  thirtyfive: 35,
+  thirtysix: 36,
+  thirtyseven: 37,
+};
 mapUrl:string = 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
 onEditTap(val:string){
-  console.log(val);
-  if(val == 'one'){
-    this.isEdit1 = !this.isEdit1;
-  }else if(val == 'two'){
-    this.isEdit2=!this.isEdit2;
-  }else if(val == 'three'){
-    this.isEdit3=!this.isEdit3;
-  }else if(val == 'four'){
-    this.isEdit4=!this.isEdit4;
-  }else if(val == 'five'){
-    this.isEdit5=!this.isEdit5;
-  }
-  else if(val == 'six'){
-    this.isEdit6=!this.isEdit6;
-  }else if(val == 'seven'){
-    this.isEdit7=!this.isEdit7;
+  //console.log(val);
+  const index =  this.wordToNumberMap[val.toLowerCase()];
+  //  const index = parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
+  //                             .replace('four', '4').replace('five', '5').replace('six', '6')
+  //                             .replace('seven', '7').replace('eight', '8').replace('nine', '9')
+  //                             .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
+  //                             .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
+  //                             .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
+  //                             .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
+  //                             .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
+  //                             .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
+  //                             .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
+  //                             .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
+  //                             .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
+  //                             .replace('thirtyseven', '37'));
+
+
+                              //console.log("index in edit" , index);
+  if (index >= 1 && index <= 37) {
+    
+    this[`isEdit${index}`] = !this[`isEdit${index}`];
   }
 
 }
 onOkTap(val:string){
-  if(val == 'one'){
-    this.isEdit1 = false;
-
-  }else if(val == 'two'){
-    this.isEdit2 = false;
-  }else if(val == 'three'){
-    this.isEdit3 = false;
-  }else if(val == 'four'){
-    this.isEdit4 = false;
-  }else if(val == 'five'){
-    this.isEdit5 = false;
-  }else if(val == 'six'){
-    this.isEdit6 = false;
-  }else if(val == 'seven'){
-    this.isEdit7 = false;
-  }
+  //console.log(val);
+  const index =  this.wordToNumberMap[val.toLowerCase()];
+  // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
+  // .replace('four', '4').replace('five', '5').replace('six', '6')
+  // .replace('seven', '7').replace('eight', '8').replace('nine', '9')
+  // .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
+  // .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
+  // .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
+  // .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
+  // .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
+  // .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
+  // .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
+  // .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
+  // .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
+  // .replace('thirtyseven', '37'));
+if (index >= 1 && index <= 37) {
+this[`isEdit${index}`] = false; // Accessing the array and setting it to false
+}
 }
 
 onViewTap(val:string){
-  if(val == 'one'){
-    this.isView1 = !this.isView1;
-  }else if(val == 'two'){
-    this.isView2 = !this.isView2;
-  }else if(val == 'three'){
-    this.isView3 = !this.isView3;
-  }else if(val == 'four'){
-    this.isView4 = !this.isView4;
-  }else if(val == 'five'){
-    this.isView5 = !this.isView5;
-  }else if(val == 'six'){
-    this.isView6 = !this.isView6;
-  }else if(val == 'seven'){
-    this.isView7 = !this.isView7;
-  }
+  //console.log(val);
+  const index =  this.wordToNumberMap[val.toLowerCase()];
+  // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
+  // .replace('four', '4').replace('five', '5').replace('six', '6')
+  // .replace('seven', '7').replace('eight', '8').replace('nine', '9')
+  // .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
+  // .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
+  // .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
+  // .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
+  // .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
+  // .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
+  // .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
+  // .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
+  // .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
+  // .replace('thirtyseven', '37'));
+  //console.log("index == ", index);
+if (index >= 1 && index <= 37) {
+
+this[`isView${index}`] = !this[`isView${index}`];
+}
 
 }
 
 
-getFilteredBins(current: string, exclude1: string, exclude2: string, exclude3: string, exclude4: string, exclude5: string, exclude6: string, exclude7: string, exclude8: string, exclude9: string): string[] {
+getFilteredBins(current: string, exclude1: string, exclude2: string, exclude3: string, exclude4: string, exclude5: string, 
+  exclude6: string, exclude7: string, exclude8: string, exclude9: string, 
+  exclude10: string, exclude11: string, exclude12: string, exclude13: string, exclude14: string, 
+  exclude15: string, exclude16: string, exclude17: string, exclude18: string, exclude19: string, 
+  exclude20: string, exclude21: string, exclude22: string, exclude23: string, exclude24: string, 
+  exclude25: string, exclude26: string, exclude27: string, exclude28: string, exclude29: string, 
+  exclude30: string, exclude31: string, exclude32: string, exclude33: string, exclude34: string, 
+  exclude35: string, exclude36: string, exclude37: string, exclude38: string, exclude39: string, 
+  ): string[] {
   // Include the current selection and exclude the others
-  return this.listBins.filter(bin => bin === current || (bin !== exclude1 && bin !== exclude2 && bin !== exclude3 && bin !== exclude4 && bin !== exclude5 && bin !== exclude6 && bin !== exclude7 && bin !== exclude8 && bin !== exclude9 ));
+  return this.listBins.filter(bin => {
+    const exclusions = [exclude1, exclude2, exclude3, exclude4, exclude5, exclude6, exclude7, exclude8, exclude9,
+                        exclude10, exclude11, exclude12, exclude13, exclude14, exclude15, exclude16, exclude17, exclude18, 
+                        exclude19, exclude20, exclude21, exclude22, exclude23, exclude24, exclude25, exclude26, exclude27, 
+                        exclude28, exclude29, exclude30, exclude31, exclude32, exclude33, exclude34, exclude35, exclude36, 
+                        exclude37, exclude38, exclude39];
+  
+    return bin === current || !exclusions.includes(bin);
+  });
 }
 list:string[]= ['Profile1', 'Profile2', 'Profile3', 'Profile4', 'Profile5', 'Profile6', 'Profile7', 'Profile8', 'Profile9', 'Profile10'];
 filterdList:string[]=[];
 selected_e_bins:string[] = [];
 onCheckboxChange(event: Event, item: string, i:number): void {
-  console.log(`"number:""${i}"`,)
+  //console.log(`"number:""${i}"`,)
   const isChecked = (event.target as HTMLInputElement).checked;
   if (isChecked) {
     // Add item to the selected list if checked
     this.selected_e_bins.push(item);
-    // console.log(this.selected_e_bins);
+    // //console.log(this.selected_e_bins);
   } else {
     // Remove item from the selected list if unchecked
     this.selected_e_bins = this.selected_e_bins.filter(selectedItem => selectedItem !== item);
   }
-  console.log(this.selected_e_bins); // To check the updated list in the console
+  //console.log(this.selected_e_bins); // To check the updated list in the //console
 }
 maxSelection = 3
 selecteds!:string;
 onItemSelect(event: any) {
-console.log(event);
+//console.log(event);
 this.selected_e_bins.push(event.item_text as string)
-console.log(this.selected_e_bins, event.item_text)
+//console.log(this.selected_e_bins, event.item_text)
 
 }
 
@@ -228,19 +423,19 @@ console.log(this.selected_e_bins, event.item_text)
 onItemDeSelect(event: any) {
   this.selected_e_bins.indexOf(event.item_text as string)
 
-  console.log('Deselected Item:', this.selected_e_bins);
+  //console.log('Deselected Item:', this.selected_e_bins);
   this.updateSelecteds()
 }
 updateSelecteds() {
   // Concatenate selected items into a single string
   this.selecteds = this.selectedItems.map((item: any) => item.item_text).join(', ');
-  console.log(this.selecteds)
+  //console.log(this.selecteds)
 }
 
 CurrentSelect() {
-  console.log('Surface:', this.selectedSurface);
-  console.log('Middle:', this.selectedMiddle);
-  console.log('Lower:', this.selectedLower);
+  //console.log('Surface:', this.selectedSurface);
+  //console.log('Middle:', this.selectedMiddle);
+  //console.log('Lower:', this.selectedLower);
 }
 
   
@@ -335,7 +530,7 @@ CurrentSelect() {
       }
     }
 
-    // console.log(this.mapService.traveledPath);
+    // //console.log(this.mapService.traveledPath);
   }
 
   checking() {
@@ -345,13 +540,13 @@ CurrentSelect() {
   }
   stationTypeSelect() {
     this.travelPathAssign();
-    // console.log("Station selected:", this.selectedStationType);
+    // //console.log("Station selected:", this.selectedStationType);
 
     const selectedStation = this.stations.find(
       (station) => station.station_name === this.selectedStationType
 
     );
-    console.log("selected station:" , selectedStation);
+    //console.log("selected station:" , selectedStation);
 
     if (selectedStation) {
       this.selectedcoordinate = selectedStation.geo_format;
@@ -385,21 +580,21 @@ CurrentSelect() {
 
       // Update center and render the map with new station coordinates
       this.center = fromLonLat([this.Lang, this.Lat]);
-      // console.log(this.center)
+      // //console.log(this.center)
       if (this.selectedStationType == 'CWPRS01') {
         const point1 = fromLonLat([this.finallang, this.finallat]) as [
           number,
           number
         ];
-        console.log("nano loc",point1);
+        //console.log("nano loc",point1);
         const point2 = fromLonLat([this.liveloclang1, this.liveloclat1]) as [
           number,
           number
         ];
-        // console.log("point1:== ", point1, this.center);
-        // console.log("point2: ==", point2);
+        // //console.log("point1:== ", point1, this.center);
+        // //console.log("point2: ==", point2);
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // console.log(distance,'m');
+        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       } else if (this.selectedStationType == 'CWPRS02') {
@@ -408,10 +603,10 @@ CurrentSelect() {
           number,
           number
         ];
-        // console.log("point1:== ", point1);
-        // console.log("point2: ==", point2);
+        // //console.log("point1:== ", point1);
+        // //console.log("point2: ==", point2);
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // console.log(distance,'m');
+        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       }
@@ -431,7 +626,7 @@ CurrentSelect() {
     this.mapService.destroyMap();
     const mapContainer = document.getElementById('ol-map'); // Target HTML element for map
     if (this.selectedStationType === 'CWPRS01') {
-      // console.log("map:", mapContainer);
+      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         this.finallat,
@@ -443,7 +638,7 @@ CurrentSelect() {
       );
       this.show = true;
     } else if (this.selectedStationType == 'CWPRS02') {
-      // console.log("map:", mapContainer);
+      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         lat,
@@ -470,45 +665,58 @@ CurrentSelect() {
     this.abovedanger = parseFloat(this.staion.configs[2].above_danger);
     const bin = this.sensor[1].bins;
     const bins = bin.split(',');
-    console.log(bin, bins[0]) 
+    //console.log(bin, bins[0]) 
     this.selectedSurface = bins[0];
     this.selectedMiddle = bins[1];
     this.selectedLower = bins[2];
     const filteredList = this.list.filter(item => !bins[0].includes(item.trim()) && !bins[1].includes(item.trim()) && !bins[2].includes(item.trim()));
     this.filterdList = filteredList;
     this.updatedropdown(bin);
-    // console.log(this.tideOffset, this.selectedUnit, this.selectedcurrentUnit,
+    // //console.log(this.tideOffset, this.selectedUnit, this.selectedcurrentUnit,
     //   this.belowdanger,this.abovedanger, this.belowwarning, this.abovewarning
     // );
     const ee = this.sensor[1].e_bins;
-    // console.log("e_bin:",ee);
+    // //console.log("e_bin:",ee);
     const ejson = JSON.parse(ee);
     
     this.recieved_e_bins = ejson;
-    console.log(this.recieved_e_bins);
-    this.editone = this.recieved_e_bins[0].name;
-    this.edittwo = this.recieved_e_bins[1].name;
-    this.editthree = this.recieved_e_bins[2].name;
-    this.editfour = this.recieved_e_bins[3].name;
-    this.editfive = this.recieved_e_bins[4].name;
-    this.editsix = this.recieved_e_bins[5].name;
-    this.editseven = this.recieved_e_bins[6].name;
+    //console.log(this.recieved_e_bins);
+    for(let i=0; i<this.recieved_e_bins.length; i++){
+      this[`edit${i+1}`] = this.recieved_e_bins[i].name;
+    }
+    for(let i=0; i<this.recieved_e_bins.length; i++){
+      this[`isView${i+1}`] = this.recieved_e_bins[i].show;
+    }
+    //console.log("view37 is", this.isView37);
+    for(let i=0; i<this.recieved_e_bins.length; i++){
+      this[`e_bin${i+1}`] = this.recieved_e_bins[i].bin;
+    }
+    // this.edit1 = this.recieved_e_bins[0].name;
+    // this.edit2 = this.recieved_e_bins[1].name;
+    // this.edit3 = this.recieved_e_bins[2].name;
+    // this.edit4 = this.recieved_e_bins[3].name;
+    // this.edit5 = this.recieved_e_bins[4].name;
+    // this.edit6 = this.recieved_e_bins[5].name;
+    // this.edit7 = this.recieved_e_bins[6].name;
+    // this.edit8 = this.recieved_e_bins[7].name;
+    // this.edit9 = this.recieved_e_bins[8].name;
 
-    this.isView1 = this.recieved_e_bins[0].show;
-    this.isView2 = this.recieved_e_bins[1].show;
-    this.isView3 = this.recieved_e_bins[2].show;
-    this.isView4 = this.recieved_e_bins[3].show;
-    this.isView5 = this.recieved_e_bins[4].show;
-    this.isView6 = this.recieved_e_bins[5].show;
-    this.isView7 = this.recieved_e_bins[6].show;
 
-    this.e_bin1 = this.recieved_e_bins[0].bin;
-    this.e_bin2 = this.recieved_e_bins[1].bin;
-    this.e_bin3 = this.recieved_e_bins[2].bin;
-    this.e_bin4 = this.recieved_e_bins[3].bin;
-    this.e_bin5 = this.recieved_e_bins[4].bin;
-    this.e_bin6 = this.recieved_e_bins[5].bin;
-    this.e_bin7 = this.recieved_e_bins[6].bin;
+    // this.isView1 = this.recieved_e_bins[0].show;
+    // this.isView2 = this.recieved_e_bins[1].show;
+    // this.isView3 = this.recieved_e_bins[2].show;
+    // this.isView4 = this.recieved_e_bins[3].show;
+    // this.isView5 = this.recieved_e_bins[4].show;
+    // this.isView6 = this.recieved_e_bins[5].show;
+    // this.isView7 = this.recieved_e_bins[6].show;
+
+    // this.e_bin1 = this.recieved_e_bins[0].bin;
+    // this.e_bin2 = this.recieved_e_bins[1].bin;
+    // this.e_bin3 = this.recieved_e_bins[2].bin;
+    // this.e_bin4 = this.recieved_e_bins[3].bin;
+    // this.e_bin5 = this.recieved_e_bins[4].bin;
+    // this.e_bin6 = this.recieved_e_bins[5].bin;
+    // this.e_bin7 = this.recieved_e_bins[6].bin;
 
   }
 
@@ -537,23 +745,28 @@ CurrentSelect() {
   selecteoption(typee: String) {
     this.slectedOption = typee;
     
-    // console.log(`selectedType : ${this.slectedOption}`);
+    // //console.log(`selectedType : ${this.slectedOption}`);
   }
 
   selectUnit(unit: string) {
     this.selectedUnit = unit;
-    // console.log(`Selected unit: ${this.selectedUnit}`);
+    // //console.log(`Selected unit: ${this.selectedUnit}`);
   }
   selectcurrentUnit(unit: string) {
     this.selectedcurrentUnit = unit;
-    // console.log(`Selected unit: ${this.selectedcurrentUnit}`);
+    // //console.log(`Selected unit: ${this.selectedcurrentUnit}`);
   }
   selectcoordinate(unit: string) {
     this.selectedcoordinate = unit;
-    // console.log(`Selected unit: ${this.selectedcoordinate}`);
+    // //console.log(`Selected unit: ${this.selectedcoordinate}`);
   }
+
+
   online:boolean = true;
   ngOnInit(): void {
+    this.staion.page = 'Setting';
+    const a = 1;
+    //console.log(`${a.toString()}`);
     const status = navigator.onLine;
     this.online = status;
     if(!this.online){
@@ -565,10 +778,16 @@ CurrentSelect() {
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
     this.data.getSensorLiveData(todayDate, todayDate).subscribe((response) => {
-      // console.log(response);
-      this.liveData = response;
-      this.buoy1 = this.liveData.buoy1;
-      this.buoy2 = this.liveData.buoy2;
+      // //console.log(response);
+      if(response.buoy1.length !==4){
+        this.buoy1 = this.dummyData1;
+        this.buoy2 = this.dummyData2
+      }else{
+        this.liveData = response;
+        this.buoy1 = this.liveData.buoy1;
+        this.buoy2 = this.liveData.buoy2;
+      }
+     
 
       this.liveloclat1 = this.buoy1[0].LAT;
       this.liveloclat2 = this.buoy2[0].LAT;
@@ -577,7 +796,7 @@ CurrentSelect() {
     });
     this.data.getStationNames().subscribe((stations) => {
       this.stations = stations;
-      console.log("station setting", stations);
+      //console.log("station setting", stations);
 
       for (let i in stations) {
         this.stationTypes.push(stations[i].station_name);
@@ -585,7 +804,7 @@ CurrentSelect() {
 
       this.data.getsensorConfigs().subscribe((sensor) => {
         this.sensor = sensor;
-        // console.log("Sensors==", this.sensor);
+        // //console.log("Sensors==", this.sensor);
         if (this.sensor != null) {
           this.assign();
         }
@@ -739,53 +958,30 @@ CurrentSelect() {
   }
 
   clickon(typr: String) {
-    // console.log(typr);
+    // //console.log(typr);
   }
 
   //updates
   onsensorSubmit() {
     const e_bins_json = [
-      {
-        name:this.editone ?? "",
-        bin:this.e_bin1 ?? "",
-        show:this.isView1 ?? false
-      },
-      {
-        name:this.edittwo ?? "",
-        bin:this.e_bin2 ?? "",
-        show:this.isView2 ?? false
-      },
-      {
-        name:this.editthree ?? "",
-        bin:this.e_bin3 ?? "",
-        show:this.isView3 ?? false
-      },
-      {
-        name:this.editfour ?? "",
-        bin:this.e_bin4 ?? "",
-        show:this.isView4 ?? false
-      },
-      {
-        name:this.editfive ?? "",
-        bin:this.e_bin5 ?? "",
-        show:this.isView5 ?? false
-      },
-      {
-        name:this.editsix ?? "",
-        bin:this.e_bin6 ?? "",
-        show:this.isView6 ?? false
-      },
-      {
-        name:this.editseven ?? "",
-        bin:this.e_bin7 ?? "",
-        show:this.isView7 ?? false
-      }
+      
     ];
+
+    for(let i=0; i<38; i++){
+      e_bins_json.push(
+        {
+          name:this[`edit${i+1}`] ?? "",
+          bin:this[`e_bin${i+1}`] ?? "",
+          show:this[`isView${i+1}`] ?? false
+        }
+      )
+    }
+    //console.log(e_bins_json);
     const e_bins = JSON.stringify(e_bins_json);
 
     const binnn = `${this.selectedSurface},${this.selectedMiddle},${this.selectedLower}`;
-    console.log("binnss: ===",binnn);
-    // console.log("tapped", this.slectedOption);
+    //console.log("binnss: ===",binnn);
+    // //console.log("tapped", this.slectedOption);
     if(this.selectedItems >2){
       this.taost.error('You can select only 3 items');
       return;
@@ -799,7 +995,7 @@ CurrentSelect() {
         unit: this.selectedUnit,
 
       };
-      // console.log(data);
+      // //console.log(data);
     } else if (this.slectedOption === 'adcp') {
       data = {
         sensor_type: this.slectedOption,
@@ -807,7 +1003,7 @@ CurrentSelect() {
         bins: binnn,
         e_bins: e_bins
       };
-      // console.log(data);
+      // //console.log(data);
     } else if (this.slectedOption === 'battery') {
       data = {
         sensor_type: this.slectedOption.toString(),
@@ -816,12 +1012,12 @@ CurrentSelect() {
         above_danger: this.abovedanger.toString(),
         below_danger: this.belowdanger.toString(),
       };
-      // console.log(data);
+      // //console.log(data);
     }
 
     this.http.put('http://localhost:3000/api/config', data).subscribe({
       next: (res) => {
-        // console.log(res);
+        // //console.log(res);
         this.taost.success('Sensor settings Updaeted', 'Success');
       },
       error: (err) => {
@@ -874,11 +1070,11 @@ CurrentSelect() {
       )
       .subscribe({
         next: (res) => {
-          // console.log('response station config ==', res);
+          // //console.log('response station config ==', res);
           this.taost.success('Station Configuration updated', 'Success');
         },
         error: (err) => {
-          // console.error('Error occurred:', err);
+          // //console.error('Error occurred:', err);
           this.taost.error(
             'Error Updating Station Configuration',
             'Please try again'
@@ -925,7 +1121,7 @@ CurrentSelect() {
     //   bins.includes(item.item_text)
     // );
   
-    // console.log('Selected Items:', this.selectedItems);
+    // //console.log('Selected Items:', this.selectedItems);
   }
 
 
@@ -954,7 +1150,7 @@ CurrentSelect() {
     // Add item to the target
     targetBox.splice(event.currentIndex, 0, item);
 
-    console.log(this.rightBox)
+    //console.log(this.rightBox)
   }
 
   // Remove item from right and add back to left
@@ -965,4 +1161,330 @@ CurrentSelect() {
       this.leftBox.push(item);
     }
   }
+
+
+
+
+dummyData1:SensorData[]=[
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 19.01,
+    "LONG": 72.7,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": '2.37',
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:30:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":103,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 19.01,
+    "LONG": 72.7,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": '2.37',
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:20:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":102,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  },
+  {
+    "Battery_Voltage": "12.4",
+    "Date": "2025-01-08T00:00:00.000Z",
+    "GPS_Date": "1970-01-01T00:00:00.000Z",
+    "LAT": 19.01,
+    "LONG": 72.7,
+    "Lower_CurrentSpeedDirection": "0.32;254.7",
+    "Middle_CurrentSpeedDirection": "0.71;249.3",
+    "S1_RelativeWaterLevel": '2.37',
+    "S2_SurfaceCurrentSpeedDirection":"0.69;221.6",
+    "StationID":"CWPRS01",
+    "Time":"1970-01-01T09:10:00.000Z",
+    "UTC_Time":"1970-01-01T06:00:00.000Z",
+    // "dateTime": "2025-01-08T05:06:54.943Z",
+    "id":101,
+    "profile4": "23.4;233.9",
+    "profile5": "53.2;234.9",
+    "profile6": "21.3;321.9",
+    "profile7": "43.2;233.0",
+    "profile8": "11.3;343.2",
+    "profile9": "32.2;244.3",
+    "profile10": "12.3;123.3",
+    "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+  }
+]
+
+
+dummyData2:SensorData2[]=[
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.95,
+  "LONG": 72.66,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":'2.37',
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:30:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 63,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+},
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.95,
+  "LONG": 72.66,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":'2.37',
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:20:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 62,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11": "13.3;134.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+},
+{
+  "Battery_Voltage": "10.4",
+  "Date":"2025-01-08T00:00:00.000Z",
+  "GPS_Date":"1900-01-01T00:00:00.000Z",
+  "LAT": 18.95,
+  "LONG": 72.66,
+  "Lower_CurrentSpeedDirection": "0.32;254.7",
+  "Middle_CurrentSpeedDirection": "0.71;249.3",
+  "S1_RelativeWaterLevel":'2.37',
+  "S2_SurfaceCurrentSpeedDirection": "0.69;221.6",
+  "StationID":"CWPRS02",
+  "Time": "1970-01-01T09:10:00.000Z",
+  "UTC_Time": "1970-01-01T06:00:00.000Z",
+  "id": 61,
+  "profile4": "23.4;233.9",
+  "profile5": "53.2;234.9",
+  "profile6": "21.3;321.9",
+  "profile7": "43.2;233.0",
+  "profile8": "11.3;343.2",
+  "profile9": "32.2;244.3",
+  "profile10":"12.3;123.3",
+  "profile11":"13.3;123.3",
+      "profile12": "14.3;145.3",
+      "profile13": "15.3;156.3",
+      "profile14": "16.3;167.3",
+      "profile15": "17.3;178.3",
+      "profile16": "18.3;189.3",
+      "profile17": "19.3;190.3",
+      "profile18": "20.3;191.3",
+      "profile19": "21.3;192.3",
+      "profile20": "22.3;193.3",
+      "profile21": "23.3;194.3",
+      "profile22": "24.3;195.3",
+      "profile23": "25.3;196.3",
+      "profile24": "26.3;197.3",
+      "profile25": "27.3;198.3",
+      "profile26": "28.3;199.3",
+      "profile27": "29.3;200.3",
+      "profile28": "30.3;201.3",
+      "profile29": "31.3;202.3",
+      "profile30": "32.3;203.3",
+      "profile31": "33.3;204.3",
+      "profile32": "34.3;205.3",
+      "profile33": "35.3;206.3",
+      "profile34": "36.3;207.3",
+      "profile35": "37.3;208.3",
+      "profile36": "38.3;209.3",
+      "profile37": "39.3;210.3",
+      "profile38": "40.3;211.3",
+      "profile39": "41.3;212.3",
+      "profile40": "42.3;213.3",
+
+}
+]
 }

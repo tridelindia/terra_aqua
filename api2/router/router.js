@@ -1,5 +1,5 @@
     const express = require('express');
-    const { getUsers,addRole, registerUser, loginUser, saveSensorData,saveSensorData2, getSensors, getRoles, adddesignation, getdesignation, deleteRole, DeleteDesignation, test, updateConfigs, getconfigs, updateStationConfig, getStationconfigs, editUser, addLog, getSensorsrr, getSensorsTime, deleteUser, support, setKeys, fetchKey } = require('../controllers/controller');
+    const { getUsers,addRole, registerUser, loginUser, saveSensorData,saveSensorData2, getSensors, getRoles, adddesignation, getdesignation, deleteRole, DeleteDesignation, test, updateConfigs, getconfigs, updateStationConfig, getStationconfigs, editUser, addLog, getSensorsrr, getSensorsTime, deleteUser, support, setKeys, fetchKey, historical, historical2, deleteHistorical } = require('../controllers/controller');
 
     const router = express.Router();
 
@@ -13,7 +13,7 @@ router.post('/users/login', loginUser);
 router.post('/users/sensor1', saveSensorData);
 router.post('/users/validate', setKeys);
 router.post('/users/sensors2', saveSensorData2);
-router.get('/users/getKey', fetchKey);
+router.get('/users/getKey', fetchKey); 
 router.get('/users/sensorData', getSensors);
 router.post('/users/addrole', addRole);
 router.get('/users/getRoles', getRoles);
@@ -28,5 +28,10 @@ router.put('/updatestationconfig', updateStationConfig);
 router.get('/getstationconfig', getStationconfigs);
 router.post('/addlog', addLog);
 router.get('/users/getSensorsTime', getSensorsTime);
+router.post('/dump', historical);
+router.post('/dump2', historical2);
+router.post('/removedump', deleteHistorical)
+router.post('/removedump2', deleteHistorical)
+
 
 module.exports = router;

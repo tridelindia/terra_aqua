@@ -1,0 +1,131 @@
+.
+├── WEB
+│   └── web.xml
+├── app
+│   ├── analytics
+│   │   ├── analytics.component.css
+│   │   ├── analytics.component.html
+│   │   ├── analytics.component.spec.ts
+│   │   └── analytics.component.ts
+│   ├── analytics 2.zip
+│   ├── analytics.zip
+│   ├── analytics2
+│   │   ├── analytics.component.css
+│   │   ├── analytics.component.html
+│   │   ├── analytics.component.spec.ts
+│   │   └── analytics.component.ts
+│   ├── app.component.css
+│   ├── app.component.html
+│   ├── app.component.spec.ts
+│   ├── app.component.ts
+│   ├── app.config.server.ts
+│   ├── app.config.ts
+│   ├── app.module.ts
+│   ├── app.routes.ts
+│   ├── auth.guard.spec.ts
+│   ├── auth.guard.ts
+│   ├── auth.service.spec.ts
+│   ├── auth.service.ts
+│   ├── battery
+│   │   ├── battery.component.css
+│   │   ├── battery.component.html
+│   │   ├── battery.component.spec.ts
+│   │   └── battery.component.ts
+│   ├── config-data.service.spec.ts
+│   ├── config-data.service.ts
+│   ├── configurations
+│   │   ├── configurations.component.css
+│   │   ├── configurations.component.html
+│   │   ├── configurations.component.spec.ts
+│   │   ├── configurations.component.ts
+│   │   └── map
+│   │       ├── map.service.spec.ts
+│   │       └── map.service.ts
+│   ├── dashboard
+│   │   ├── dash-map
+│   │   │   ├── dash-map-service.service.spec.ts
+│   │   │   └── dash-map-service.service.ts
+│   │   ├── dashboard.component.css
+│   │   ├── dashboard.component.html
+│   │   ├── dashboard.component.spec.ts
+│   │   └── dashboard.component.ts
+│   ├── gauge
+│   │   ├── gauge.component.css
+│   │   ├── gauge.component.html
+│   │   ├── gauge.component.spec.ts
+│   │   └── gauge.component.ts
+│   ├── health
+│   │   ├── health.component.css
+│   │   ├── health.component.html
+│   │   ├── health.component.spec.ts
+│   │   └── health.component.ts
+│   ├── home
+│   │   ├── home-map
+│   │   │   ├── map-service.service.spec.ts
+│   │   │   └── map-service.service.ts
+│   │   ├── home.component.css
+│   │   ├── home.component.html
+│   │   ├── home.component.spec.ts
+│   │   └── home.component.ts
+│   ├── homechart
+│   │   ├── homechart.component.css
+│   │   ├── homechart.component.html
+│   │   ├── homechart.component.spec.ts
+│   │   └── homechart.component.ts
+│   ├── installation
+│   │   ├── installation.component.css
+│   │   ├── installation.component.html
+│   │   ├── installation.component.spec.ts
+│   │   └── installation.component.ts
+│   ├── layout
+│   │   ├── layout.component.css
+│   │   ├── layout.component.html
+│   │   ├── layout.component.spec.ts
+│   │   └── layout.component.ts
+│   ├── loading
+│   │   ├── loading.component.css
+│   │   ├── loading.component.html
+│   │   ├── loading.component.spec.ts
+│   │   └── loading.component.ts
+│   ├── login
+│   │   ├── login.component.css
+│   │   ├── login.component.html
+│   │   ├── login.component.spec.ts
+│   │   └── login.component.ts
+│   ├── reports
+│   │   ├── reports.component.css
+│   │   ├── reports.component.html
+│   │   ├── reports.component.spec.ts
+│   │   └── reports.component.ts
+│   ├── sensor.service.spec.ts
+│   ├── sensor.service.ts
+│   ├── sidenav
+│   │   ├── sidenav.component.css
+│   │   ├── sidenav.component.html
+│   │   ├── sidenav.component.spec.ts
+│   │   └── sidenav.component.ts
+│   ├── station_service
+│   │   ├── station.service.spec.ts
+│   │   └── station.service.ts
+│   ├── theme_service
+│   │   ├── theme.service.spec.ts
+│   │   └── theme.service.ts
+│   ├── units
+│   │   ├── units.component.css
+│   │   ├── units.component.html
+│   │   ├── units.component.spec.ts
+│   │   └── units.component.ts
+│   └── user
+│       ├── user.component.css
+│       ├── user.component.html
+│       ├── user.component.spec.ts
+│       └── user.component.ts
+├── folder_structure.txt
+├── index.html
+├── main.server.ts
+├── main.ts
+├── model
+│   └── config.model.ts
+└── styles.css
+
+26 directories, 103 files

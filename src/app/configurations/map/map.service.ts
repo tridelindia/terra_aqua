@@ -74,7 +74,6 @@ export class MapService {
         new TileLayer({
           source: new XYZ({
             url: mapUrl
-            // "http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
           }),
         })
       ],
@@ -85,13 +84,10 @@ export class MapService {
         minZoom: mapUrl ==='../../../../assets/western/{z}/{x}/{y}.png'? 8 : undefined,
       })
     });
-  
-    // Adding marker and warning/danger circles
     const marker = new Feature({ geometry: new Point(center) });
     marker.setStyle(new Style({
       image: new Icon({ src: '../../assets/buoy.png', scale: 0.04 })
     }));
-  
     const circleFeature = new Feature({
       geometry: new Circle(center, warning),
     });
@@ -99,7 +95,6 @@ export class MapService {
       stroke: new Stroke({ color: 'yellow', width: 2 }),
       fill: new Fill({ color: 'rgba(0, 0, 255, 0.1)' }),
     }));
-  
     const circleFeature2 = new Feature({
       geometry: new Circle(center, danger),
     });
@@ -112,11 +107,8 @@ export class MapService {
     this.vectorLayer = new VectorLayer({ source: vectorSource });
   
     if (show) {
-      // Ensure the lines are added to the vector layer after it's created
       this.addPathLines(this.traveledPath, this.vectorLayer);
     }
-  
-    // Add vectorLayer to the map
     this.map.addLayer(this.vectorLayer);
   }
   

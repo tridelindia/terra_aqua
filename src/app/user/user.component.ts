@@ -101,17 +101,11 @@ export class UserComponent implements OnInit {
       .post('http://localhost:3000/api/users/register', newUser)
       .subscribe({
         next: (response: any) => {
-          // Optional: You can show a success message to the user
-          // alert(response.message); // Show success message
-
-          // Optionally, you can update the users array to reflect the new user
-          // this.users.push(newUser); // Update the users list
           this.getUsers();
           this.toast.success(`User ${this.name} Created`, 'Sucess');
-          this.resetForm(); // Reset the form fields after successful registration
+          this.resetForm();
         },
         error: (error) => {
-          //console.error('Error registering user', error);
           this.toast.error('Error registering user. Please try again.'); // Show error message
         },
       });
@@ -146,7 +140,6 @@ export class UserComponent implements OnInit {
           this.toast.success(`Role ${newrole.role} Added`, 'Success');
         },
         error: (error) => {
-          //console.error('Error adding new role', error);
           this.toast.error(`Error adding ${newrole.role}`, 'Please try again');
         },
       });
@@ -178,8 +171,6 @@ export class UserComponent implements OnInit {
           );
         },
         error: (error) => {
-          //console.error('Error adding new Designation', error);
-          // alert('Error adding new Designation. Please try again.'); // Show error message
           this.toast.error(
             `Error adding ${newdesignation.designation}`,
             'Please try again'
@@ -203,10 +194,8 @@ export class UserComponent implements OnInit {
         next: (response) => {
           this.getRoles();
           this.toast.success(`Role deleted`, 'Success');
-          // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          //console.error('Error deleting role', error);
           this.toast.error('Error deleting role', 'Please try again');
         },
       });
@@ -218,10 +207,8 @@ export class UserComponent implements OnInit {
         next: (response) => {
           this.getUsers();
           this.toast.success(`User deleted`, 'Success');
-          // You can add logic here to update your UI or users list
         },
         error: (error) => {
-          //console.error('Error deleting user', error);
           this.toast.error('Error deleting User', 'Please try again');
         },
       });
@@ -234,7 +221,6 @@ export class UserComponent implements OnInit {
         next: (response) => {
           this.getDesignation();
           this.toast.success(`Designation deleted`, 'Success');
-          // You can add logic here to update your UI or users list
         },
         error: (error) => {
           console.error('Error deleting Designation', error);

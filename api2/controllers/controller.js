@@ -251,6 +251,7 @@ const loginUser = async (req, res) => {
 };
 
 
+
 //save data
 const saveSensorData = async (req, res) => {
     //console.log('Received data:', req.body); // Debugging
@@ -1156,8 +1157,327 @@ const fetchKey = async (req, res) => {
       res.json({ api_key: data });
     });
   };
+
+
+
+
+//   const historical = async (req, res) => {
+//     let pool;
+
+//   try {
+//     const sensorDataArray = req.body; // Expecting an array of sensor data objects
+//     if (!Array.isArray(sensorDataArray) || sensorDataArray.length === 0) {
+//       return res.status(400).json({ message: "Invalid or empty data array" });
+//     }
+//     console.log(sensorDataArray)
+
+//     // pool = await sql.connect(dbConfig);
+//     // const transaction = new sql.Transaction(pool);
+//     // await transaction.begin();
+
+//     const request = new sql.Request();
+//     const query = `
+//       INSERT INTO db_terra_aqua.dbo.tb_cwprs_02 (
+//         StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
+//         S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
+//         profile4, profile5, profile6, profile7, profile8, profile9, profile10,
+//         profile11, profile12, profile13, profile14, profile15, profile16, profile17, profile18, profile19, 
+//         profile20, profile21, profile22, profile23, profile24, profile25, profile26, profile27, profile28, 
+//         profile29, profile30, profile31, profile32, profile33, profile34, profile35, profile36, profile37, 
+//         profile38, profile39, profile40
+//       ) VALUES (
+//         @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @Battery_Voltage, @GPS_Date, @S1_RelativeWaterLevel, 
+//         @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, 
+//         @profile4, @profile5, @profile6, @profile7, @profile8, @profile9, @profile10,
+//         @profile11, @profile12, @profile13, @profile14, @profile15, @profile16, @profile17, @profile18, @profile19, 
+//         @profile20, @profile21, @profile22, @profile23, @profile24, @profile25, @profile26, @profile27, @profile28, 
+//         @profile29, @profile30, @profile31, @profile32, @profile33, @profile34, @profile35, @profile36, @profile37, 
+//         @profile38, @profile39, @profile40
+//       )`;
+
+//     for (const sensorData of sensorDataArray) {
+//       request.input("StationID", sql.VarChar, sensorData.StationID);
+//       request.input("Date", sql.Date, sensorData.Date);
+//       request.input("Time", sql.VarChar, sensorData.Time);
+//       request.input("UTC_Time", sql.VarChar, sensorData.UTC_Time);
+//       request.input("LAT", sql.Float, sensorData.LAT);
+//       request.input("LONG", sql.Float, sensorData.LONG);
+//       request.input("Battery_Voltage", sql.Float, sensorData.Battery_Voltage);
+//       request.input("GPS_Date", sql.VarChar, sensorData.GPS_Date);
+//       request.input("S1_RelativeWaterLevel", sql.Float, sensorData.S1_RelativeWaterLevel);
+//       request.input("S2_SurfaceCurrentSpeedDirection", sql.Float, sensorData.S2_SurfaceCurrentSpeedDirection);
+//       request.input("Middle_CurrentSpeedDirection", sql.Float, sensorData.Middle_CurrentSpeedDirection);
+//       request.input("Lower_CurrentSpeedDirection", sql.Float, sensorData.Lower_CurrentSpeedDirection);
+      
+//       // Loop through profile fields dynamically
+//       for (let i = 4; i <= 40; i++) {
+//         request.input(`profile${i}`, sql.Float, sensorData[`profile${i}`]);
+//       }
+
+//       await request.query(query);
+//     }
+
+    
+//     res.status(201).json({ message: "Sensor data saved successfully" });
+//   } catch (err) {
+//     console.error("Error saving sensor data:", err);
+//     res.status(500).json({ message: "Database error", error: err.message });
+//   } finally {
+//     if (pool) {
+//       pool.close();
+//     }
+//   }
+// };
  
  
+
+
+
+const historical = async (req, res) => {
+    //console.log('Received data:', req.body); // Debugging
+
+    const {
+        datas
+    } = req.body;
+
+    // Validate input
+    if (!datas) {
+        return res.status(400).json({ message: 'Invalid input data' });
+    }
+
+    try {
+        // Convert numerical values to strings if necessary
+        for(const d of datas){
+            const stringLAT = String(d.LAT);
+            const stringLONG = String(d.LONG);
+            const stringBatteryVoltage = String(d.Battery_Voltage);
+            const stringS1_RelativeWaterLevel = String(d.S1_RelativeWaterLevel);
+    
+            // Prepare the SQL query
+            const query = `
+                INSERT INTO db_terra_aqua.dbo.tb_cwprs_01 (
+                    StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
+                    S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
+                    profile4, profile5, profile6, profile7, profile8, profile9, profile10,
+                    profile11, profile12, profile13, profile14, profile15, profile16, profile17, profile18, profile19, 
+                    profile20, profile21, profile22, profile23, profile24, profile25, profile26, profile27, profile28, 
+                    profile29, profile30, profile31, profile32, profile33, profile34, profile35, profile36, profile37, 
+                    profile38, profile39, profile40
+                ) VALUES (
+                    @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @BatteryVoltage, @GPS_Date, @S1_RelativeWaterLevel, 
+                    @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, 
+                    @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10,
+                    @Profile11, @Profile12, @Profile13, @Profile14, @Profile15, @Profile16, @Profile17, @Profile18, @Profile19, 
+                    @Profile20, @Profile21, @Profile22, @Profile23, @Profile24, @Profile25, @Profile26, @Profile27, @Profile28, 
+                    @Profile29, @Profile30, @Profile31, @Profile32, @Profile33, @Profile34, @Profile35, @Profile36, @Profile37, 
+                    @Profile38, @Profile39, @Profile40
+                )
+            `;
+    
+            const request = new sql.Request();
+            request.input("StationID", sql.VarChar, d.StationID);
+            request.input("Date", sql.VarChar, d.Date);
+            request.input("Time", sql.VarChar, d.Time);
+            request.input("UTC_Time", sql.VarChar, d.UTC_Time);
+            request.input("LAT", sql.VarChar, stringLAT);
+            request.input("LONG", sql.VarChar, stringLONG);
+            request.input("BatteryVoltage", sql.VarChar, stringBatteryVoltage);
+            request.input("GPS_Date", sql.VarChar, d.GPS_Date);
+            request.input("S1_RelativeWaterLevel", sql.VarChar, stringS1_RelativeWaterLevel);
+            request.input("S2_SurfaceCurrentSpeedDirection", sql.VarChar, d.S2_SurfaceCurrentSpeedDirection);
+            request.input("Middle_CurrentSpeedDirection", sql.VarChar, d.Middle_CurrentSpeedDirection);
+            request.input("Lower_CurrentSpeedDirection", sql.VarChar, d.Lower_CurrentSpeedDirection);
+            
+            // Loop through profile fields dynamically
+            for (let i = 4; i <= 40; i++) {
+              request.input(`Profile${i}`, sql.VarChar, d[`Profile${i}`]);
+            }
+    
+            const result = await request.query(query);
+        }
+        
+
+        // Send response
+        res.status(201).json({ 
+            status: 'success',
+            message: 'Sensor data saved successfully', data: req.body });
+        
+        
+    } catch (err) {
+        console.error('Database error:', err);
+        res.status(500).json({ message: 'Error saving data', error: err });
+    }
+};
+
+
+
+const historical2 = async (req, res) => {
+    //console.log('Received data:', req.body); // Debugging
+
+    const {
+        datas
+    } = req.body;
+
+    // Validate input
+    if (!datas) {
+        return res.status(400).json({ message: 'Invalid input data' });
+    }
+
+    try {
+        // Convert numerical values to strings if necessary
+        for(const d of datas){
+            const stringLAT = String(d.LAT);
+            const stringLONG = String(d.LONG);
+            const stringBatteryVoltage = String(d.Battery_Voltage);
+            const stringS1_RelativeWaterLevel = String(d.S1_RelativeWaterLevel);
+    
+            // Prepare the SQL query
+            const query = `
+                INSERT INTO db_terra_aqua.dbo.tb_cwprs_02 (
+                    StationID, [Date], [Time], UTC_Time, LAT, LONG, Battery_Voltage, GPS_Date, S1_RelativeWaterLevel, 
+                    S2_SurfaceCurrentSpeedDirection, Middle_CurrentSpeedDirection, Lower_CurrentSpeedDirection, 
+                    profile4, profile5, profile6, profile7, profile8, profile9, profile10,
+                    profile11, profile12, profile13, profile14, profile15, profile16, profile17, profile18, profile19, 
+                    profile20, profile21, profile22, profile23, profile24, profile25, profile26, profile27, profile28, 
+                    profile29, profile30, profile31, profile32, profile33, profile34, profile35, profile36, profile37, 
+                    profile38, profile39, profile40
+                ) VALUES (
+                    @StationID, @Date, @Time, @UTC_Time, @LAT, @LONG, @BatteryVoltage, @GPS_Date, @S1_RelativeWaterLevel, 
+                    @S2_SurfaceCurrentSpeedDirection, @Middle_CurrentSpeedDirection, @Lower_CurrentSpeedDirection, 
+                    @Profile4, @Profile5, @Profile6, @Profile7, @Profile8, @Profile9, @Profile10,
+                    @Profile11, @Profile12, @Profile13, @Profile14, @Profile15, @Profile16, @Profile17, @Profile18, @Profile19, 
+                    @Profile20, @Profile21, @Profile22, @Profile23, @Profile24, @Profile25, @Profile26, @Profile27, @Profile28, 
+                    @Profile29, @Profile30, @Profile31, @Profile32, @Profile33, @Profile34, @Profile35, @Profile36, @Profile37, 
+                    @Profile38, @Profile39, @Profile40
+                )
+            `;
+    
+            const request = new sql.Request();
+            request.input("StationID", sql.VarChar, d.StationID);
+            request.input("Date", sql.VarChar, d.Date);
+            request.input("Time", sql.VarChar, d.Time);
+            request.input("UTC_Time", sql.VarChar, d.UTC_Time);
+            request.input("LAT", sql.VarChar, stringLAT);
+            request.input("LONG", sql.VarChar, stringLONG);
+            request.input("BatteryVoltage", sql.VarChar, stringBatteryVoltage);
+            request.input("GPS_Date", sql.VarChar, d.GPS_Date);
+            request.input("S1_RelativeWaterLevel", sql.VarChar, stringS1_RelativeWaterLevel);
+            request.input("S2_SurfaceCurrentSpeedDirection", sql.VarChar, d.S2_SurfaceCurrentSpeedDirection);
+            request.input("Middle_CurrentSpeedDirection", sql.VarChar, d.Middle_CurrentSpeedDirection);
+            request.input("Lower_CurrentSpeedDirection", sql.VarChar, d.Lower_CurrentSpeedDirection);
+            
+            // Loop through profile fields dynamically
+            for (let i = 4; i <= 40; i++) {
+              request.input(`Profile${i}`, sql.VarChar, d[`Profile${i}`]);
+            }
+    
+            const result = await request.query(query);
+        }
+        
+
+        // Send response
+        res.status(201).json({ 
+            status: 'success',
+            message: 'Sensor data saved successfully', data: req.body });
+        
+        
+    } catch (err) {
+        console.error('Database error:', err);
+        res.status(500).json({ message: 'Error saving data', error: err });
+    }
+};
+
+
+const deleteHistorical = async (req, res) => {
+    //console.log('Received data:', req.body); // Debugging
+
+    const {
+        datas
+    } = req.body;
+
+    // Validate input
+    if (!datas) {
+        return res.status(400).json({ message: 'Invalid input data' });
+    }
+
+    try {
+        // Convert numerical values to strings if necessary
+        for(const d of datas){
+            
+
+            
+           const  deleteQuery = `
+                    DELETE FROM db_terra_aqua.dbo.tb_cwprs_01
+                    WHERE StationID = @StationID AND [Date] = @Date AND [Time] = @Time
+                `
+            const request = new sql.Request();
+            request.input("StationID", sql.VarChar, d.StationID);
+            request.input("Date", sql.VarChar, d.Date);
+            request.input("Time", sql.VarChar, d.Time);
+            
+            
+    
+            const result = await request.query(deleteQuery);
+        }
+        
+
+        // Send response
+        res.status(201).json({ 
+            status: 'success',
+            message: 'Sensor data deleted successfully', data: req.body });
+        
+        
+    } catch (err) {
+        console.error('Database error:', err);
+        res.status(500).json({ message: 'Error deleting data', error: err });
+    }
+};
+
+
+const deleteHistorical2 = async (req, res) => {
+    //console.log('Received data:', req.body); // Debugging
+
+    const {
+        datas
+    } = req.body;
+
+    // Validate input
+    if (!datas) {
+        return res.status(400).json({ message: 'Invalid input data' });
+    }
+
+    try {
+        // Convert numerical values to strings if necessary
+        for(const d of datas){
+            
+
+            
+           const  deleteQuery = `
+                    DELETE FROM db_terra_aqua.dbo.tb_cwprs_02
+                    WHERE StationID = @StationID AND [Date] = @Date AND [Time] = @Time
+                `
+            const request = new sql.Request();
+            request.input("StationID", sql.VarChar, d.StationID);
+            request.input("Date", sql.VarChar, d.Date);
+            request.input("Time", sql.VarChar, d.Time);
+            
+            
+    
+            const result = await request.query(deleteQuery);
+        }
+        
+
+        // Send response
+        res.status(201).json({ 
+            status: 'success',
+            message: 'Sensor data deleted successfully', data: req.body });
+        
+        
+    } catch (err) {
+        console.error('Database error:', err);
+        res.status(500).json({ message: 'Error deleting data', error: err });
+    }
+};
 
 
 module.exports = {
@@ -1184,7 +1504,10 @@ module.exports = {
     getStationconfigs,
     editUser,
     addLog,
-    deleteUser
+    deleteUser,
+    historical,
+    historical2,
+    deleteHistorical
 };
 
 

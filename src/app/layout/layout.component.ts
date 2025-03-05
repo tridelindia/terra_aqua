@@ -78,12 +78,6 @@ export class LayoutComponent implements OnInit {
 
 
 
-  reloadDash(){
-
-  }
-
-  assign() {}
-
   sensors() {
     this.httpClient
       .get(

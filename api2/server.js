@@ -6,7 +6,7 @@ const userRouter = require('./router/router');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+ 
 // Middleware for parsing JSON
 app.use(express.json());
 app.use(bodyParser.json());
@@ -21,5 +21,5 @@ app.use('/api', userRouter);
 
 // Start the server
 app.listen(PORT, () => {
-  //console.log(`Server is running on http://192.168.0.105:${PORT}`);
+  console.log(`Server is running on http://192.168.0.105:${PORT}`);
 });

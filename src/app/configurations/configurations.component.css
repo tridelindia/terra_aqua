@@ -2,10 +2,12 @@
     height: 100vh;
     flex: 1;
     margin: 0;
+    width: 100%;
     padding-left: 7%;
     /* background-color: aqua; */
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 .stationSetting{
     width: 50%;
@@ -381,7 +383,213 @@ button{
        display: flex;
        align-items: baseline;
        flex-direction: column;
+       position: relative;
    }
+   .import{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px black, 0 0 25px #68656580, 0 0 5px #1a1a1b ;
+   }
+   .import i{
+    font-size: 16px;
+   }
+   .importBox{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background-color: var(--background-color);
+    z-index: 999;
+    border-radius: 10px;
+    box-shadow:   1px 1px 2px black, 0 0 25px #68656580, 0 0 5px #1a1a1b;
+    
+   }
+   .full{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+   }
+
+   .dropdown {
+    position: relative;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 40px;
+  }
+  
+  .dropbtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 140px;
+  }
+  
+  .dropbtn:hover {
+    background-color: #0056b3;
+  }
+  .bod i{
+    color:red !important; font-size: 17px !important;
+    align-self: center;
+
+  }
+  .dropdown-content {
+    display: block;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+   .close_mark{
+    font-size: 18px;
+    color: var(--main-text);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+   }
+   .head{
+    width: 100%;
+    height: 12%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    justify-content: space-evenly;
+   }
+   .head p{
+    font-size: 10px;
+
+   }
+   .head input{
+    height: 40px;
+    width: 100px;
+    background-color: blue;
+    /* border-radius: 8px 8px; */
+   }
+   .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+    text-align: left;
+    color: rgba(248, 248, 248, 0.94)
+    ;
+
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 20px; /* Horizontal and vertical spacing */
+    border: 1px solid #dddddd72; /* Light border */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .styled-table th {
+    /* background-color: #f4f4f4; */
+    /* font-weight: bold; */
+    text-align: center;
+  }
+  
+  .styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f934;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #f9f9f934;
+  }
+  
+ 
+.file-input__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  .file-input__label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 260px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 12px;
+    background-color: #4245a8;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  }
+  
+  .file-input__label svg {
+    height: 16px;
+    margin-right: 4px;
+  }
+  
+  
+  
+  
+
+
+   .bod{
+    width: 100%;
+    height: 78%;
+    /* background-color: antiquewhite; */
+    overflow-x: auto;
+   }
+
+.foot{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+
+}
+.foot button{
+    width: 150px;
+    height: 30px;
+    background-color: #4245a8;
+    color: #fff;
+    border-radius: 8px;
+}
+
 .title{
     height: 40px;
     width: 100%;

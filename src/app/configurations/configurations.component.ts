@@ -1,24 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from '../layout/layout.component';
-import { Icon, Style } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 import Map from 'ol/Map';
-import View from 'ol/View';
+import * as XLSX from 'xlsx';
 import { Vector as VectorLayer } from 'ol/layer';
-import { Vector as VectorSource, XYZ } from 'ol/source';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import { Circle as CircleStyle, Fill, Stroke } from 'ol/style';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import Feature from 'ol/Feature';
-import { Point, Circle } from 'ol/geom';
-import { number, vector } from 'echarts';
-import { parseNumber } from 'devextreme/localization';
-import { UnitsComponent } from '../units/units.component';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FLOAT } from 'ol/webgl';
 import { ConfigDataService } from '../config-data.service';
 import {
   Config,
@@ -27,9 +17,8 @@ import {
   sensorLiveData,
   StationConfigs,
 } from '../../model/config.model';
-import { Toast, ToastrService } from 'ngx-toastr';
-import { MapService } from '../../map/map.service';
-import { subscribe } from 'diagnostics_channel';
+import { ToastrService } from 'ngx-toastr';
+import { MapService } from './map/map.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -306,22 +295,6 @@ mapUrl:string = 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
 onEditTap(val:string){
   //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
-  //  const index = parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
-  //                             .replace('four', '4').replace('five', '5').replace('six', '6')
-  //                             .replace('seven', '7').replace('eight', '8').replace('nine', '9')
-  //                             .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
-  //                             .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
-  //                             .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
-  //                             .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
-  //                             .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
-  //                             .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
-  //                             .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
-  //                             .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
-  //                             .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
-  //                             .replace('thirtyseven', '37'));
-
-
-                              //console.log("index in edit" , index);
   if (index >= 1 && index <= 37) {
     
     this[`isEdit${index}`] = !this[`isEdit${index}`];
@@ -331,19 +304,6 @@ onEditTap(val:string){
 onOkTap(val:string){
   //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
-  // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
-  // .replace('four', '4').replace('five', '5').replace('six', '6')
-  // .replace('seven', '7').replace('eight', '8').replace('nine', '9')
-  // .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
-  // .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
-  // .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
-  // .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
-  // .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
-  // .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
-  // .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
-  // .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
-  // .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
-  // .replace('thirtyseven', '37'));
 if (index >= 1 && index <= 37) {
 this[`isEdit${index}`] = false; // Accessing the array and setting it to false
 }
@@ -352,20 +312,6 @@ this[`isEdit${index}`] = false; // Accessing the array and setting it to false
 onViewTap(val:string){
   //console.log(val);
   const index =  this.wordToNumberMap[val.toLowerCase()];
-  // parseInt(val.replace('one', '1').replace('two', '2').replace('three', '3')
-  // .replace('four', '4').replace('five', '5').replace('six', '6')
-  // .replace('seven', '7').replace('eight', '8').replace('nine', '9')
-  // .replace('ten', '10').replace('eleven', '11').replace('twelve', '12')
-  // .replace('thirteen', '13').replace('fourteen', '14').replace('fifteen', '15')
-  // .replace('sixteen', '16').replace('seventeen', '17').replace('eighteen', '18')
-  // .replace('nineteen', '19').replace('twenty', '20').replace('twentyone', '21')
-  // .replace('twentytwo', '22').replace('twentythree', '23').replace('twentyfour', '24')
-  // .replace('twentyfive', '25').replace('twentysix', '26').replace('twentyseven', '27')
-  // .replace('twentyeight', '28').replace('twentynine', '29').replace('thirty', '30')
-  // .replace('thirtyone', '31').replace('thirtytwo', '32').replace('thirtythree', '33')
-  // .replace('thirtyfour', '34').replace('thirtyfive', '35').replace('thirtysix', '36')
-  // .replace('thirtyseven', '37'));
-  //console.log("index == ", index);
 if (index >= 1 && index <= 37) {
 
 this[`isView${index}`] = !this[`isView${index}`];
@@ -397,45 +343,20 @@ getFilteredBins(current: string, exclude1: string, exclude2: string, exclude3: s
 list:string[]= ['Profile1', 'Profile2', 'Profile3', 'Profile4', 'Profile5', 'Profile6', 'Profile7', 'Profile8', 'Profile9', 'Profile10'];
 filterdList:string[]=[];
 selected_e_bins:string[] = [];
-onCheckboxChange(event: Event, item: string, i:number): void {
-  //console.log(`"number:""${i}"`,)
-  const isChecked = (event.target as HTMLInputElement).checked;
-  if (isChecked) {
-    // Add item to the selected list if checked
-    this.selected_e_bins.push(item);
-    // //console.log(this.selected_e_bins);
-  } else {
-    // Remove item from the selected list if unchecked
-    this.selected_e_bins = this.selected_e_bins.filter(selectedItem => selectedItem !== item);
-  }
-  //console.log(this.selected_e_bins); // To check the updated list in the //console
-}
 maxSelection = 3
 selecteds!:string;
 onItemSelect(event: any) {
-//console.log(event);
 this.selected_e_bins.push(event.item_text as string)
-//console.log(this.selected_e_bins, event.item_text)
-
 }
-
-
 onItemDeSelect(event: any) {
   this.selected_e_bins.indexOf(event.item_text as string)
-
-  //console.log('Deselected Item:', this.selected_e_bins);
   this.updateSelecteds()
 }
 updateSelecteds() {
-  // Concatenate selected items into a single string
   this.selecteds = this.selectedItems.map((item: any) => item.item_text).join(', ');
-  //console.log(this.selecteds)
 }
 
 CurrentSelect() {
-  //console.log('Surface:', this.selectedSurface);
-  //console.log('Middle:', this.selectedMiddle);
-  //console.log('Lower:', this.selectedLower);
 }
 
   
@@ -449,33 +370,22 @@ CurrentSelect() {
   ): { distance: number; direction: string } {
     const toRadians = (degree: number) => degree * (Math.PI / 180);
     const toDegrees = (radian: number) => radian * (180 / Math.PI);
-
     const R = 6371e3; // Radius of Earth in meters
     const φ1 = toRadians(loc1[1]);
     const φ2 = toRadians(loc2[1]);
     const Δφ = toRadians(loc2[1] - loc1[1]);
     const Δλ = toRadians(loc2[0] - loc1[0]);
-
-    // Haversine formula to calculate distance
     const a =
       Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
       Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in meters
-
-    // Calculate the initial bearing (direction) in radians
     const x = Math.sin(Δλ) * Math.cos(φ2);
     const y =
       Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
     let bearing = Math.atan2(x, y);
-
-    // Convert bearing from radians to degrees
     bearing = toDegrees(bearing);
-
-    // Normalize the bearing to be between 0 and 360 degrees
     bearing = (bearing + 360) % 360;
-
-    // Map bearing to cardinal direction
     const directions = [
       { min: 0, max: 22.5, direction: 'N' },
       { min: 22.5, max: 67.5, direction: 'NE' },
@@ -487,7 +397,6 @@ CurrentSelect() {
       { min: 292.5, max: 337.5, direction: 'NW' },
       { min: 337.5, max: 360, direction: 'N' },
     ];
-
     let direction = 'N'; // Default value
     for (const dir of directions) {
       if (bearing >= dir.min && bearing < dir.max) {
@@ -495,7 +404,6 @@ CurrentSelect() {
         break;
       }
     }
-
     return { distance, direction };
   }
 
@@ -529,88 +437,43 @@ CurrentSelect() {
         );
       }
     }
-
-    // //console.log(this.mapService.traveledPath);
   }
 
   checking() {
-    // this.mapService.destroyMap();
     this.checked = !this.checked;
     this.stationTypeSelect();
   }
   stationTypeSelect() {
     this.travelPathAssign();
-    // //console.log("Station selected:", this.selectedStationType);
-
     const selectedStation = this.stations.find(
       (station) => station.station_name === this.selectedStationType
-
     );
-    //console.log("selected station:" , selectedStation);
-
     if (selectedStation) {
       this.selectedcoordinate = selectedStation.geo_format;
-
       if (this.selectedcoordinate === 'DMS') {
-        // Set DMS values
-        this.latdeg = selectedStation.latitude_deg;
-        this.latmin = selectedStation.latitude_min;
-        this.latsec = selectedStation.latitude_sec;
-        this.langdeg = selectedStation.longitude_deg;
-        this.langmin = selectedStation.longitude_min;
-        this.langsec = selectedStation.longitude_sec;
-        this.Lat = 0;
-        this.Lang = 0;
+        this.latdeg = selectedStation.latitude_deg;this.latmin = selectedStation.latitude_min;
+        this.latsec = selectedStation.latitude_sec;this.langdeg = selectedStation.longitude_deg;
+        this.langmin = selectedStation.longitude_min;this.langsec = selectedStation.longitude_sec;this.Lat = 0;this.Lang = 0;
         this.finallang = this.dmsToDd(this.langdeg, this.langmin, this.langsec);
         this.finallat = this.dmsToDd(this.latdeg, this.latmin, this.langsec);
       } else if (this.selectedcoordinate === 'DD') {
-        // Set DD values
-        this.Lat = selectedStation.latitude_dd;
-        this.Lang = selectedStation.longitude_dd;
-        this.latdeg = 0;
-        this.latmin = 0;
-        this.latsec = 0;
-        this.langdeg = 0;
-        this.langmin = 0;
-        this.langsec = 0;
-      }
-      this.stationName = selectedStation.station;
-      this.Warning = selectedStation.warning_circle;
-      this.Danger = selectedStation.danger_circle;
-
-      // Update center and render the map with new station coordinates
-      this.center = fromLonLat([this.Lang, this.Lat]);
-      // //console.log(this.center)
+        this.Lat = selectedStation.latitude_dd; this.Lang = selectedStation.longitude_dd;
+        this.latdeg = 0; this.latmin = 0; this.latsec = 0; this.langdeg = 0; this.langmin = 0;  this.langsec = 0; }
+      this.stationName = selectedStation.station; this.Warning = selectedStation.warning_circle;
+      this.Danger = selectedStation.danger_circle; this.center = fromLonLat([this.Lang, this.Lat]);
       if (this.selectedStationType == 'CWPRS01') {
-        const point1 = fromLonLat([this.finallang, this.finallat]) as [
-          number,
-          number
-        ];
-        //console.log("nano loc",point1);
-        const point2 = fromLonLat([this.liveloclang1, this.liveloclat1]) as [
-          number,
-          number
-        ];
-        // //console.log("point1:== ", point1, this.center);
-        // //console.log("point2: ==", point2);
+        const point1 = fromLonLat([this.finallang, this.finallat]) as [ number,number];
+        const point2 = fromLonLat([this.liveloclang1, this.liveloclat1]) as [ number, number];
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       } else if (this.selectedStationType == 'CWPRS02') {
         const point1 = fromLonLat([this.Lang, this.Lat]) as [number, number];
-        const point2 = fromLonLat([this.liveloclang2, this.liveloclat2]) as [
-          number,
-          number
-        ];
-        // //console.log("point1:== ", point1);
-        // //console.log("point2: ==", point2);
+        const point2 = fromLonLat([this.liveloclang2, this.liveloclat2]) as [number,number];
         const distance = this.haversineDistanceAndDirection(point1, point2);
-        // //console.log(distance,'m');
         this.driftValue = distance.distance.toFixed(2);
         this.driftDirection = distance.direction;
       }
-
       if (this.selectedcoordinate == 'DD') {
         this.loadMapBasedOnStation(this.Lat, this.Lang, this.checked);
       } else if (this.selectedcoordinate == 'DMS') {
@@ -626,7 +489,6 @@ CurrentSelect() {
     this.mapService.destroyMap();
     const mapContainer = document.getElementById('ol-map'); // Target HTML element for map
     if (this.selectedStationType === 'CWPRS01') {
-      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         this.finallat,
@@ -638,7 +500,6 @@ CurrentSelect() {
       );
       this.show = true;
     } else if (this.selectedStationType == 'CWPRS02') {
-      // //console.log("map:", mapContainer);
       this.mapService.createMap(
         mapContainer!,
         lat,
@@ -665,108 +526,46 @@ CurrentSelect() {
     this.abovedanger = parseFloat(this.staion.configs[2].above_danger);
     const bin = this.sensor[1].bins;
     const bins = bin.split(',');
-    //console.log(bin, bins[0]) 
     this.selectedSurface = bins[0];
     this.selectedMiddle = bins[1];
     this.selectedLower = bins[2];
     const filteredList = this.list.filter(item => !bins[0].includes(item.trim()) && !bins[1].includes(item.trim()) && !bins[2].includes(item.trim()));
     this.filterdList = filteredList;
-    this.updatedropdown(bin);
-    // //console.log(this.tideOffset, this.selectedUnit, this.selectedcurrentUnit,
-    //   this.belowdanger,this.abovedanger, this.belowwarning, this.abovewarning
-    // );
     const ee = this.sensor[1].e_bins;
-    // //console.log("e_bin:",ee);
     const ejson = JSON.parse(ee);
-    
     this.recieved_e_bins = ejson;
-    //console.log(this.recieved_e_bins);
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`edit${i+1}`] = this.recieved_e_bins[i].name;
     }
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`isView${i+1}`] = this.recieved_e_bins[i].show;
     }
-    //console.log("view37 is", this.isView37);
     for(let i=0; i<this.recieved_e_bins.length; i++){
       this[`e_bin${i+1}`] = this.recieved_e_bins[i].bin;
     }
-    // this.edit1 = this.recieved_e_bins[0].name;
-    // this.edit2 = this.recieved_e_bins[1].name;
-    // this.edit3 = this.recieved_e_bins[2].name;
-    // this.edit4 = this.recieved_e_bins[3].name;
-    // this.edit5 = this.recieved_e_bins[4].name;
-    // this.edit6 = this.recieved_e_bins[5].name;
-    // this.edit7 = this.recieved_e_bins[6].name;
-    // this.edit8 = this.recieved_e_bins[7].name;
-    // this.edit9 = this.recieved_e_bins[8].name;
-
-
-    // this.isView1 = this.recieved_e_bins[0].show;
-    // this.isView2 = this.recieved_e_bins[1].show;
-    // this.isView3 = this.recieved_e_bins[2].show;
-    // this.isView4 = this.recieved_e_bins[3].show;
-    // this.isView5 = this.recieved_e_bins[4].show;
-    // this.isView6 = this.recieved_e_bins[5].show;
-    // this.isView7 = this.recieved_e_bins[6].show;
-
-    // this.e_bin1 = this.recieved_e_bins[0].bin;
-    // this.e_bin2 = this.recieved_e_bins[1].bin;
-    // this.e_bin3 = this.recieved_e_bins[2].bin;
-    // this.e_bin4 = this.recieved_e_bins[3].bin;
-    // this.e_bin5 = this.recieved_e_bins[4].bin;
-    // this.e_bin6 = this.recieved_e_bins[5].bin;
-    // this.e_bin7 = this.recieved_e_bins[6].bin;
-
   }
 
 
-   // Inside your ConfigurationsComponent class
-   warningCircleStyle = new Style({
-    stroke: new Stroke({
-      color: 'yellow',
-      width: 2,
-    }),
-    fill: new Fill({
-      color: 'rgba(255, 0, 0, 0.2)', // Light red with transparency
-    }),
-  });
 
-  dangerCircleStyle = new Style({
-    stroke: new Stroke({
-      color: 'red',
-      width: 2,
-    }),
-    fill: new Fill({
-      color: 'rgba(255, 255, 0, 0.2)', // Light yellow with transparency
-    }),
-  });
 
   selecteoption(typee: String) {
     this.slectedOption = typee;
-    
-    // //console.log(`selectedType : ${this.slectedOption}`);
   }
 
   selectUnit(unit: string) {
     this.selectedUnit = unit;
-    // //console.log(`Selected unit: ${this.selectedUnit}`);
   }
   selectcurrentUnit(unit: string) {
     this.selectedcurrentUnit = unit;
-    // //console.log(`Selected unit: ${this.selectedcurrentUnit}`);
   }
   selectcoordinate(unit: string) {
     this.selectedcoordinate = unit;
-    // //console.log(`Selected unit: ${this.selectedcoordinate}`);
   }
 
 
   online:boolean = true;
   ngOnInit(): void {
     this.staion.page = 'Setting';
-    const a = 1;
-    //console.log(`${a.toString()}`);
     const status = navigator.onLine;
     this.online = status;
     if(!this.online){
@@ -778,17 +577,14 @@ CurrentSelect() {
     const date = new Date();
     const todayDate = date.toISOString().substr(0, 10);
     this.data.getSensorLiveData(todayDate, todayDate).subscribe((response) => {
-      // //console.log(response);
       if(response.buoy1.length !==4){
         this.buoy1 = this.dummyData1;
         this.buoy2 = this.dummyData2
-      }else{
+      }else{  
         this.liveData = response;
         this.buoy1 = this.liveData.buoy1;
         this.buoy2 = this.liveData.buoy2;
       }
-     
-
       this.liveloclat1 = this.buoy1[0].LAT;
       this.liveloclat2 = this.buoy2[0].LAT;
       this.liveloclang1 = this.buoy1[0].LONG;
@@ -796,36 +592,17 @@ CurrentSelect() {
     });
     this.data.getStationNames().subscribe((stations) => {
       this.stations = stations;
-      //console.log("station setting", stations);
-
       for (let i in stations) {
         this.stationTypes.push(stations[i].station_name);
       }
-
       this.data.getsensorConfigs().subscribe((sensor) => {
         this.sensor = sensor;
-        // //console.log("Sensors==", this.sensor);
         if (this.sensor != null) {
           this.assign();
         }
       });
     });
-
     this.assign();
-    this.map = new Map({
-      target: 'ol-map',
-      view: new View({
-        center: this.center,
-        zoom: 17,
-      }),
-      layers: [
-        new TileLayer({
-          source: new XYZ({
-            url: 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-          }),
-        }),
-      ],
-    });
   }
 
   constructor(
@@ -839,134 +616,9 @@ CurrentSelect() {
   vectorLayer!: VectorLayer;
   map2!: Map;
   center = fromLonLat([80.19146988481407, 14.602590765602967]);
-  RenderMap(): void {
-    // Initialize `this.map` if it hasn't been created yet
-    if (!this.map) {
-      this.map = new Map({
-        view: new View({
-          center: this.center,
-          zoom: 17,
-        }),
-        layers: [
-          new TileLayer({
-            source: new XYZ({
-              url: 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-            }),
-          }),
-        ],
-        target: 'ol-map',
-      });
-    }
 
-    // Clear layers if `this.map` is already initialized
-    else {
-    }
-
-    // Add layers
-    const marker = new Feature({ geometry: new Point(this.center) });
-    marker.setStyle(
-      new Style({
-        image: new Icon({ src: '../../assets/buoy.png', scale: 0.04 }),
-      })
-    );
-
-    const circleFeature = new Feature({
-      geometry: new Circle(this.center, this.Warning),
-    });
-    circleFeature.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'yellow', width: 2 }),
-        fill: new Fill({ color: 'rgba(0, 0, 255, 0.1)' }),
-      })
-    );
-
-    const circleFeature2 = new Feature({
-      geometry: new Circle(this.center, this.Danger),
-    });
-    circleFeature2.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'red', width: 2 }),
-        fill: new Fill({ color: 'rgba(0, 0, 255, 0.1)' }),
-      })
-    );
-
-    const vectorSource = new VectorSource({
-      features: [marker, circleFeature, circleFeature2],
-    });
-    const vectorLayer = new VectorLayer({ source: vectorSource });
-
-    // Add `vectorLayer` to the map
-    this.map.addLayer(vectorLayer);
-    // this.map.getLayers().clear();
-  }
-
-  RenderMap2(): void {
-    // Same logic as RenderMap for `this.map2`
-    if (!this.map2) {
-      this.map2 = new Map({
-        view: new View({
-          center: this.center,
-          zoom: 17,
-        }),
-        layers: [
-          new TileLayer({
-            source: new XYZ({
-              url: 'http://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-            }),
-          }),
-        ],
-        target: 'ol-map',
-      });
-    } else {
-      this.map2.getLayers().clear();
-    }
-
-    const marker = new Feature({ geometry: new Point(this.center) });
-    marker.setStyle(
-      new Style({
-        image: new Icon({ src: '../../assets/buoy.png', scale: 0.04 }),
-      })
-    );
-
-    const circleFeature = new Feature({
-      geometry: new Circle(this.center, this.Warning),
-    });
-    circleFeature.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'yellow', width: 2 }),
-        fill: new Fill({ color: 'rgba(0, 0, 255, 0.1)' }),
-      })
-    );
-
-    const circleFeature2 = new Feature({
-      geometry: new Circle(this.center, this.Danger),
-    });
-    circleFeature2.setStyle(
-      new Style({
-        stroke: new Stroke({ color: 'red', width: 2 }),
-        fill: new Fill({ color: 'rgba(0, 0, 255, 0.1)' }),
-      })
-    );
-
-    const vectorSource = new VectorSource({
-      features: [marker, circleFeature, circleFeature2],
-    });
-    const vectorLayer = new VectorLayer({ source: vectorSource });
-
-    // Add `vectorLayer` to the map
-    this.map2.addLayer(vectorLayer);
-  }
-
-  clickon(typr: String) {
-    // //console.log(typr);
-  }
-
-  //updates
   onsensorSubmit() {
-    const e_bins_json = [
-      
-    ];
-
+    const e_bins_json = [];
     for(let i=0; i<38; i++){
       e_bins_json.push(
         {
@@ -976,26 +628,19 @@ CurrentSelect() {
         }
       )
     }
-    //console.log(e_bins_json);
     const e_bins = JSON.stringify(e_bins_json);
-
     const binnn = `${this.selectedSurface},${this.selectedMiddle},${this.selectedLower}`;
-    //console.log("binnss: ===",binnn);
-    // //console.log("tapped", this.slectedOption);
     if(this.selectedItems >2){
       this.taost.error('You can select only 3 items');
       return;
     }else{
       let data: any = {};
-
     if (this.slectedOption === 'tide') {
       data = {
         sensor_type: this.slectedOption,
         value: this.tideOffset.toString(),
         unit: this.selectedUnit,
-
       };
-      // //console.log(data);
     } else if (this.slectedOption === 'adcp') {
       data = {
         sensor_type: this.slectedOption,
@@ -1003,7 +648,6 @@ CurrentSelect() {
         bins: binnn,
         e_bins: e_bins
       };
-      // //console.log(data);
     } else if (this.slectedOption === 'battery') {
       data = {
         sensor_type: this.slectedOption.toString(),
@@ -1012,12 +656,9 @@ CurrentSelect() {
         above_danger: this.abovedanger.toString(),
         below_danger: this.belowdanger.toString(),
       };
-      // //console.log(data);
     }
-
     this.http.put('http://localhost:3000/api/config', data).subscribe({
       next: (res) => {
-        // //console.log(res);
         this.taost.success('Sensor settings Updaeted', 'Success');
       },
       error: (err) => {
@@ -1036,7 +677,7 @@ CurrentSelect() {
         station_name: this.selectedStationType,
         warning_circle: this.Warning,
         danger_circle: this.Danger,
-        geo_format: this.selectedcoordinate, // or 'DMS'
+        geo_format: this.selectedcoordinate, 
         latitude_dd: this.Lat,
         longitude_dd: this.Lang,
         latitude_deg: null,
@@ -1052,7 +693,7 @@ CurrentSelect() {
         station_name: this.selectedStationType,
         warning_circle: this.Warning,
         danger_circle: this.Danger,
-        geo_format: this.selectedcoordinate, // or 'DMS'
+        geo_format: this.selectedcoordinate, 
         latitude_dd: null,
         longitude_dd: null,
         latitude_deg: this.latdeg,
@@ -1070,11 +711,9 @@ CurrentSelect() {
       )
       .subscribe({
         next: (res) => {
-          // //console.log('response station config ==', res);
           this.taost.success('Station Configuration updated', 'Success');
         },
         error: (err) => {
-          // //console.error('Error occurred:', err);
           this.taost.error(
             'Error Updating Station Configuration',
             'Please try again'
@@ -1082,9 +721,6 @@ CurrentSelect() {
         },
       });
   }
-
-
-
   dropdownassign(){
     this.dropdownList = [
       { item_id: 1, item_text: 'Profile1' },
@@ -1112,56 +748,261 @@ CurrentSelect() {
       allowSearchFilter: false
     };
   }
-  updatedropdown(binname: any) {
-    // // Split the bin string into an array and trim spaces
-    // const bins = binname.split(',').map((bin: string) => bin.trim());
-  
-    // // Filter the dropdown list for items matching any bin name
-    // this.selected_e_bins = this.dropdownList.filter((item: { item_id: number; item_text: string }) =>
-    //   bins.includes(item.item_text)
-    // );
-  
-    // //console.log('Selected Items:', this.selectedItems);
+
+
+showImport:boolean = false;
+errorMessage: string = '';
+  maxFileSizeMB = 5;
+  tableData: any[] = [];
+  displayedColumns: string[] = []; 
+  historyData:any=[]; 
+importTap(){
+this.showImport = !this.showImport;
+
+}
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+
+  if (!file) {
+    this.errorMessage = 'No file selected!';
+    return;
   }
 
+  // Check file size (max 5MB)
+  const maxSizeBytes = this.maxFileSizeMB * 1024 * 1024; // Convert MB to Bytes
+  if (file.size > maxSizeBytes) {
+    this.errorMessage = `File size must be less than ${this.maxFileSizeMB}MB!`;
+    return;
+  }
+
+  // Reset error message if valid
+  this.errorMessage = '';
+
+  // Update filename display
+  const fileNameSpan = document.getElementById("file-name");
+  if (fileNameSpan) {
+    fileNameSpan.textContent = file.name;
+  }
+  this.readFile(event)
+}
 
 
+async readFile(event: any) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  
+  reader.onload = async (e) => {
+    const data = new Uint8Array(reader.result as ArrayBuffer);
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    let sheetData: any[] = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
+    if (sheetData.length > 0) {
+      this.displayedColumns = Object.keys(sheetData[0]); // Set dynamic columns
+    }
 
+    // Convert Excel Serial Date to Proper Date Format
+    sheetData = sheetData.map(row => {
+      if (!isNaN(row.Date)) { // If date is a number, convert it
+        row.Date = this.excelSerialDateToJSDate(row.Date);
+      }
+      return row;
+    });
 
+    this.tableData = sheetData;
+    console.log(this.tableData); // Debugging: Show JSON data
+    console.log(this.tableData[0].StationID);
+    console.log(this.tableData[0].Date);
+    const dumpData = []
+    for (let i = 0; i < this.tableData.length; i++) {
+      dumpData.push(
+        {"Battery_Voltage": this.tableData[i].BatteryVoltage,
+    "Date": this.tableData[i].Date,
+    "GPS_Date": this.tableData[i].GPS_Date,
+    "LAT": this.tableData[i].LAT,
+    "LONG": this.tableData[i].LONG,
+    "Lower_CurrentSpeedDirection": this.tableData[i].Lower_CurrentSpeedDirection,
+    "Middle_CurrentSpeedDirection": this.tableData[i].Middle_CurrentSpeedDirection,
+    "S1_RelativeWaterLevel": this.tableData[i].S1_RelativeWaterLevel,
+    "S2_SurfaceCurrentSpeedDirection":this.tableData[i].S2_SurfaceCurrentSpeedDirection,
+    "StationID":this.tableData[i].StationID,
+    "Time":this.tableData[i].Time,
+    "UTC_Time":this.tableData[i].UTC_Time,
+    "Profile4":this.tableData[i].Profile4,
+    "Profile5": this.tableData[i].Profile5,
+    "Profile6":this.tableData[i].Profile6,
+    "Profile7": this.tableData[i].Profile7,
+    "Profile8": this.tableData[i].Profile8,
+    "Profile9": this.tableData[i].Profile9,
+    "Profile10": this.tableData[i].Profile10,
+    "Profile11": this.tableData[i].Profile11,
+      "Profile12":this.tableData[i].Profile12,
+      "Profile13": this.tableData[i].Profile13,
+      "Profile14": this.tableData[i].Profile14,
+      "Profile15": this.tableData[i].Profile15,
+      "Profile16": this.tableData[i].Profile16,
+      "Profile17": this.tableData[i].Profile17,
+      "Profile18": this.tableData[i].Profile18,
+      "Profile19": this.tableData[i].Profile19,
+      "Profile20": this.tableData[i].Profile20,
+      "Profile21": this.tableData[i].Profile21,
+      "Profile22": this.tableData[i].Profile22,
+      "Profile23": this.tableData[i].Profile23,
+      "Profile24": this.tableData[i].Profile24,
+      "Profile25": this.tableData[i].Profile25,
+      "Profile26": this.tableData[i].Profile26,
+      "Profile27": this.tableData[i].Profile27,
+      "Profile28": this.tableData[i].Profile28,
+      "Profile29": this.tableData[i].Profile29,
+      "Profile30": this.tableData[i].Profile30,
+      "Profile31": this.tableData[i].Profile31,
+      "Profile32": this.tableData[i].Profile32,
+      "Profile33": this.tableData[i].Profile33,
+      "Profile34": this.tableData[i].Profile34,
+      "Profile35": this.tableData[i].Profile35,
+      "Profile36": this.tableData[i].Profile36,
+      "Profile37": this.tableData[i].Profile37,
+      "Profile38": this.tableData[i].Profile38,
+      "Profile39": this.tableData[i].Profile39,
+      "Profile40": this.tableData[i].Profile40,}
+      )
+      
+    }
+    console.log(dumpData);
+    this.historyData = dumpData
+   
+  };
 
-  leftBox = ['Widget 1', 'Widget 2', 'Widget 3', 'Widget 4', 'Widget 5', 'Widget 6', 'Widget 7'];
-  rightBox: string[] = [];
+  reader.readAsArrayBuffer(file);
+}
 
-  // Move item from one box to another
-  drop(event: any, targetBox: string[]) {
+async dump(data: any): Promise<boolean> {
+  const d = { datas: data };
+  let api = 'dump';
+
+  if(data[0].StationID === 'CWPRS01'){
+    api = 'dump'
+  }else if(data[0].StationID === 'CWPRS02'){
+    api = 'dump2'
+  }
+  try {
+    const response: any = await this.http.post(`http://localhost:3000/api/${api}`, d).toPromise();
     
-    const sourceBox = event.previousContainer.data;
-    const item = sourceBox[event.previousIndex];
+    console.log(response?.status); // Check if response has status
 
-    if (event.previousContainer === event.container) {
-      // Same container, do nothing
-      return;
+    if (response?.status) {
+      console.log(true);
+      return true;
     }
+    
+    return false; // Return false if status is missing or false
+  } catch (error) {
+    console.error("Error is", error);
+    return false;
+  }
+}
 
-    // Remove item from the source
-    sourceBox.splice(event.previousIndex, 1);
+async removeDump(data: any): Promise<boolean> {
+  const d = { datas: data };
+  let api = 'removedump';
 
-    // Add item to the target
-    targetBox.splice(event.currentIndex, 0, item);
+  if(data[0].StationID === 'CWPRS01'){
+    api = 'removedump'
+  }else if(data[0].StationID === 'CWPRS02'){
+    api = 'removedump2'
+  }
+  try {
+    const response: any = await this.http.post(`http://localhost:3000/api/${api}`, d).toPromise();
+    
+    console.log(response?.status); // Check if response has status
 
-    //console.log(this.rightBox)
+    if (response?.status) {
+      console.log(true);
+      return true;
+    }
+    
+    return false; // Return false if status is missing or false
+  } catch (error) {
+    console.error("Error is", error);
+    return false;
+  }
+}
+// removedump
+async submitData(fileInput: HTMLInputElement) {
+  
+  const result = await this.dump(this.historyData);
+  
+  if (result) {
+    this.tableData = [];
+    this.displayedColumns = [];
+    this.taost.success('Historical Data Updated', 'Success');
+    
+    // Clear the file input
+    const fileNameSpan = document.getElementById("file-name");
+    if (fileNameSpan) {
+      fileNameSpan.textContent = "Upload file";
+    }
+  } else {
+    this.taost.error('Failed to update Historical Data', 'Error');
+  }
+}
+async submitData2(fileInput: HTMLInputElement) {
+  
+  const result = await this.removeDump(this.historyData);
+  
+  if (result) {
+    this.tableData = [];
+    this.displayedColumns = [];
+    this.taost.success('Historical Data Deleted', 'Success');
+    
+    // Clear the file input
+    const fileNameSpan = document.getElementById("file-name");
+    if (fileNameSpan) {
+      fileNameSpan.textContent = "Upload file";
+    }
+  } else {
+    this.taost.error('Failed to Delete Historical Data', 'Error');
+  }
+}
+
+deleteRow(index: number) {
+  this.tableData.splice(index, 1); // Remove row from the array
+  this.tableData = [...this.tableData]; // Update reference to trigger change detection
+}
+
+
+// Function to Convert Excel Serial Number to JavaScript Date
+excelSerialDateToJSDate(serial: number): string {
+  const excelEpoch = new Date(1899, 11, 30); // Excel epoch starts from 1900-01-01 but needs an offset
+  const days = Math.floor(serial);
+  const msPerDay = 86400000; // 24 * 60 * 60 * 1000
+  const date = new Date(excelEpoch.getTime() + days * msPerDay);
+
+  return date.toISOString().split("T")[0]; // Returns YYYY-MM-DD format
+}
+
+
+
+
+menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
-  // Remove item from right and add back to left
-  removeItem(item: string) {
-    const index = this.rightBox.indexOf(item);
-    if (index > -1) {
-      this.rightBox.splice(index, 1);
-      this.leftBox.push(item);
-    }
+  downloadFile(type: string) {
+    const fileName = type === 'csv' ? 'sample.csv' : 'sample.xlsx'; // Change file names as needed
+    const filePath = `assets/data_sheet/${fileName}`;
+    
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    this.menuOpen = false; // Close menu after download
   }
-
 
 
 
